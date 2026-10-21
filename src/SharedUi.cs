@@ -401,8 +401,7 @@ namespace CveSecuritySuite
         private Button _btnClearSearch;
         private Button _btnQuickAllowAllVuln;
 
-        // 7 Advanced Security Suite Toolbar (Proposals 1 ~ 7)
-        private Panel _pnlSuiteBar;
+        // Phase 1 Core Security Suite Buttons (Proposals 1 ~ 7)
         private Button _btnSuiteSnapshot;
         private Button _btnSuiteMultiReport;
         private Button _btnSuiteSentinel;
@@ -412,8 +411,7 @@ namespace CveSecuritySuite
         private Button _btnSuiteAttackChain;
         private RealTimeSentinelGuard _sentinelGuard;
 
-        // Phase 2 Advanced Suite Bar (Proposals 1 ~ 8)
-        private Panel _pnlPhase2Bar;
+        // Phase 2 Advanced Suite Buttons (Proposals 1 ~ 8)
         private Button _btnP2PortProc;
         private Button _btnP2Creds;
         private Button _btnP2Compliance;
@@ -423,8 +421,7 @@ namespace CveSecuritySuite
         private Button _btnP2Autoruns;
         private Button _btnP2ThemeZoom;
 
-        // Phase 3 Enterprise Suite Bar (Proposals 1 ~ 8)
-        private Panel _pnlPhase3Bar;
+        // Phase 3 Enterprise Suite Buttons (Proposals 1 ~ 8)
         private Button _btnP3AiThreat;
         private Button _btnP3ZeroTrust;
         private Button _btnP3Hardware;
@@ -433,6 +430,30 @@ namespace CveSecuritySuite
         private Button _btnP3OfflineKb;
         private Button _btnP3AdDomain;
         private Button _btnP3Matrix3D;
+
+        // Phase 4 Sovereign Suite Buttons (Proposals 1 ~ 8)
+        private Button _btnP4Canary;
+        private Button _btnP4Fileless;
+        private Button _btnP4Mitre;
+        private Button _btnP4Cloud;
+        private Button _btnP4Tls;
+        private Button _btnP4Sandbox;
+        private Button _btnP4Pqc;
+        private Button _btnP4Soar;
+
+        // Unified Clean Modular Operations Ribbon & Hub (Takes ONLY 1 single row of 38px!)
+        private Panel _pnlUnifiedRibbon;
+        private Button _btnTabP1;
+        private Button _btnTabP2;
+        private Button _btnTabP3;
+        private Button _btnTabP4;
+        private Button _btnHubModal;
+        private Panel _pnlActiveToolsContainer;
+        private int _selectedRibbonPhase = 1;
+
+        // Dark / White Theme Toggle
+        private Button _btnThemeToggle;
+        private bool _isWhiteTheme = false;
 
         // KPI Summary cards & labels (5 Cards)
         private Panel _pnlHeader;
@@ -590,6 +611,21 @@ namespace CveSecuritySuite
                 TextAlign = ContentAlignment.MiddleRight
             };
 
+            _btnThemeToggle = new Button
+            {
+                Location = new Point(840, 10),
+                Size = new Size(130, 28),
+                BackColor = Color.FromArgb(34, 43, 62),
+                ForeColor = Color.FromArgb(255, 215, 0),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Malgun Gothic", 9f, FontStyle.Bold),
+                Cursor = Cursors.Hand,
+                Text = "☀️ White Mode"
+            };
+            _btnThemeToggle.FlatAppearance.BorderSize = 1;
+            _btnThemeToggle.FlatAppearance.BorderColor = Color.FromArgb(80, 100, 140);
+            _btnThemeToggle.Click += (s, e) => ApplyThemeMode(!_isWhiteTheme);
+
             _lblLangPrompt = new Label
             {
                 Location = new Point(980, 14),
@@ -619,6 +655,7 @@ namespace CveSecuritySuite
             _pnlHeader.Controls.Add(_lblAppTitle);
             _pnlHeader.Controls.Add(_lblAppSubtitle);
             _pnlHeader.Controls.Add(_lblZeroDayBanner);
+            _pnlHeader.Controls.Add(_btnThemeToggle);
             _pnlHeader.Controls.Add(_lblLangPrompt);
             _pnlHeader.Controls.Add(_cmbLanguage);
 
@@ -951,14 +988,48 @@ namespace CveSecuritySuite
             _pnlFilterBar.Controls.Add(_btnClearSearch);
             _pnlFilterBar.Controls.Add(_btnQuickAllowAllVuln);
 
-            // 3.7 Next-Gen Advanced Security Suite Toolbar (All 7 Proposals)
-            _pnlSuiteBar = new Panel
+            // 3.7 Unified Clean Modular Operations Ribbon & Hub (Takes ONLY 1 single row of 38px!)
+            _pnlUnifiedRibbon = new Panel
             {
                 Dock = DockStyle.Top,
-                Height = 42,
+                Height = 38,
                 BackColor = Color.FromArgb(18, 25, 38)
             };
 
+            _btnTabP1 = CreateRibbonTabButton("🛡️ 1. 핵심방어", 1);
+            _btnTabP2 = CreateRibbonTabButton("🔍 2. 정밀감사", 2);
+            _btnTabP3 = CreateRibbonTabButton("🌐 3. ZTNA/클라우드", 3);
+            _btnTabP4 = CreateRibbonTabButton("🪤 4. 자율기만/SOAR", 4);
+
+            _btnHubModal = new Button
+            {
+                Size = new Size(155, 30),
+                BackColor = Color.FromArgb(139, 92, 246),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Malgun Gothic", 9f, FontStyle.Bold),
+                Cursor = Cursors.Hand,
+                Text = "🛠️ 31종 종합 허브"
+            };
+            _btnHubModal.FlatAppearance.BorderSize = 0;
+            _btnHubModal.Click += (s, e) =>
+            {
+                using (ComprehensiveToolsHubDialog hub = new ComprehensiveToolsHubDialog(
+                    _kind, _context, _allCves, _displayedCves, _sentinelGuard,
+                    () => ExportReportHtml(),
+                    targets => ExecuteAllowRemediationWorkflow(targets)))
+                {
+                    hub.ShowDialog(this);
+                }
+            };
+
+            _pnlActiveToolsContainer = new Panel
+            {
+                Height = 32,
+                BackColor = Color.Transparent
+            };
+
+            // Phase 1 Suite Buttons
             _btnSuiteSnapshot = CreateSuiteButton(Color.FromArgb(115, 68, 34));
             _btnSuiteSnapshot.Click += (s, e) =>
             {
@@ -1040,20 +1111,7 @@ namespace CveSecuritySuite
                 }
             };
 
-            _pnlSuiteBar.Controls.AddRange(new Control[]
-            {
-                _btnSuiteSnapshot, _btnSuiteMultiReport, _btnSuiteSentinel,
-                _btnSuiteSubnet, _btnSuiteSbom, _btnSuiteHotDb, _btnSuiteAttackChain
-            });
-
-            // 3.8 Next-Gen Phase 2 Advanced Operations Suite (All 8 Proposals)
-            _pnlPhase2Bar = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 38,
-                BackColor = Color.FromArgb(15, 20, 30)
-            };
-
+            // Phase 2 Suite Buttons
             _btnP2PortProc = CreateSuiteButton(Color.FromArgb(28, 64, 108));
             _btnP2PortProc.Click += (s, e) =>
             {
@@ -1120,12 +1178,7 @@ namespace CveSecuritySuite
             _btnP2ThemeZoom = CreateSuiteButton(Color.FromArgb(38, 55, 80));
             _btnP2ThemeZoom.Click += (s, e) =>
             {
-                ThemeAndZoomController.CycleTheme(this, _grid);
-                _lblStatusText.Text = string.Format(
-                    I18n.T("UI 테마가 변경되었습니다: {0} (우클릭 시 폰트/그리드 확대 100% ➔ 115% ➔ 130%)",
-                           "UIテーマが変更されました: {0} (右クリック: 拡大 100% ➔ 115% ➔ 130%)",
-                           "UI Theme changed: {0} (Right-click: Cycle font/grid zoom 100% ➔ 115% ➔ 130%)"),
-                    ThemeAndZoomController.CurrentTheme);
+                ApplyThemeMode(!_isWhiteTheme);
             };
             _btnP2ThemeZoom.MouseDown += (s, e) =>
             {
@@ -1133,27 +1186,14 @@ namespace CveSecuritySuite
                 {
                     ThemeAndZoomController.CycleZoom(this, _grid);
                     _lblStatusText.Text = string.Format(
-                        I18n.T("UI 확대 배율이 변경되었습니다: {0:P0} (좌클릭 시 다크/라이트/고대비 테마 전환)",
-                               "UI拡大倍率が変更されました: {0:P0} (左クリック: ダーク/ライト/高コントラスト切替)",
-                               "UI Zoom scale changed: {0:P0} (Left-click: Cycle theme Dark/Light/High-Contrast)"),
+                        I18n.T("UI 확대 배율이 변경되었습니다: {0:P0} (우클릭: 100% ➔ 115% ➔ 130%)",
+                               "UI拡大倍率が変更されました: {0:P0} (右クリック: 100% ➔ 115% ➔ 130%)",
+                               "UI Zoom scale changed: {0:P0} (Right-click: 100% ➔ 115% ➔ 130%)"),
                         ThemeAndZoomController.CurrentZoomScale);
                 }
             };
 
-            _pnlPhase2Bar.Controls.AddRange(new Control[]
-            {
-                _btnP2PortProc, _btnP2Creds, _btnP2Compliance, _btnP2Scheduler,
-                _btnP2Lockdown, _btnP2HistoryDiff, _btnP2Autoruns, _btnP2ThemeZoom
-            });
-
-            // 3.9 Next-Gen Phase 3 Enterprise Suite Toolbar (All 8 Proposals)
-            _pnlPhase3Bar = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 38,
-                BackColor = Color.FromArgb(13, 17, 26)
-            };
-
+            // Phase 3 Enterprise Suite Buttons
             _btnP3AiThreat = CreateSuiteButton(Color.FromArgb(18, 70, 95));
             _btnP3AiThreat.Click += (s, e) =>
             {
@@ -1235,11 +1275,88 @@ namespace CveSecuritySuite
                 }
             };
 
-            _pnlPhase3Bar.Controls.AddRange(new Control[]
+            // Phase 4 Sovereign Suite Buttons
+            _btnP4Canary = CreateSuiteButton(Color.FromArgb(153, 27, 27));
+            _btnP4Canary.Click += (s, e) =>
             {
-                _btnP3AiThreat, _btnP3ZeroTrust, _btnP3Hardware, _btnP3Exploit,
-                _btnP3Siem, _btnP3OfflineKb, _btnP3AdDomain, _btnP3Matrix3D
-            });
+                using (RansomwareCanaryDeceptionDialog dlg = new RansomwareCanaryDeceptionDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Fileless = CreateSuiteButton(Color.FromArgb(88, 28, 135));
+            _btnP4Fileless.Click += (s, e) =>
+            {
+                using (FilelessWmiAmsiAuditorDialog dlg = new FilelessWmiAmsiAuditorDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Mitre = CreateSuiteButton(Color.FromArgb(14, 116, 144));
+            _btnP4Mitre.Click += (s, e) =>
+            {
+                using (MitreAttackMatrixNavigatorDialog dlg = new MitreAttackMatrixNavigatorDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Cloud = CreateSuiteButton(Color.FromArgb(194, 65, 12));
+            _btnP4Cloud.Click += (s, e) =>
+            {
+                using (CloudWorkloadProfilerDialog dlg = new CloudWorkloadProfilerDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Tls = CreateSuiteButton(Color.FromArgb(15, 118, 110));
+            _btnP4Tls.Click += (s, e) =>
+            {
+                using (TlsCryptoSchannelHardenerDialog dlg = new TlsCryptoSchannelHardenerDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Sandbox = CreateSuiteButton(Color.FromArgb(49, 46, 129));
+            _btnP4Sandbox.Click += (s, e) =>
+            {
+                using (WindowsSandboxDynamicTesterDialog dlg = new WindowsSandboxDynamicTesterDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Pqc = CreateSuiteButton(Color.FromArgb(134, 25, 143));
+            _btnP4Pqc.Click += (s, e) =>
+            {
+                using (PqcReadinessInspectorDialog dlg = new PqcReadinessInspectorDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP4Soar = CreateSuiteButton(Color.FromArgb(21, 128, 61));
+            _btnP4Soar.Click += (s, e) =>
+            {
+                using (AutonomousSoarPlaybookDialog dlg = new AutonomousSoarPlaybookDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _pnlUnifiedRibbon.Controls.Add(_btnTabP1);
+            _pnlUnifiedRibbon.Controls.Add(_btnTabP2);
+            _pnlUnifiedRibbon.Controls.Add(_btnTabP3);
+            _pnlUnifiedRibbon.Controls.Add(_btnTabP4);
+            _pnlActiveToolsContainer.Controls.Clear();
+            _pnlUnifiedRibbon.Controls.Add(_pnlActiveToolsContainer);
+            _pnlUnifiedRibbon.Controls.Add(_btnHubModal);
+
+            SwitchRibbonPhase(1);
 
             // 4. Progress & Status Bar
             _pnlStatus = new Panel
@@ -1528,9 +1645,7 @@ namespace CveSecuritySuite
             this.Controls.Add(pnlGridContainer);
             this.Controls.Add(_pnlDetails);
             this.Controls.Add(_pnlStatus);
-            this.Controls.Add(_pnlPhase3Bar);
-            this.Controls.Add(_pnlPhase2Bar);
-            this.Controls.Add(_pnlSuiteBar);
+            this.Controls.Add(_pnlUnifiedRibbon);
             this.Controls.Add(_pnlFilterBar);
             this.Controls.Add(_pnlKpi);
             this.Controls.Add(_pnlControls);
@@ -1577,7 +1692,7 @@ namespace CveSecuritySuite
                 _btnP2Lockdown.Text = I18n.T("🚨 5. 비상 긴급격리/FW", "🚨 5. 緊急遮断/FW制御", "🚨 5. Panic Lockdown");
                 _btnP2HistoryDiff.Text = I18n.T("📈 6. 히스토리 추이·비교", "📈 6. 履歴推移・差分比較", "📈 6. History & Diff");
                 _btnP2Autoruns.Text = I18n.T("⚙ 7. 지속성·부팅실행", "⚙ 7. 持続性・自動起動", "⚙ 7. Autoruns Audit");
-                _btnP2ThemeZoom.Text = I18n.T("🎨 8. 테마(Dark/Light)·확대", "🎨 8. テーマ・拡大表示", "🎨 8. Theme / Zoom");
+                _btnP2ThemeZoom.Text = I18n.T("🎨 8. 테마(Dark/White)·확대", "🎨 8. テーマ・拡大表示", "🎨 8. Theme / Zoom");
             }
 
             if (_btnP3AiThreat != null)
@@ -1591,6 +1706,286 @@ namespace CveSecuritySuite
                 _btnP3AdDomain.Text = I18n.T("🏰 7. AD도메인·NTLM 감사", "🏰 7. ADドメイン・NTLM監査", "🏰 7. AD / NTLM Auditor");
                 _btnP3Matrix3D.Text = I18n.T("🧊 8. 3D 공격표면 매트릭스", "🧊 8. 3D攻撃表面マトリクス", "🧊 8. 3D Attack Matrix");
             }
+
+            if (_btnP4Canary != null)
+            {
+                _btnP4Canary.Text = I18n.T("🪤 1. 랜섬웨어 카나리아", "🪤 1. カナリアおとり", "🪤 1. Canary Deception");
+                _btnP4Fileless.Text = I18n.T("🕵️ 2. 파일리스 WMI/AMSI", "🕵️ 2. WMI/AMSI監査", "🕵️ 2. Fileless Auditor");
+                _btnP4Mitre.Text = I18n.T("🗺️ 3. MITRE ATT&CK", "🗺️ 3. MITRE ATT&CK", "🗺️ 3. MITRE Matrix");
+                _btnP4Cloud.Text = I18n.T("☁️ 4. 클라우드 IMDS", "☁️ 4. クラウドIMDS", "☁️ 4. Cloud IMDS");
+                _btnP4Tls.Text = I18n.T("🔐 5. TLS 1.3 암호강화", "🔐 5. TLS暗号化強化", "🔐 5. TLS Hardener");
+                _btnP4Sandbox.Text = I18n.T("📦 6. Win 샌드박스 격리", "📦 6. Sandbox隔離", "📦 6. Windows Sandbox");
+                _btnP4Pqc.Text = I18n.T("⚛️ 7. 양자내성(PQC) 준비도", "⚛️ 7. 耐量子(PQC)診断", "⚛️ 7. PQC Readiness");
+                _btnP4Soar.Text = I18n.T("⚡ 8. 자율 SOAR 플레이북", "⚡ 8. SOAR自動プレイブック", "⚡ 8. SOAR Playbook");
+            }
+
+            if (_btnHubModal != null)
+            {
+                _btnHubModal.Text = I18n.T("🛠️ 31종 종합 허브", "🛠️ 31種 統合ハブ", "🛠️ 31-Tool Suite Hub");
+            }
+
+            if (_btnTabP1 != null)
+            {
+                _btnTabP1.Text = I18n.T("🛡️ 1. 핵심방어", "🛡️ 1. 基本防御", "🛡️ 1. Core (7)");
+                _btnTabP2.Text = I18n.T("🔍 2. 정밀감사", "🔍 2. 精密監査", "🔍 2. Deep (8)");
+                _btnTabP3.Text = I18n.T("🌐 3. ZTNA/클라우드", "🌐 3. ZTNA/クラウド", "🌐 3. Enterprise (8)");
+                _btnTabP4.Text = I18n.T("🪤 4. 기만/SOAR", "🪤 4. 欺瞞/SOAR", "🪤 4. Sovereign (8)");
+            }
+        }
+
+        private Button CreateRibbonTabButton(string text, int phase)
+        {
+            Button b = new Button
+            {
+                Size = new Size(115, 30),
+                BackColor = (phase == _selectedRibbonPhase) ? Color.FromArgb(44, 72, 115) : Color.FromArgb(26, 33, 49),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Malgun Gothic", 8.5f, FontStyle.Bold),
+                Cursor = Cursors.Hand,
+                Text = text
+            };
+            b.FlatAppearance.BorderSize = 1;
+            b.FlatAppearance.BorderColor = Color.FromArgb(70, 95, 135);
+            b.Click += (s, e) => SwitchRibbonPhase(phase);
+            return b;
+        }
+
+        private void SwitchRibbonPhase(int phase)
+        {
+            _selectedRibbonPhase = phase;
+            if (_pnlActiveToolsContainer == null) return;
+
+            _pnlActiveToolsContainer.Controls.Clear();
+
+            Button[] activeButtons;
+            if (phase == 1)
+            {
+                activeButtons = new Button[]
+                {
+                    _btnSuiteSnapshot, _btnSuiteMultiReport, _btnSuiteSentinel,
+                    _btnSuiteSubnet, _btnSuiteSbom, _btnSuiteHotDb, _btnSuiteAttackChain
+                };
+            }
+            else if (phase == 2)
+            {
+                activeButtons = new Button[]
+                {
+                    _btnP2PortProc, _btnP2Creds, _btnP2Compliance, _btnP2Scheduler,
+                    _btnP2Lockdown, _btnP2HistoryDiff, _btnP2Autoruns, _btnP2ThemeZoom
+                };
+            }
+            else if (phase == 3)
+            {
+                activeButtons = new Button[]
+                {
+                    _btnP3AiThreat, _btnP3ZeroTrust, _btnP3Hardware, _btnP3Exploit,
+                    _btnP3Siem, _btnP3OfflineKb, _btnP3AdDomain, _btnP3Matrix3D
+                };
+            }
+            else
+            {
+                activeButtons = new Button[]
+                {
+                    _btnP4Canary, _btnP4Fileless, _btnP4Mitre, _btnP4Cloud,
+                    _btnP4Tls, _btnP4Sandbox, _btnP4Pqc, _btnP4Soar
+                };
+            }
+
+            _pnlActiveToolsContainer.Controls.AddRange(activeButtons);
+
+            UpdateRibbonTabStyles();
+            ApplyResponsiveLayout();
+        }
+
+        private void UpdateRibbonTabStyles()
+        {
+            if (_btnTabP1 == null) return;
+            Color activeBg = _isWhiteTheme ? Color.FromArgb(219, 234, 254) : Color.FromArgb(44, 72, 115);
+            Color activeFg = _isWhiteTheme ? Color.FromArgb(30, 64, 175) : Color.White;
+            Color normalBg = _isWhiteTheme ? Color.FromArgb(241, 245, 249) : Color.FromArgb(26, 33, 49);
+            Color normalFg = _isWhiteTheme ? Color.FromArgb(71, 85, 105) : Color.FromArgb(200, 215, 235);
+            Color borderColor = _isWhiteTheme ? Color.FromArgb(203, 213, 225) : Color.FromArgb(70, 95, 135);
+
+            Action<Button, bool> setStyle = (btn, isActive) =>
+            {
+                if (btn == null) return;
+                btn.BackColor = isActive ? activeBg : normalBg;
+                btn.ForeColor = isActive ? activeFg : normalFg;
+                btn.FlatAppearance.BorderColor = borderColor;
+            };
+
+            setStyle(_btnTabP1, _selectedRibbonPhase == 1);
+            setStyle(_btnTabP2, _selectedRibbonPhase == 2);
+            setStyle(_btnTabP3, _selectedRibbonPhase == 3);
+            setStyle(_btnTabP4, _selectedRibbonPhase == 4);
+        }
+
+        private void ApplyThemeMode(bool isWhite)
+        {
+            _isWhiteTheme = isWhite;
+            if (_btnThemeToggle != null)
+            {
+                _btnThemeToggle.Text = isWhite ? "🌙 Dark Mode" : "☀️ White Mode";
+                _btnThemeToggle.BackColor = isWhite ? Color.FromArgb(226, 232, 240) : Color.FromArgb(34, 43, 62);
+                _btnThemeToggle.ForeColor = isWhite ? Color.FromArgb(15, 23, 42) : Color.FromArgb(255, 215, 0);
+            }
+
+            if (isWhite)
+            {
+                // Crisp White / Light Mode
+                this.BackColor = Color.FromArgb(245, 247, 250);
+                if (_pnlHeader != null) _pnlHeader.BackColor = Color.FromArgb(255, 255, 255);
+                if (_lblAppTitle != null) _lblAppTitle.ForeColor = Color.FromArgb(15, 23, 42);
+                if (_lblAppSubtitle != null) _lblAppSubtitle.ForeColor = Color.FromArgb(71, 85, 105);
+                if (_lblLangPrompt != null) _lblLangPrompt.ForeColor = Color.FromArgb(71, 85, 105);
+                if (_cmbLanguage != null)
+                {
+                    _cmbLanguage.BackColor = Color.FromArgb(241, 245, 249);
+                    _cmbLanguage.ForeColor = Color.FromArgb(15, 23, 42);
+                }
+
+                if (_pnlControls != null) _pnlControls.BackColor = Color.FromArgb(248, 250, 252);
+                if (_lblScanTierTitle != null) _lblScanTierTitle.ForeColor = Color.FromArgb(30, 41, 59);
+                if (_lblTierExplanation != null) _lblTierExplanation.ForeColor = Color.FromArgb(71, 85, 105);
+                if (_lblTargetInfo != null) _lblTargetInfo.ForeColor = Color.FromArgb(15, 118, 110);
+                if (_cmbTargetIp != null)
+                {
+                    _cmbTargetIp.BackColor = Color.FromArgb(255, 255, 255);
+                    _cmbTargetIp.ForeColor = Color.FromArgb(15, 23, 42);
+                }
+                if (_chkIncludeStackVectors != null) _chkIncludeStackVectors.ForeColor = Color.FromArgb(51, 65, 85);
+
+                if (_pnlKpi != null) _pnlKpi.BackColor = Color.FromArgb(241, 245, 249);
+                for (int i = 0; i < _kpiCards.Count; i++)
+                {
+                    _kpiCards[i].BackColor = Color.FromArgb(255, 255, 255);
+                }
+
+                if (_pnlFilterBar != null) _pnlFilterBar.BackColor = Color.FromArgb(248, 250, 252);
+                if (_lblSearchIcon != null) _lblSearchIcon.ForeColor = Color.FromArgb(71, 85, 105);
+                if (_txtSearch != null)
+                {
+                    _txtSearch.BackColor = Color.FromArgb(255, 255, 255);
+                    _txtSearch.ForeColor = Color.FromArgb(15, 23, 42);
+                }
+                if (_cmbSeverityFilter != null)
+                {
+                    _cmbSeverityFilter.BackColor = Color.FromArgb(255, 255, 255);
+                    _cmbSeverityFilter.ForeColor = Color.FromArgb(15, 23, 42);
+                }
+
+                if (_pnlUnifiedRibbon != null) _pnlUnifiedRibbon.BackColor = Color.FromArgb(241, 245, 249);
+                if (_pnlActiveToolsContainer != null) _pnlActiveToolsContainer.BackColor = Color.FromArgb(241, 245, 249);
+
+                if (_grid != null)
+                {
+                    _grid.BackgroundColor = Color.FromArgb(255, 255, 255);
+                    _grid.GridColor = Color.FromArgb(226, 232, 240);
+                    _grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(241, 245, 249);
+                    _grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(15, 23, 42);
+                    _grid.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255);
+                    _grid.DefaultCellStyle.ForeColor = Color.FromArgb(15, 23, 42);
+                    _grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(219, 234, 254);
+                    _grid.DefaultCellStyle.SelectionForeColor = Color.FromArgb(15, 23, 42);
+                }
+
+                if (_pnlDetails != null) _pnlDetails.BackColor = Color.FromArgb(248, 250, 252);
+                if (_lblDetailHeader != null) _lblDetailHeader.ForeColor = Color.FromArgb(3, 105, 161);
+                if (_lblRemediationHeader != null) _lblRemediationHeader.ForeColor = Color.FromArgb(5, 150, 105);
+                if (_txtDetailDescription != null)
+                {
+                    _txtDetailDescription.BackColor = Color.FromArgb(255, 255, 255);
+                    _txtDetailDescription.ForeColor = Color.FromArgb(30, 41, 59);
+                }
+                if (_txtRemediationProposal != null)
+                {
+                    _txtRemediationProposal.BackColor = Color.FromArgb(255, 255, 255);
+                    _txtRemediationProposal.ForeColor = Color.FromArgb(20, 83, 45);
+                }
+
+                if (_pnlStatus != null) _pnlStatus.BackColor = Color.FromArgb(241, 245, 249);
+                if (_lblStatusText != null) _lblStatusText.ForeColor = Color.FromArgb(71, 85, 105);
+            }
+            else
+            {
+                // Dark SOC Theme
+                this.BackColor = Color.FromArgb(15, 19, 28);
+                if (_pnlHeader != null) _pnlHeader.BackColor = Color.FromArgb(17, 24, 39);
+                if (_lblAppTitle != null) _lblAppTitle.ForeColor = Color.White;
+                if (_lblAppSubtitle != null) _lblAppSubtitle.ForeColor = Color.FromArgb(160, 185, 215);
+                if (_lblLangPrompt != null) _lblLangPrompt.ForeColor = Color.FromArgb(200, 212, 230);
+                if (_cmbLanguage != null)
+                {
+                    _cmbLanguage.BackColor = Color.FromArgb(34, 43, 62);
+                    _cmbLanguage.ForeColor = Color.White;
+                }
+
+                if (_pnlControls != null) _pnlControls.BackColor = Color.FromArgb(26, 33, 48);
+                if (_lblScanTierTitle != null) _lblScanTierTitle.ForeColor = Color.FromArgb(220, 230, 245);
+                if (_lblTierExplanation != null) _lblTierExplanation.ForeColor = Color.FromArgb(195, 210, 235);
+                if (_lblTargetInfo != null) _lblTargetInfo.ForeColor = Color.FromArgb(150, 220, 185);
+                if (_cmbTargetIp != null)
+                {
+                    _cmbTargetIp.BackColor = Color.FromArgb(35, 44, 62);
+                    _cmbTargetIp.ForeColor = Color.White;
+                }
+                if (_chkIncludeStackVectors != null) _chkIncludeStackVectors.ForeColor = Color.FromArgb(200, 212, 232);
+
+                if (_pnlKpi != null) _pnlKpi.BackColor = Color.FromArgb(19, 24, 36);
+                for (int i = 0; i < _kpiCards.Count; i++)
+                {
+                    _kpiCards[i].BackColor = Color.FromArgb(26, 33, 49);
+                }
+
+                if (_pnlFilterBar != null) _pnlFilterBar.BackColor = Color.FromArgb(23, 30, 44);
+                if (_lblSearchIcon != null) _lblSearchIcon.ForeColor = Color.FromArgb(180, 200, 228);
+                if (_txtSearch != null)
+                {
+                    _txtSearch.BackColor = Color.FromArgb(14, 19, 28);
+                    _txtSearch.ForeColor = Color.White;
+                }
+                if (_cmbSeverityFilter != null)
+                {
+                    _cmbSeverityFilter.BackColor = Color.FromArgb(28, 38, 56);
+                    _cmbSeverityFilter.ForeColor = Color.FromArgb(255, 218, 120);
+                }
+
+                if (_pnlUnifiedRibbon != null) _pnlUnifiedRibbon.BackColor = Color.FromArgb(18, 25, 38);
+                if (_pnlActiveToolsContainer != null) _pnlActiveToolsContainer.BackColor = Color.FromArgb(18, 25, 38);
+
+                if (_grid != null)
+                {
+                    _grid.BackgroundColor = Color.FromArgb(17, 22, 33);
+                    _grid.GridColor = Color.FromArgb(36, 45, 64);
+                    _grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(28, 36, 52);
+                    _grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(220, 230, 245);
+                    _grid.DefaultCellStyle.BackColor = Color.FromArgb(20, 26, 38);
+                    _grid.DefaultCellStyle.ForeColor = Color.FromArgb(230, 236, 246);
+                    _grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(44, 72, 115);
+                    _grid.DefaultCellStyle.SelectionForeColor = Color.White;
+                }
+
+                if (_pnlDetails != null) _pnlDetails.BackColor = Color.FromArgb(22, 28, 40);
+                if (_lblDetailHeader != null) _lblDetailHeader.ForeColor = Color.FromArgb(120, 200, 255);
+                if (_lblRemediationHeader != null) _lblRemediationHeader.ForeColor = Color.FromArgb(102, 230, 168);
+                if (_txtDetailDescription != null)
+                {
+                    _txtDetailDescription.BackColor = Color.FromArgb(14, 18, 27);
+                    _txtDetailDescription.ForeColor = Color.FromArgb(225, 232, 245);
+                }
+                if (_txtRemediationProposal != null)
+                {
+                    _txtRemediationProposal.BackColor = Color.FromArgb(14, 18, 27);
+                    _txtRemediationProposal.ForeColor = Color.FromArgb(215, 242, 226);
+                }
+
+                if (_pnlStatus != null) _pnlStatus.BackColor = Color.FromArgb(22, 28, 41);
+                if (_lblStatusText != null) _lblStatusText.ForeColor = Color.FromArgb(195, 210, 232);
+            }
+
+            UpdateRibbonTabStyles();
+            RefreshGridRows();
         }
 
         private Button CreateFilterTabButton(int x, Color bg)
@@ -1629,15 +2024,19 @@ namespace CveSecuritySuite
             int langW = 165;
             _cmbLanguage.Location = new Point(w - pad - langW, 11);
             _cmbLanguage.Width = langW;
-            _lblLangPrompt.Location = new Point(_cmbLanguage.Left - 155, 14);
-            _lblLangPrompt.Width = 150;
+            _lblLangPrompt.Location = new Point(_cmbLanguage.Left - 145, 14);
+            _lblLangPrompt.Width = 140;
+
+            int themeToggleW = 125;
+            _btnThemeToggle.Location = new Point(_lblLangPrompt.Left - themeToggleW - 10, 10);
+            _btnThemeToggle.Width = themeToggleW;
 
             int bannerW = Math.Min(480, w / 2 - 20);
             _lblZeroDayBanner.Location = new Point(w - pad - bannerW, 46);
             _lblZeroDayBanner.Width = bannerW;
 
-            _lblAppTitle.Width = Math.Max(400, _lblLangPrompt.Left - 30);
-            _lblAppSubtitle.Width = Math.Max(400, _lblZeroDayBanner.Left - 30);
+            _lblAppTitle.Width = Math.Max(300, _btnThemeToggle.Left - 20);
+            _lblAppSubtitle.Width = Math.Max(300, _lblZeroDayBanner.Left - 20);
 
             // 2. Scan Controls responsive layout
             int btnGap = 8;
@@ -1732,54 +2131,40 @@ namespace CveSecuritySuite
                 }
             }
 
-            // 3.7 Next-Gen 7-Feature Suite Toolbar responsive layout
-            if (_pnlSuiteBar != null && _btnSuiteSnapshot != null)
+            // 3.7 Clean Unified Operations Ribbon & Hub responsive layout
+            if (_pnlUnifiedRibbon != null && _btnTabP1 != null && _pnlActiveToolsContainer != null)
             {
-                Button[] suiteBtns = new Button[]
-                {
-                    _btnSuiteSnapshot, _btnSuiteMultiReport, _btnSuiteSentinel,
-                    _btnSuiteSubnet, _btnSuiteSbom, _btnSuiteHotDb, _btnSuiteAttackChain
-                };
-                int sGap = 6;
-                int sBtnW = (w - (pad * 2) - (sGap * 6)) / 7;
-                for (int i = 0; i < suiteBtns.Length; i++)
-                {
-                    suiteBtns[i].Location = new Point(pad + i * (sBtnW + sGap), 6);
-                    suiteBtns[i].Size = new Size(sBtnW, 30);
-                }
-            }
+                int tabW = Math.Max(88, Math.Min(125, (w - 400) / 10));
+                int tabGap = 3;
+                _btnTabP1.Location = new Point(pad, 4);
+                _btnTabP1.Size = new Size(tabW, 30);
+                _btnTabP2.Location = new Point(pad + (tabW + tabGap) * 1, 4);
+                _btnTabP2.Size = new Size(tabW, 30);
+                _btnTabP3.Location = new Point(pad + (tabW + tabGap) * 2, 4);
+                _btnTabP3.Size = new Size(tabW, 30);
+                _btnTabP4.Location = new Point(pad + (tabW + tabGap) * 3, 4);
+                _btnTabP4.Size = new Size(tabW, 30);
 
-            // 3.8 Phase 2 Suite Toolbar responsive layout
-            if (_pnlPhase2Bar != null && _btnP2PortProc != null)
-            {
-                Button[] p2Btns = new Button[]
-                {
-                    _btnP2PortProc, _btnP2Creds, _btnP2Compliance, _btnP2Scheduler,
-                    _btnP2Lockdown, _btnP2HistoryDiff, _btnP2Autoruns, _btnP2ThemeZoom
-                };
-                int p2Gap = 5;
-                int p2BtnW = (w - (pad * 2) - (p2Gap * 7)) / 8;
-                for (int i = 0; i < p2Btns.Length; i++)
-                {
-                    p2Btns[i].Location = new Point(pad + i * (p2BtnW + p2Gap), 4);
-                    p2Btns[i].Size = new Size(p2BtnW, 30);
-                }
-            }
+                int hubW = Math.Max(120, Math.Min(165, w / 8));
+                _btnHubModal.Location = new Point(w - pad - hubW, 4);
+                _btnHubModal.Size = new Size(hubW, 30);
 
-            // 3.9 Phase 3 Enterprise Suite Toolbar responsive layout
-            if (_pnlPhase3Bar != null && _btnP3AiThreat != null)
-            {
-                Button[] p3Btns = new Button[]
+                int tabsRight = _btnTabP4.Right + 8;
+                int activeContainerW = Math.Max(100, _btnHubModal.Left - tabsRight - 8);
+                _pnlActiveToolsContainer.Location = new Point(tabsRight, 3);
+                _pnlActiveToolsContainer.Size = new Size(activeContainerW, 32);
+
+                int childCount = _pnlActiveToolsContainer.Controls.Count;
+                if (childCount > 0)
                 {
-                    _btnP3AiThreat, _btnP3ZeroTrust, _btnP3Hardware, _btnP3Exploit,
-                    _btnP3Siem, _btnP3OfflineKb, _btnP3AdDomain, _btnP3Matrix3D
-                };
-                int p3Gap = 5;
-                int p3BtnW = (w - (pad * 2) - (p3Gap * 7)) / 8;
-                for (int i = 0; i < p3Btns.Length; i++)
-                {
-                    p3Btns[i].Location = new Point(pad + i * (p3BtnW + p3Gap), 4);
-                    p3Btns[i].Size = new Size(p3BtnW, 30);
+                    int toolGap = 4;
+                    int toolBtnW = Math.Max(60, (activeContainerW - (toolGap * (childCount - 1))) / childCount);
+                    for (int i = 0; i < childCount; i++)
+                    {
+                        Control c = _pnlActiveToolsContainer.Controls[i];
+                        c.Location = new Point(i * (toolBtnW + toolGap), 1);
+                        c.Size = new Size(toolBtnW, 30);
+                    }
                 }
             }
 
@@ -2247,6 +2632,42 @@ namespace CveSecuritySuite
                 _toolTip.SetToolTip(_btnP3AdDomain, I18n.T("회사 AD 도메인 환경에서의 NTLMv1 레거시 취약 프로토콜, SMB 패킷 서명 미강제 등 도메인 측면 이동(Lateral Movement) 공격면을 점검합니다.", "ADドメイン環境でのNTLMv1脆弱プロトコルやSMBパケット署名などの横方向侵入攻撃面を点検します。", "Audit Active Directory domain exposure: NTLMv1 legacy protocols, SMB signing, and credentials."));
                 _toolTip.SetToolTip(_btnP3Matrix3D, I18n.T("공격 경로(Network/Local) × CVSS 심각도 × 해결 긴급도 축으로 구성된 3차원 입체 회전 공격 표면 매트릭스 히트맵을 제공합니다.", "攻撃経路 × CVSSスコア × 緊急度の3軸で構成された対話型3D攻撃表面マトリクスを表示します。", "Interactive 3D attack surface scatter matrix with 360-degree rotation and high-res PNG export."));
             }
+
+            if (_btnThemeToggle != null)
+            {
+                _toolTip.SetToolTip(_btnThemeToggle, I18n.T(
+                    "클릭하여 다크 SOC 모드와 클린 화이트(White) 모드를 즉시 전환합니다.",
+                    "クリックしてダークSOCモードとクリーンホワイトモードを切り替えます。",
+                    "Click to toggle between Dark SOC mode and Clean White mode."));
+            }
+
+            if (_btnHubModal != null)
+            {
+                _toolTip.SetToolTip(_btnHubModal, I18n.T(
+                    "Phase 1부터 Phase 4까지 개발된 31종 전체 보안 도구를 한 화면에서 검색하고 즉시 실행할 수 있는 종합 관제 포털 모달 창을 엽니다.",
+                    "全31種のセキュリティツールをワンストップで検索・実行できる総合ハブ画面を開きます。",
+                    "Open Comprehensive 31-Tool Suite Hub modal to search and launch all Phase 1-4 security tools."));
+            }
+
+            if (_btnTabP1 != null)
+            {
+                _toolTip.SetToolTip(_btnTabP1, I18n.T("1단계 핵심 방어 도구 7종을 툴바에 표시합니다.", "フェーズ1基本防御7ツールを表示します。", "Show Phase 1 Core tools."));
+                _toolTip.SetToolTip(_btnTabP2, I18n.T("2단계 정밀 감사 도구 8종을 툴바에 표시합니다.", "フェーズ2精密監査8ツールを表示します。", "Show Phase 2 Deep Audit tools."));
+                _toolTip.SetToolTip(_btnTabP3, I18n.T("3단계 ZTNA 및 엔터프라이즈 도구 8종을 툴바에 표시합니다.", "フェーズ3エンタープライズ8ツールを表示します。", "Show Phase 3 Enterprise tools."));
+                _toolTip.SetToolTip(_btnTabP4, I18n.T("4단계 자율 기만 및 SOAR 도구 8종을 툴바에 표시합니다.", "フェーズ4自律欺瞞/SOAR 8ツールを表示します。", "Show Phase 4 Sovereign tools."));
+            }
+
+            if (_btnP4Canary != null)
+            {
+                _toolTip.SetToolTip(_btnP4Canary, I18n.T("사용자 디렉토리에 정교한 미끼 파일(.cve_canary)을 배치하고 실시간 변조 감지 시 즉시 네트워크 격리 및 방어를 발동합니다.", "カナリアおとりファイルを配置し、ランサムウェア暗号化検知時に即時遮断を発動します。", "Deploy active ransomware canary honeypot files and trigger instant quarantine upon tamper."));
+                _toolTip.SetToolTip(_btnP4Fileless, I18n.T("디스크에 흔적을 남기지 않는 WMI 영구 이벤트 필터 및 메모리 내 AMSI 난독화 우회 시도를 전수 추적합니다.", "WMI永続化フィルターおよびAMSIメモリバイパスを精密監査します。", "Audit fileless WMI persistence event consumers and AMSI memory bypasses."));
+                _toolTip.SetToolTip(_btnP4Mitre, I18n.T("진단된 520개 CVE를 MITRE ATT&CK Enterprise Matrix v15의 8대 핵심 전술에 실시간 매핑하고 위험도를 분석합니다.", "520件のCVEをMITRE ATT&CK Enterprise Matrix v15に自動マッピングします。", "Map CVEs to MITRE ATT&CK Enterprise Matrix v15 across 8 core tactics."));
+                _toolTip.SetToolTip(_btnP4Cloud, I18n.T("AWS, Azure, GCP 등 클라우드 인스턴스 메타데이터(169.254.169.254 IMDS) 취약 노출을 점검하고 1-클릭 방화벽 차단을 제공합니다.", "クラウドIMDS(169.254.169.254)露出を監査し、ワンクリックでファイアウォール遮断します。", "Audit cloud metadata IMDS endpoint exposure and block SSRF via Windows Firewall."));
+                _toolTip.SetToolTip(_btnP4Tls, I18n.T("취약한 레거시 SSL 2.0/3.0, TLS 1.0/1.1 암호 스위트를 레지스트리 레벨에서 차단하고 TLS 1.2/1.3 암호화를 강제 적용합니다.", "レガシー暗号(SSL/TLS 1.0)を無効化し、TLS 1.3および強力な暗号スイートを強制します。", "Harden Windows Schannel registry to disable insecure SSL/TLS and enforce TLS 1.2/1.3."));
+                _toolTip.SetToolTip(_btnP4Sandbox, I18n.T("의심 파일이나 테스트 바이너리를 안전한 일회용 Windows Sandbox 가상화 환경에서 무해화 실행할 수 있는 .wsb 설정을 자동 생성합니다.", "疑わしいファイルを使い捨てWindows Sandbox上で安全に隔離実行する構成を生成します。", "Generate disposable Windows Sandbox (.wsb) recipes for isolated dynamic testing."));
+                _toolTip.SetToolTip(_btnP4Pqc, I18n.T("NIST 양자내성암호(ML-KEM, ML-DSA) 표준화에 맞추어 로컬 인증서 및 키 길이를 분석하고 양자컴퓨터 도래 대비 취약점을 진단합니다.", "NIST耐量子暗号基準に基づき、ローカル証明書および公開鍵のPQC移行準備度を評価します。", "Evaluate post-quantum cryptography (PQC) readiness on local certificates and keys."));
+                _toolTip.SetToolTip(_btnP4Soar, I18n.T("랜섬웨어 감지, CISA KEV 발견 등 이벤트 발생 시 비상 격리, 보고서 발송, 패치를 자동 실행하는 이벤트 기반 SOAR 엔진입니다.", "イベント駆動型のSOARオーケストレーションにより、自動封じ込めプレイブックを実行します。", "Event-driven SOAR security orchestration and automated response engine."));
+            }
         }
 
         private async Task ExecuteScanAsync()
@@ -2475,36 +2896,73 @@ namespace CveSecuritySuite
                 );
                 row.Height = 36;
 
-                if (cve.CvssScore >= 9.0)
-                    row.Cells[3].Style.ForeColor = Color.FromArgb(255, 95, 105);
-                else if (cve.CvssScore >= 7.0)
-                    row.Cells[3].Style.ForeColor = Color.FromArgb(255, 170, 80);
-                else
-                    row.Cells[3].Style.ForeColor = Color.FromArgb(245, 220, 110);
+                if (_isWhiteTheme)
+                {
+                    if (cve.CvssScore >= 9.0)
+                        row.Cells[3].Style.ForeColor = Color.FromArgb(220, 38, 38);
+                    else if (cve.CvssScore >= 7.0)
+                        row.Cells[3].Style.ForeColor = Color.FromArgb(217, 119, 6);
+                    else
+                        row.Cells[3].Style.ForeColor = Color.FromArgb(161, 98, 7);
 
-                if (cve.Exploitability == ExploitabilityLevel.High)
-                    row.Cells[4].Style.ForeColor = Color.FromArgb(255, 115, 115);
-                else if (cve.Exploitability == ExploitabilityLevel.Low)
-                    row.Cells[4].Style.ForeColor = Color.FromArgb(255, 205, 110);
+                    if (cve.Exploitability == ExploitabilityLevel.High)
+                        row.Cells[4].Style.ForeColor = Color.FromArgb(220, 38, 38);
+                    else if (cve.Exploitability == ExploitabilityLevel.Low)
+                        row.Cells[4].Style.ForeColor = Color.FromArgb(161, 98, 7);
 
-                if (cve.Status == VulnStatus.Vulnerable)
-                {
-                    row.Cells[6].Style.ForeColor = Color.FromArgb(255, 102, 112);
-                    row.Cells[6].Style.Font = boldStatusFont;
-                    row.Cells[9].Style.BackColor = Color.FromArgb(28, 128, 82);
-                    row.Cells[9].Style.ForeColor = Color.White;
-                    row.Cells[9].Style.Font = boldStatusFont;
-                }
-                else if (cve.Status == VulnStatus.Remediated)
-                {
-                    row.Cells[6].Style.ForeColor = Color.FromArgb(82, 230, 158);
-                    row.Cells[6].Style.Font = boldStatusFont;
-                    row.Cells[9].Style.ForeColor = Color.FromArgb(82, 230, 158);
+                    if (cve.Status == VulnStatus.Vulnerable)
+                    {
+                        row.Cells[6].Style.ForeColor = Color.FromArgb(220, 38, 38);
+                        row.Cells[6].Style.Font = boldStatusFont;
+                        row.Cells[9].Style.BackColor = Color.FromArgb(22, 163, 74);
+                        row.Cells[9].Style.ForeColor = Color.White;
+                        row.Cells[9].Style.Font = boldStatusFont;
+                    }
+                    else if (cve.Status == VulnStatus.Remediated)
+                    {
+                        row.Cells[6].Style.ForeColor = Color.FromArgb(22, 101, 52);
+                        row.Cells[6].Style.Font = boldStatusFont;
+                        row.Cells[9].Style.ForeColor = Color.FromArgb(22, 101, 52);
+                    }
+                    else
+                    {
+                        row.Cells[6].Style.ForeColor = Color.FromArgb(3, 105, 161);
+                        row.Cells[9].Style.ForeColor = Color.FromArgb(3, 105, 161);
+                    }
                 }
                 else
                 {
-                    row.Cells[6].Style.ForeColor = Color.FromArgb(135, 195, 235);
-                    row.Cells[9].Style.ForeColor = Color.FromArgb(135, 195, 235);
+                    if (cve.CvssScore >= 9.0)
+                        row.Cells[3].Style.ForeColor = Color.FromArgb(255, 95, 105);
+                    else if (cve.CvssScore >= 7.0)
+                        row.Cells[3].Style.ForeColor = Color.FromArgb(255, 170, 80);
+                    else
+                        row.Cells[3].Style.ForeColor = Color.FromArgb(245, 220, 110);
+
+                    if (cve.Exploitability == ExploitabilityLevel.High)
+                        row.Cells[4].Style.ForeColor = Color.FromArgb(255, 115, 115);
+                    else if (cve.Exploitability == ExploitabilityLevel.Low)
+                        row.Cells[4].Style.ForeColor = Color.FromArgb(255, 205, 110);
+
+                    if (cve.Status == VulnStatus.Vulnerable)
+                    {
+                        row.Cells[6].Style.ForeColor = Color.FromArgb(255, 102, 112);
+                        row.Cells[6].Style.Font = boldStatusFont;
+                        row.Cells[9].Style.BackColor = Color.FromArgb(28, 128, 82);
+                        row.Cells[9].Style.ForeColor = Color.White;
+                        row.Cells[9].Style.Font = boldStatusFont;
+                    }
+                    else if (cve.Status == VulnStatus.Remediated)
+                    {
+                        row.Cells[6].Style.ForeColor = Color.FromArgb(82, 230, 158);
+                        row.Cells[6].Style.Font = boldStatusFont;
+                        row.Cells[9].Style.ForeColor = Color.FromArgb(82, 230, 158);
+                    }
+                    else
+                    {
+                        row.Cells[6].Style.ForeColor = Color.FromArgb(135, 195, 235);
+                        row.Cells[9].Style.ForeColor = Color.FromArgb(135, 195, 235);
+                    }
                 }
                 row.Cells[9].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
