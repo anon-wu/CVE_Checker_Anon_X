@@ -1019,9 +1019,9 @@ namespace CveSecuritySuite
             Action<List<CveEntry>> allowRemediationAction)
         {
             this.Text = I18n.T(
-                "🛠️ 39종 종합 보안 도구함 및 통합 관제 허브 (Comprehensive Security Suite Hub)",
+                "🛠️ 47종 종합 보안 도구함 및 통합 관제 허브 (Comprehensive Security Suite Hub)",
                 "🛠️ 31種セキュリティツール統合ハブ",
-                "🛠️ Comprehensive Security Suite Hub (39 Enterprise Modules)");
+                "🛠️ Comprehensive Security Suite Hub (47 Enterprise Modules)");
             this.Size = new Size(1060, 680);
             this.StartPosition = FormStartPosition.CenterParent;
             this.BackColor = Color.FromArgb(14, 18, 27);
@@ -1033,7 +1033,7 @@ namespace CveSecuritySuite
                 Size = new Size(1000, 26),
                 Font = I18n.CreateFont(12f, FontStyle.Bold),
                 ForeColor = Color.FromArgb(0, 210, 255),
-                Text = I18n.T("CVE Security Operations Suite · 전방위 39종 차세대 사이버 보안 도구 포털", "39種次世代サイバーセキュリティツールポータル", "All-in-One 39 Enterprise Cybersecurity Modules Portal")
+                Text = I18n.T("CVE Security Operations Suite · 전방위 47종 차세대 사이버 보안 도구 포털", "39種次世代サイバーセキュリティツールポータル", "All-in-One 39 Enterprise Cybersecurity Modules Portal")
             };
 
             TabControl tc = new TabControl
@@ -1047,30 +1047,30 @@ namespace CveSecuritySuite
             TabPage tab1 = new TabPage("🛡️ 1. 핵심 방어 & 복구 (Phase 1)");
             tab1.BackColor = Color.FromArgb(18, 23, 35);
             FlowLayoutPanel flp1 = CreateToolFlowPanel();
-            AddToolCard(flp1, "⏪ 1. 스냅샷 롤백 복구", "보안 조치 전 상태를 1-Click 스냅샷으로 자동 백업하고 언제든 원상 복원", () =>
+            AddToolCard(flp1, 1, 1, "⏪", "스냅샷 롤백 복구", "보안 조치 전 상태를 1-Click 스냅샷으로 자동 백업하고 언제든 원상 복원", () =>
             {
                 using (SnapshotManagerDialog dlg = new SnapshotManagerDialog(kind, ctx, allCves)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp1, "📊 2. 감사 리포트 출력", "HTML(PDF 인쇄 대응), UTF-8 CSV, JSON 포맷으로 실측 감사 보고서 저장", exportReportAction);
-            AddToolCard(flp1, "🛡️ 3. 실시간 감시 가드", "백그라운드에서 신규 리스닝 포트 및 비인가 서비스 개방을 실시간 감시", () =>
+            AddToolCard(flp1, 1, 2, "📊", "감사 리포트 출력", "HTML(PDF 인쇄 대응), UTF-8 CSV, JSON 포맷으로 실측 감사 보고서 저장", exportReportAction);
+            AddToolCard(flp1, 1, 3, "🛡️", "실시간 감시 가드", "백그라운드에서 신규 리스닝 포트 및 비인가 서비스 개방을 실시간 감시", () =>
             {
                 if (sentinelGuard != null) sentinelGuard.ToggleGuard(ctx);
                 MessageBox.Show(I18n.T("센티널 가드 상태가 토글되었습니다.", "状態を更新しました", "Sentinel Guard state toggled."), "Sentinel", MessageBoxButtons.OK, MessageBoxIcon.Information);
             });
-            AddToolCard(flp1, "🌐 4. LAN 서브넷 스캔", "동일 로컬 서브넷(/24) 대역의 이웃 활성 디바이스를 병렬 탐색", () =>
+            AddToolCard(flp1, 1, 4, "🌐", "LAN 서브넷 스캔", "동일 로컬 서브넷(/24) 대역의 이웃 활성 디바이스를 병렬 탐색", () =>
             {
                 using (SubnetMultiDeviceScannerDialog dlg = new SubnetMultiDeviceScannerDialog(ctx.TargetIp)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp1, "📦 5. 설치 앱 SBOM 감사", "Windows 레지스트리에 등록된 모든 설치 소프트웨어 SBOM 목록 추출 및 취약 컴포넌트 점검", () =>
+            AddToolCard(flp1, 1, 5, "📦", "설치 앱 SBOM 감사", "Windows 레지스트리에 등록된 모든 설치 소프트웨어 SBOM 목록 추출 및 취약 컴포넌트 점검", () =>
             {
                 using (InstalledSoftwareSbomDialog dlg = new InstalledSoftwareSbomDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp1, "📂 6. CVE DB 핫업데이트", "재컴파일 없이 오프라인 .cvedb 패키지 파일을 드래그 앤 드롭하여 서명 즉시 추가", () =>
+            AddToolCard(flp1, 1, 6, "📂", "CVE DB 핫업데이트", "재컴파일 없이 오프라인 .cvedb 패키지 파일을 드래그 앤 드롭하여 서명 즉시 추가", () =>
             {
                 string samplePath = CveDbHotUpdater.CreateSampleCustomDbPackageOnDesktop();
                 MessageBox.Show(I18n.T("바탕화면에 샘플 .cvedb 패키지가 준비되어 있습니다.", "準備完了", "Sample .cvedb ready on Desktop."), "Hot-Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             });
-            AddToolCard(flp1, "🔗 7. 복합 공격경로 분석", "초기 침투 ➔ 권한 상승 ➔ 측면 이동 다단계 공격 체인 시뮬레이션", () =>
+            AddToolCard(flp1, 1, 7, "🔗", "복합 공격경로 분석", "초기 침투 ➔ 권한 상승 ➔ 측면 이동 다단계 공격 체인 시뮬레이션", () =>
             {
                 using (AttackChainSimulatorDialog dlg = new AttackChainSimulatorDialog(kind, ctx, displayedCves, allowRemediationAction)) dlg.ShowDialog(this);
             });
@@ -1080,31 +1080,31 @@ namespace CveSecuritySuite
             TabPage tab2 = new TabPage("🔍 2. 정밀 감사 & 격리 (Phase 2)");
             tab2.BackColor = Color.FromArgb(18, 23, 35);
             FlowLayoutPanel flp2 = CreateToolFlowPanel();
-            AddToolCard(flp2, "🔍 1. 포트-PID 역추적", "열린 포트를 점유 중인 프로세스 이름, PID, 실행 경로, Authenticode 서명 검증", () =>
+            AddToolCard(flp2, 2, 1, "🔍", "포트-PID 역추적", "열린 포트를 점유 중인 프로세스 이름, PID, 실행 경로, Authenticode 서명 검증", () =>
             {
                 using (PortToProcessInspectorDialog dlg = new PortToProcessInspectorDialog(ctx)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp2, "🔑 2. 자격증명·계정보호", "LSA RunAsPPL, WDigest 평문 캐싱 차단, .ssh 권한 격리 및 환경변수 비밀번호 노출 점검", () =>
+            AddToolCard(flp2, 2, 2, "🔑", "자격증명·계정보호", "LSA RunAsPPL, WDigest 평문 캐싱 차단, .ssh 권한 격리 및 환경변수 비밀번호 노출 점검", () =>
             {
                 using (CredentialExposureAuditorDialog dlg = new CredentialExposureAuditorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp2, "📜 3. KISA/CIS 인증서", "KISA 주요정보통신기반시설(W-01~W-82), CIS Benchmark, ISO 27001 매핑 리포트 발급", () =>
+            AddToolCard(flp2, 2, 3, "📜", "KISA/CIS 인증서", "KISA 주요정보통신기반시설(W-01~W-82), CIS Benchmark, ISO 27001 매핑 리포트 발급", () =>
             {
                 using (ComplianceMappingDialog dlg = new ComplianceMappingDialog(kind, ctx, allCves)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp2, "⏰ 4. 자동감사 스케줄러", "Windows 작업 스케줄러와 연동하여 매일/매주 무인 자동 진단 및 KEV 자동 치료 등록", () =>
+            AddToolCard(flp2, 2, 4, "⏰", "자동감사 스케줄러", "Windows 작업 스케줄러와 연동하여 매일/매주 무인 자동 진단 및 KEV 자동 치료 등록", () =>
             {
                 using (ScheduledAuditDialog dlg = new ScheduledAuditDialog(kind)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp2, "🚨 5. 비상 긴급격리/FW", "해킹 징후 감지 시 1초 만에 인바운드/아웃바운드 전체 네트워크를 물리/논리 차단하는 패닉 스위치", () =>
+            AddToolCard(flp2, 2, 5, "🚨", "비상 긴급격리/FW", "해킹 징후 감지 시 1초 만에 인바운드/아웃바운드 전체 네트워크를 물리/논리 차단하는 패닉 스위치", () =>
             {
                 using (EmergencyLockdownAndFirewallDialog dlg = new EmergencyLockdownAndFirewallDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp2, "📈 6. 히스토리 추이·비교", "과거 진단 이력 누적 DB 기록, 보안 점수 타임라인 차트 및 이전 진단 대비 Diff 비교", () =>
+            AddToolCard(flp2, 2, 6, "📈", "히스토리 추이·비교", "과거 진단 이력 누적 DB 기록, 보안 점수 타임라인 차트 및 이전 진단 대비 Diff 비교", () =>
             {
                 using (ScanHistoryDiffDialog dlg = new ScanHistoryDiffDialog(kind)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp2, "⚙ 7. 지속성·부팅실행", "Run 키, 시작프로그램, Unquoted Service Path 공백 미인용 경로 등 지속성 위협 전수 감사", () =>
+            AddToolCard(flp2, 2, 7, "⚙", "지속성·부팅실행", "Run 키, 시작프로그램, Unquoted Service Path 공백 미인용 경로 등 지속성 위협 전수 감사", () =>
             {
                 using (PersistenceAutorunsDialog dlg = new PersistenceAutorunsDialog()) dlg.ShowDialog(this);
             });
@@ -1114,36 +1114,36 @@ namespace CveSecuritySuite
             TabPage tab3 = new TabPage("🌐 3. 엔터프라이즈 & ZTNA (Phase 3)");
             tab3.BackColor = Color.FromArgb(18, 23, 35);
             FlowLayoutPanel flp3 = CreateToolFlowPanel();
-            AddToolCard(flp3, "🤖 1. AI 위협해설·스크립트", "어려운 취약점 원인을 알기 쉬운 자연어로 3줄 요약하고 PowerShell/BAT/REG 스크립트 자동 생성", () =>
+            AddToolCard(flp3, 3, 1, "🤖", "AI 위협해설·스크립트", "어려운 취약점 원인을 알기 쉬운 자연어로 3줄 요약하고 PowerShell/BAT/REG 스크립트 자동 생성", () =>
             {
                 CveEntry target = displayedCves.Find(c => c.Status == VulnStatus.Vulnerable) ?? (displayedCves.Count > 0 ? displayedCves[0] : null);
                 using (AiThreatExplainerDialog dlg = new AiThreatExplainerDialog(target)) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "🌐 2. 제로트러스트 권고기", "업무 포트를 전면 차단하지 않고 사내 C-Class 서브넷만 허용하는 마이크로 세그멘테이션 적용", () =>
+            AddToolCard(flp3, 3, 2, "🌐", "제로트러스트 권고기", "업무 포트를 전면 차단하지 않고 사내 C-Class 서브넷만 허용하는 마이크로 세그멘테이션 적용", () =>
             {
                 using (ZeroTrustMicroSegmentationDialog dlg = new ZeroTrustMicroSegmentationDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "🔒 3. TPM/SecureBoot 무결성", "부트킷과 커널 조작을 방어하는 TPM 2.0, UEFI Secure Boot, VBS, HVCI 하드웨어 보안 실측", () =>
+            AddToolCard(flp3, 3, 3, "🔒", "TPM/SecureBoot 무결성", "부트킷과 커널 조작을 방어하는 TPM 2.0, UEFI Secure Boot, VBS, HVCI 하드웨어 보안 실측", () =>
             {
                 using (HardwareRootOfTrustDialog dlg = new HardwareRootOfTrustDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "🛡️ 4. 메모리보호(DEP/ASLR)", "제로데이 공격 시 셸코드 실행을 무력화하는 DEP, ASLR, CFG, SEHOP 정책 실측 및 강화", () =>
+            AddToolCard(flp3, 3, 4, "🛡️", "메모리보호(DEP/ASLR)", "제로데이 공격 시 셸코드 실행을 무력화하는 DEP, ASLR, CFG, SEHOP 정책 실측 및 강화", () =>
             {
                 using (ExploitMitigationGuardDialog dlg = new ExploitMitigationGuardDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "📡 5. SIEM Syslog·웹훅", "Splunk, Elastic 등으로 RFC 5424 Syslog 스트리밍 및 Slack, Teams, Discord 웹훅 실시간 발송", () =>
+            AddToolCard(flp3, 3, 5, "📡", "SIEM Syslog·웹훅", "Splunk, Elastic 등으로 RFC 5424 Syslog 스트리밍 및 Slack, Teams, Discord 웹훅 실시간 발송", () =>
             {
                 using (EnterpriseSiemWebhookDialog dlg = new EnterpriseSiemWebhookDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "📦 6. 폐쇄망 KB 번들러", "인터넷이 없는 폐쇄망을 위해 Microsoft 누적 업데이트 KB 목록 및 일괄 무인 설치 스크립트 빌드", () =>
+            AddToolCard(flp3, 3, 6, "📦", "폐쇄망 KB 번들러", "인터넷이 없는 폐쇄망을 위해 Microsoft 누적 업데이트 KB 목록 및 일괄 무인 설치 스크립트 빌드", () =>
             {
                 using (AirGappedOfflinePatchBundlerDialog dlg = new AirGappedOfflinePatchBundlerDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "🏰 7. AD도메인·NTLM 감사", "Pass-the-Hash, NTLM 릴레이를 방어하기 위해 NTLMv1 차단 및 SMB 패킷 서명 강제화", () =>
+            AddToolCard(flp3, 3, 7, "🏰", "AD도메인·NTLM 감사", "Pass-the-Hash, NTLM 릴레이를 방어하기 위해 NTLMv1 차단 및 SMB 패킷 서명 강제화", () =>
             {
                 using (ActiveDirectorySecurityAuditorDialog dlg = new ActiveDirectorySecurityAuditorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp3, "🧊 8. 3D 공격표면 매트릭스", "공격경로 × CVSS × 긴급도 3D 회전 산점도 히트맵 시각화 및 고해상도 PNG 차트 이미지 저장", () =>
+            AddToolCard(flp3, 3, 8, "🧊", "3D 공격표면 매트릭스", "공격경로 × CVSS × 긴급도 3D 회전 산점도 히트맵 시각화 및 고해상도 PNG 차트 이미지 저장", () =>
             {
                 using (AttackSurface3DMatrixDialog dlg = new AttackSurface3DMatrixDialog(displayedCves)) dlg.ShowDialog(this);
             });
@@ -1153,35 +1153,35 @@ namespace CveSecuritySuite
             TabPage tab4 = new TabPage("🪤 4. 능동 기만 & 자율 SOAR (Phase 4)");
             tab4.BackColor = Color.FromArgb(18, 23, 35);
             FlowLayoutPanel flp4 = CreateToolFlowPanel();
-            AddToolCard(flp4, "🪤 1. 랜섬웨어 기만 방어", "문서 폴더에 카나리(Honeypot) 미끼 파일을 배치하여 변종 랜섬웨어의 초기 암호화 감지 시 공격 프로세스 즉각 강제 종료", () =>
+            AddToolCard(flp4, 4, 1, "🪤", "랜섬웨어 기만 방어", "문서 폴더에 카나리(Honeypot) 미끼 파일을 배치하여 변종 랜섬웨어의 초기 암호화 감지 시 공격 프로세스 즉각 강제 종료", () =>
             {
                 using (RansomwareCanaryDeceptionDialog dlg = new RansomwareCanaryDeceptionDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "👻 2. 파일리스 WMI/AMSI 감사", "디스크에 파일을 쓰지 않고 메모리에서 상주하는 WMI 영구 이벤트 구독 및 AMSI 우회 공격 전수 실측 및 소거", () =>
+            AddToolCard(flp4, 4, 2, "👻", "파일리스 WMI/AMSI 감사", "디스크에 파일을 쓰지 않고 메모리에서 상주하는 WMI 영구 이벤트 구독 및 AMSI 우회 공격 전수 실측 및 소거", () =>
             {
                 using (FilelessWmiAmsiAuditorDialog dlg = new FilelessWmiAmsiAuditorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "🗺️ 3. MITRE ATT&CK 네비게이터", "520종 CVE를 MITRE ATT&CK Enterprise Matrix v15의 14대 공격 전술 및 TTP 기법과 100% 매핑", () =>
+            AddToolCard(flp4, 4, 3, "🗺️", "MITRE ATT&CK 네비게이터", "520종 CVE를 MITRE ATT&CK Enterprise Matrix v15의 14대 공격 전술 및 TTP 기법과 100% 매핑", () =>
             {
                 using (MitreAttackMatrixNavigatorDialog dlg = new MitreAttackMatrixNavigatorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "☁️ 4. 클라우드 워크로드 프로파일러", "AWS EC2 / Azure VM / GCP 클라우드 환경 식별 및 메타데이터 IAM 자격증명 탈취 방어(IMDSv2)", () =>
+            AddToolCard(flp4, 4, 4, "☁️", "클라우드 워크로드 프로파일러", "AWS EC2 / Azure VM / GCP 클라우드 환경 식별 및 메타데이터 IAM 자격증명 탈취 방어(IMDSv2)", () =>
             {
                 using (CloudWorkloadProfilerDialog dlg = new CloudWorkloadProfilerDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "🔐 5. TLS 1.3 암호화 강화", "취약한 구형 SSL 2.0/3.0, TLS 1.0/1.1, RC4, 3DES를 영구 차단하고 안전한 TLS 1.2/1.3 강제화", () =>
+            AddToolCard(flp4, 4, 5, "🔐", "TLS 1.3 암호화 강화", "취약한 구형 SSL 2.0/3.0, TLS 1.0/1.1, RC4, 3DES를 영구 차단하고 안전한 TLS 1.2/1.3 강제화", () =>
             {
                 using (TlsCryptoSchannelHardenerDialog dlg = new TlsCryptoSchannelHardenerDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "📦 6. Windows Sandbox 모의 검증", "호스트에 무영향인 일회용 Windows Sandbox(.wsb)를 5초 만에 기동하여 안전한 사전 모의 검증", () =>
+            AddToolCard(flp4, 4, 6, "📦", "Windows Sandbox 모의 검증", "호스트에 무영향인 일회용 Windows Sandbox(.wsb)를 5초 만에 기동하여 안전한 사전 모의 검증", () =>
             {
                 using (WindowsSandboxDynamicTesterDialog dlg = new WindowsSandboxDynamicTesterDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "⚛️ 7. PQC 양자 내성 암호 진단", "양자 컴퓨터 Shor 알고리즘에 취약한 로컬 인증서 식별 및 NIST PQC(ML-KEM/ML-DSA) 전환 준비도 평가", () =>
+            AddToolCard(flp4, 4, 7, "⚛️", "PQC 양자 내성 암호 진단", "양자 컴퓨터 Shor 알고리즘에 취약한 로컬 인증서 식별 및 NIST PQC(ML-KEM/ML-DSA) 전환 준비도 평가", () =>
             {
                 using (PqcReadinessInspectorDialog dlg = new PqcReadinessInspectorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp4, "⚙️ 8. 자율 SOAR 플레이북 엔진", "조건부 트리거 ➔ 복구 스냅샷 백업 ➔ 포트 방화벽 차단 ➔ Syslog/Slack 통보 자율 대응 워크플로우", () =>
+            AddToolCard(flp4, 4, 8, "⚙️", "자율 SOAR 플레이북 엔진", "조건부 트리거 ➔ 복구 스냅샷 백업 ➔ 포트 방화벽 차단 ➔ Syslog/Slack 통보 자율 대응 워크플로우", () =>
             {
                 using (AutonomousSoarPlaybookDialog dlg = new AutonomousSoarPlaybookDialog()) dlg.ShowDialog(this);
             });
@@ -1191,41 +1191,79 @@ namespace CveSecuritySuite
             TabPage tab5 = new TabPage("⚛️ 5. 소버린 AI & 메쉬 (Phase 5)");
             tab5.BackColor = Color.FromArgb(18, 23, 35);
             FlowLayoutPanel flp5 = CreateToolFlowPanel();
-            AddToolCard(flp5, "⚡ 1. ETW 커널 제로데이 센서", "커널 드라이버리스 실시간 ETW 구독으로 메모리 인젝션, 토큰 탈취, Reflective DLL 주입을 즉각 차단", () =>
+            AddToolCard(flp5, 5, 1, "⚡", "ETW 커널 제로데이 센서", "커널 드라이버리스 실시간 ETW 구독으로 메모리 인젝션, 토큰 탈취, Reflective DLL 주입을 즉각 차단", () =>
             {
                 using (KernelBehavioralSensorDialog dlg = new KernelBehavioralSensorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "🤖 2. 온디바이스 소버린 AI", "인터넷이 차단된 폐쇄망(Air-Gapped) 환경에서 100% 오프라인 온디바이스 SLM을 통한 취약점 원인 분석 및 패치 생성", () =>
+            AddToolCard(flp5, 5, 2, "🤖", "온디바이스 소버린 AI", "인터넷이 차단된 폐쇄망(Air-Gapped) 환경에서 100% 오프라인 온디바이스 SLM을 통한 취약점 원인 분석 및 패치 생성", () =>
             {
                 using (AirGappedSovereignAiCopilotDialog dlg = new AirGappedSovereignAiCopilotDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "🔒 3. UEFI 부트킷 실측 감사", "OS 포맷 후에도 생존하는 BlackLotus 등 펌웨어 루트킷, WPBT 악성 바이너리 주입, Option ROM 변조 실측", () =>
+            AddToolCard(flp5, 5, 3, "🔒", "UEFI 부트킷 실측 감사", "OS 포맷 후에도 생존하는 BlackLotus 등 펌웨어 루트킷, WPBT 악성 바이너리 주입, Option ROM 변조 실측", () =>
             {
                 using (UefiBootkitVerifierDialog dlg = new UefiBootkitVerifierDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "📜 4. ZKP 영지식 보안 증적", "사내 IP, 호스트명을 외부에 노출하지 않고 '520개 CVE 100% 안전 준수' 사실만을 암호학적 수학 공식으로 증명", () =>
+            AddToolCard(flp5, 5, 4, "📜", "ZKP 영지식 보안 증적", "사내 IP, 호스트명을 외부에 노출하지 않고 '520개 CVE 100% 안전 준수' 사실만을 암호학적 수학 공식으로 증명", () =>
             {
                 using (ZeroKnowledgeAttestationDialog dlg = new ZeroKnowledgeAttestationDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "🧪 5. 디지털 트윈 사전 검증", "실제 호스트 적용 전 메모리 내 가상 트윈 환경에서 레지스트리/방화벽 변경의 부작용 및 충돌 시뮬레이션", () =>
+            AddToolCard(flp5, 5, 5, "🧪", "디지털 트윈 사전 검증", "실제 호스트 적용 전 메모리 내 가상 트윈 환경에서 레지스트리/방화벽 변경의 부작용 및 충돌 시뮬레이션", () =>
             {
                 using (DigitalTwinPatchSimulatorDialog dlg = new DigitalTwinPatchSimulatorDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "📦 6. 공급망(SBOM) 서명 체인", "설치된 모든 실행 파일의 Authenticode 디지털 서명 체인, CRL/OCSP 폐기 상태, 해시 위변조 전수 점검", () =>
+            AddToolCard(flp5, 5, 6, "📦", "공급망(SBOM) 서명 체인", "설치된 모든 실행 파일의 Authenticode 디지털 서명 체인, CRL/OCSP 폐기 상태, 해시 위변조 전수 점검", () =>
             {
                 using (SupplyChainAuthenticodeVerifierDialog dlg = new SupplyChainAuthenticodeVerifierDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "🕸️ 7. 다크웹 CTI & EPSS 융합", "다크웹 포럼 거래 현황, CISA KEV, EPSS 악용 확률을 융합하여 실제 사이버 범죄자 표적 취약점 우선순위 산출", () =>
+            AddToolCard(flp5, 5, 7, "🕸️", "다크웹 CTI & EPSS 융합", "다크웹 포럼 거래 현황, CISA KEV, EPSS 악용 확률을 융합하여 실제 사이버 범죄자 표적 취약점 우선순위 산출", () =>
             {
                 using (DarkWebCtiExploitFusionDialog dlg = new DarkWebCtiExploitFusionDialog()) dlg.ShowDialog(this);
             });
-            AddToolCard(flp5, "🌐 8. P2P 메쉬 집단 면역망", "중앙 서버 없이 사내 PC들끼리 mDNS/암호화 브로드캐스트로 신규 제로데이 방어 룰을 실시간 P2P 전파하여 집단 면역 형성", () =>
+            AddToolCard(flp5, 5, 8, "🌐", "P2P 메쉬 집단 면역망", "중앙 서버 없이 사내 PC들끼리 mDNS/암호화 브로드캐스트로 신규 제로데이 방어 룰을 실시간 P2P 전파하여 집단 면역 형성", () =>
             {
                 using (MeshImmuneNetworkDialog dlg = new MeshImmuneNetworkDialog()) dlg.ShowDialog(this);
             });
             tab5.Controls.Add(flp5);
 
-            tc.TabPages.AddRange(new TabPage[] { tab1, tab2, tab3, tab4, tab5 });
+            // TAB 6: Phase 6
+            TabPage tab6 = new TabPage("🚀 6. 양자 특이점 & 자율 방어 (Phase 6)");
+            tab6.BackColor = Color.FromArgb(18, 23, 35);
+            FlowLayoutPanel flp6 = CreateToolFlowPanel();
+            AddToolCard(flp6, 6, 1, "⚛️", "양자 내성 PQC 메쉬 터널", "NIST 표준 ML-KEM/ML-DSA 기반 양자내성 E2EE 마이크로 터널링 메쉬 수립", () =>
+            {
+                using (QuantumResistantVpnDialog dlg = new QuantumResistantVpnDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 2, "🛡️", "하이퍼바이저 메모리 실드", "Hyper-V SLAT 가상화 컨테이너 및 DMA 버스 하드웨어 주입 차단", () =>
+            {
+                using (HypervisorMemoryShieldDialog dlg = new HypervisorMemoryShieldDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 3, "🧠", "신경망 바이너리 해체기", "온디바이스 심층 신경망 AST 패턴 복원 및 셸코드/ROP 체인 역해석", () =>
+            {
+                using (NeuralDecompilerDissectorDialog dlg = new NeuralDecompilerDissectorDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 4, "🪤", "능동 기만 자율 미끼 인프라", "가짜 관리자 자격증명 및 모조 서비스를 배치하여 공격자 접근 즉시 블랙홀 격리", () =>
+            {
+                using (AutonomousDecoyFabricDialog dlg = new AutonomousDecoyFabricDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 5, "⛓️", "블록체인 불변 감사 원장", "SHA-256 머클 트리 기반 WORM 불변 로그 보존 및 RFC 3161 포렌식 증적 출력", () =>
+            {
+                using (MerkleForensicLedgerDialog dlg = new MerkleForensicLedgerDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 6, "🐝", "분산 방어 에이전트 스웜", "Raft/Gossip 합의 알고리즘 기반 중앙 서버 부재 시 엔드포인트 집단 자율 치유", () =>
+            {
+                using (DefensiveSwarmCoordinatorDialog dlg = new DefensiveSwarmCoordinatorDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 7, "📻", "하드웨어 사이드채널 감사기", "Spectre/Downfall 캐시 타이밍 및 Rowhammer 비트 플립 물리 취약점 점검", () =>
+            {
+                using (HardwareSideChannelAuditorDialog dlg = new HardwareSideChannelAuditorDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp6, 6, 8, "🌐", "글로벌 CTI 연합 그리드", "OASIS STIX 2.1 / TAXII 2.1 글로벌 제로데이 IOC 수신 및 0.5초 자동 방어 룰 컴파일", () =>
+            {
+                using (ThreatFederationGridDialog dlg = new ThreatFederationGridDialog()) dlg.ShowDialog(this);
+            });
+            tab6.Controls.Add(flp6);
+
+            tc.TabPages.AddRange(new TabPage[] { tab1, tab2, tab3, tab4, tab5, tab6 });
 
             Button btnClose = new Button
             {
@@ -1252,7 +1290,7 @@ namespace CveSecuritySuite
             };
         }
 
-        private void AddToolCard(FlowLayoutPanel pnl, string title, string desc, Action onLaunch)
+        private void AddToolCard(FlowLayoutPanel pnl, int phase, int toolNo, string icon, string title, string desc, Action onLaunch)
         {
             Panel card = new Panel
             {
@@ -1268,7 +1306,7 @@ namespace CveSecuritySuite
                 Size = new Size(340, 22),
                 Font = I18n.CreateFont(10f, FontStyle.Bold),
                 ForeColor = Color.FromArgb(102, 217, 255),
-                Text = title
+                Text = string.Format("{0} #{1} {2}", icon, toolNo, title)
             };
 
             Label lblD = new Label
@@ -1282,19 +1320,26 @@ namespace CveSecuritySuite
 
             Button btn = new Button
             {
-                Location = new Point(362, 35),
-                Size = new Size(90, 40),
+                Location = new Point(362, 32),
+                Size = new Size(90, 46),
                 BackColor = Color.FromArgb(28, 140, 95),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = I18n.CreateFont(9f, FontStyle.Bold),
+                Font = I18n.CreateFont(9.5f, FontStyle.Bold),
                 Cursor = Cursors.Hand,
-                Text = I18n.T("실행 ▶", "実行 ▶", "Launch ▶")
+                Text = string.Format("#{0} {1}", toolNo, icon)
             };
             btn.FlatAppearance.BorderSize = 0;
             btn.Click += (s, e) =>
             {
-                if (onLaunch != null) onLaunch();
+                using (SuiteToolPreflightDialog pre = new SuiteToolPreflightDialog(
+                    phase, toolNo, icon, title, desc, "실측 시스템 레벨 무결성 검증 및 안전한 보안 정책 적용"))
+                {
+                    if (pre.ShowDialog(this) == DialogResult.OK && onLaunch != null)
+                    {
+                        onLaunch();
+                    }
+                }
             };
 
             card.Controls.AddRange(new Control[] { lblT, lblD, btn });
