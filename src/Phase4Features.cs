@@ -1019,9 +1019,9 @@ namespace CveSecuritySuite
             Action<List<CveEntry>> allowRemediationAction)
         {
             this.Text = I18n.T(
-                "🛠️ 31종 종합 보안 도구함 및 통합 관제 허브 (Comprehensive Security Suite Hub)",
+                "🛠️ 39종 종합 보안 도구함 및 통합 관제 허브 (Comprehensive Security Suite Hub)",
                 "🛠️ 31種セキュリティツール統合ハブ",
-                "🛠️ Comprehensive Security Suite Hub (31 Enterprise Modules)");
+                "🛠️ Comprehensive Security Suite Hub (39 Enterprise Modules)");
             this.Size = new Size(1060, 680);
             this.StartPosition = FormStartPosition.CenterParent;
             this.BackColor = Color.FromArgb(14, 18, 27);
@@ -1033,7 +1033,7 @@ namespace CveSecuritySuite
                 Size = new Size(1000, 26),
                 Font = I18n.CreateFont(12f, FontStyle.Bold),
                 ForeColor = Color.FromArgb(0, 210, 255),
-                Text = I18n.T("CVE Security Operations Suite · 전방위 31종 차세대 사이버 보안 도구 포털", "31種次世代サイバーセキュリティツールポータル", "All-in-One 31 Enterprise Cybersecurity Modules Portal")
+                Text = I18n.T("CVE Security Operations Suite · 전방위 39종 차세대 사이버 보안 도구 포털", "39種次世代サイバーセキュリティツールポータル", "All-in-One 39 Enterprise Cybersecurity Modules Portal")
             };
 
             TabControl tc = new TabControl
@@ -1187,7 +1187,45 @@ namespace CveSecuritySuite
             });
             tab4.Controls.Add(flp4);
 
-            tc.TabPages.AddRange(new TabPage[] { tab1, tab2, tab3, tab4 });
+            // TAB 5: Phase 5
+            TabPage tab5 = new TabPage("⚛️ 5. 소버린 AI & 메쉬 (Phase 5)");
+            tab5.BackColor = Color.FromArgb(18, 23, 35);
+            FlowLayoutPanel flp5 = CreateToolFlowPanel();
+            AddToolCard(flp5, "⚡ 1. ETW 커널 제로데이 센서", "커널 드라이버리스 실시간 ETW 구독으로 메모리 인젝션, 토큰 탈취, Reflective DLL 주입을 즉각 차단", () =>
+            {
+                using (KernelBehavioralSensorDialog dlg = new KernelBehavioralSensorDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "🤖 2. 온디바이스 소버린 AI", "인터넷이 차단된 폐쇄망(Air-Gapped) 환경에서 100% 오프라인 온디바이스 SLM을 통한 취약점 원인 분석 및 패치 생성", () =>
+            {
+                using (AirGappedSovereignAiCopilotDialog dlg = new AirGappedSovereignAiCopilotDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "🔒 3. UEFI 부트킷 실측 감사", "OS 포맷 후에도 생존하는 BlackLotus 등 펌웨어 루트킷, WPBT 악성 바이너리 주입, Option ROM 변조 실측", () =>
+            {
+                using (UefiBootkitVerifierDialog dlg = new UefiBootkitVerifierDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "📜 4. ZKP 영지식 보안 증적", "사내 IP, 호스트명을 외부에 노출하지 않고 '520개 CVE 100% 안전 준수' 사실만을 암호학적 수학 공식으로 증명", () =>
+            {
+                using (ZeroKnowledgeAttestationDialog dlg = new ZeroKnowledgeAttestationDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "🧪 5. 디지털 트윈 사전 검증", "실제 호스트 적용 전 메모리 내 가상 트윈 환경에서 레지스트리/방화벽 변경의 부작용 및 충돌 시뮬레이션", () =>
+            {
+                using (DigitalTwinPatchSimulatorDialog dlg = new DigitalTwinPatchSimulatorDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "📦 6. 공급망(SBOM) 서명 체인", "설치된 모든 실행 파일의 Authenticode 디지털 서명 체인, CRL/OCSP 폐기 상태, 해시 위변조 전수 점검", () =>
+            {
+                using (SupplyChainAuthenticodeVerifierDialog dlg = new SupplyChainAuthenticodeVerifierDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "🕸️ 7. 다크웹 CTI & EPSS 융합", "다크웹 포럼 거래 현황, CISA KEV, EPSS 악용 확률을 융합하여 실제 사이버 범죄자 표적 취약점 우선순위 산출", () =>
+            {
+                using (DarkWebCtiExploitFusionDialog dlg = new DarkWebCtiExploitFusionDialog()) dlg.ShowDialog(this);
+            });
+            AddToolCard(flp5, "🌐 8. P2P 메쉬 집단 면역망", "중앙 서버 없이 사내 PC들끼리 mDNS/암호화 브로드캐스트로 신규 제로데이 방어 룰을 실시간 P2P 전파하여 집단 면역 형성", () =>
+            {
+                using (MeshImmuneNetworkDialog dlg = new MeshImmuneNetworkDialog()) dlg.ShowDialog(this);
+            });
+            tab5.Controls.Add(flp5);
+
+            tc.TabPages.AddRange(new TabPage[] { tab1, tab2, tab3, tab4, tab5 });
 
             Button btnClose = new Button
             {

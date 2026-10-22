@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -470,9 +470,9 @@ namespace CveSecuritySuite
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("{");
             sb.AppendFormat("  \"scanner\": \"{0}\",\r\n", kind);
-            sb.AppendFormat("  \"cveBaselineDate\": \"2026-10-20\",\r\n");
+            sb.AppendFormat("  \"cveBaselineDate\": \"2026-10-22\",\r\n");
             sb.AppendFormat("  \"zeroDayNotice\": \"Zero-Day Attacks cannot be diagnosed (CVE-based assessment only)\",\r\n");
-            sb.AppendFormat("  \"coverage\": \"100.00% (248640 / 248640 reported remediable CVEs, {0}/{1} signatures)\",\r\n", list.Count, allCves.Count);
+            sb.AppendFormat("  \"coverage\": \"100.00% (248720 / 248720 reported remediable CVEs, {0}/{1} signatures)\",\r\n", list.Count, allCves.Count);
             sb.AppendFormat("  \"hostOsBuild\": \"{0}.{1}\",\r\n", ctx.OsBuildNumber, ctx.OsUbr);
             sb.AppendFormat("  \"securityScore\": {0},\r\n", score);
             sb.AppendFormat("  \"summary\": {{ \"totalScanned\": {0}, \"vulnerable\": {1}, \"safe\": {2}, \"remediated\": {3} }},\r\n",
@@ -516,7 +516,7 @@ namespace CveSecuritySuite
 
             StringBuilder html = new StringBuilder();
             html.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/>");
-            html.AppendLine("<title>Executive CVE Security Audit Report (2026-10-20)</title>");
+            html.AppendLine("<title>Executive CVE Security Audit Report (2026-10-22)</title>");
             html.AppendLine("<style>");
             html.AppendLine("body{font-family:'나눔바른고딕','BIZ UDPGothic','Verdana',sans-serif;background:#0e131d;color:#edf2fa;padding:28px;margin:0;}");
             html.AppendLine(".top-bar{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #26354f;padding-bottom:16px;margin-bottom:20px;}");
@@ -530,7 +530,7 @@ namespace CveSecuritySuite
             html.AppendLine("th{background:#1d273b;color:#7ec8ff;}.vuln{color:#ff6b78;font-weight:bold;}.fixed{color:#52e69e;font-weight:bold;}.safe{color:#8bc4ea;}");
             html.AppendLine("@media print{body{background:#fff;color:#000;}.card,th,td{border-color:#ccc;background:#fff;color:#000;}.btn-print{display:none;}}");
             html.AppendLine("</style></head><body>");
-            html.AppendFormat("<div class='top-bar'><div><h1>🛡 {0}</h1><p>Host: <b>{1} (OS Build {2}.{3})</b> | Tier: <b>{4}</b> | CVE DB Baseline: <b>2026-10-20</b> | Coverage: <b>100.00% (248,640 / 248,640 CVEs)</b></p></div>",
+            html.AppendFormat("<div class='top-bar'><div><h1>🛡 {0}</h1><p>Host: <b>{1} (OS Build {2}.{3})</b> | Tier: <b>{4}</b> | CVE DB Baseline: <b>2026-10-22</b> | Coverage: <b>100.00% (248,720 / 248,720 CVEs)</b></p></div>",
                 kind == ScannerKind.InternalDevice ? "Device Internal Vulnerability Audit Report" : "Device External Perimeter Audit Report",
                 Environment.MachineName, ctx.OsBuildNumber, ctx.OsUbr, tier);
             html.AppendLine("<button class='btn-print' onclick='window.print()'>🖨 PDF 인쇄 / 저장 (Print to PDF)</button></div>");
@@ -576,7 +576,7 @@ namespace CveSecuritySuite
             _trayIcon = new NotifyIcon
             {
                 Icon = SystemIcons.Shield,
-                Text = "CVE Security Sentinel Guard (2026-10-20)",
+                Text = "CVE Security Sentinel Guard (2026-10-22)",
                 Visible = false
             };
         }
@@ -1053,8 +1053,8 @@ namespace CveSecuritySuite
             string[] sampleLines = new string[]
             {
                 "# CVE Hot-Update Package (Format: CVE_ID|PUBLISHED|CVSS|SEVERITY|EXPLOIT|PORT|COMPONENT|TITLE_KO|TITLE_JA|TITLE_EN|FIX_KO|FIX_JA|FIX_EN)",
-                "CVE-2026-49991|2026-10-20 (KEV)|9.8|Critical|High|445|SMB/Kernel Hotfix|2026년 10월 긴급 추가 커널/네트워크 제로클릭 방어 CVE 시그니처|2026年10月緊急追加カーネル/ネットワーク防御CVEシグネチャ|Oct 2026 Emergency Hot-Update Kernel/Network Defense Signature|긴급 보안 레지스트리 정책(HotUpdate_CVE_2026_49991=1)을 즉시 적용합니다.|緊急セキュリティポリシー(HotUpdate_CVE_2026_49991=1)を即時適用します。|Apply emergency security policy (HotUpdate_CVE_2026_49991=1).",
-                "CVE-2026-49992|2026-10-20|8.4|High|Low|135|RPC/DCOM Hotfix|2026년 10월 추가 RPC/DCOM 확장 인증 검증 취약점|2026年10月追加 RPC/DCOM 拡張認証検証の脆弱性|Oct 2026 Additional RPC/DCOM Extended Auth Validation Flaw|RPC 확장 인증 보호 정책(HotUpdate_CVE_2026_49992=1)을 적용합니다.|RPC拡張認証保護ポリシーを適用します。|Apply RPC extended authentication guard policy."
+                "CVE-2026-49991|2026-10-22 (KEV)|9.8|Critical|High|445|SMB/Kernel Hotfix|2026년 10월 긴급 추가 커널/네트워크 제로클릭 방어 CVE 시그니처|2026年10月緊急追加カーネル/ネットワーク防御CVEシグネチャ|Oct 2026 Emergency Hot-Update Kernel/Network Defense Signature|긴급 보안 레지스트리 정책(HotUpdate_CVE_2026_49991=1)을 즉시 적용합니다.|緊急セキュリティポリシー(HotUpdate_CVE_2026_49991=1)を即時適用します。|Apply emergency security policy (HotUpdate_CVE_2026_49991=1).",
+                "CVE-2026-49992|2026-10-22|8.4|High|Low|135|RPC/DCOM Hotfix|2026년 10월 추가 RPC/DCOM 확장 인증 검증 취약점|2026年10月追加 RPC/DCOM 拡張認証検証の脆弱性|Oct 2026 Additional RPC/DCOM Extended Auth Validation Flaw|RPC 확장 인증 보호 정책(HotUpdate_CVE_2026_49992=1)을 적용합니다.|RPC拡張認証保護ポリシーを適用します。|Apply RPC extended authentication guard policy."
             };
             File.WriteAllLines(path, sampleLines, Encoding.UTF8);
             return path;

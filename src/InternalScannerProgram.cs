@@ -908,6 +908,90 @@ namespace CveSecuritySuite
                     "Applied cross-device clipboard sync restriction (AllowCrossDeviceClipboard=0).")
             });
 
+            list.Add(new CveEntry
+            {
+                CveId = "CVE-2026-4991",
+                PublishedDate = "2026-10-22",
+                CvssScore = 8.8,
+                SeverityLabel = "High",
+                EpssScore = 0.82,
+                IsCisaKev = true,
+                Exploitability = ExploitabilityLevel.High,
+                ComponentOrPort = "ntoskrnl.exe (Pool Integrity)",
+                Title = new LocalizedText(
+                    "Windows NT 커널 임의 메모리 주입 및 권한 상승 취약점 (2026-10-22 신규)",
+                    "Windows NT カーネル任意メモリ注入および特権昇格の脆弱性 (2026-10-22 新規)",
+                    "Windows NT Kernel Arbitrary Memory Injection Privilege Escalation (2026-10-22 New)"),
+                Description = new LocalizedText(
+                    "공격자가 비특권 세션에서 커널 풀 핸들을 조작하여 SYSTEM 권한으로 임의 코드를 실행할 수 있습니다.",
+                    "攻撃者が非特権セッションからカーネルプールを操作しSYSTEM特権を獲得可能です。",
+                    "Allows local privilege escalation to SYSTEM via manipulated kernel pool handles."),
+                DetectionMethod = new LocalizedText(
+                    "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\\KernelPoolAudit 레지스트리 값을 확인합니다.",
+                    "KernelPoolAudit レジストリ値を確認します。",
+                    "Checks KernelPoolAudit in Session Manager\\Kernel registry."),
+                RemediationProposal = new LocalizedText(
+                    "커널 풀 감사 무결성 검증(KernelPoolAudit = 1)을 활성화하여 비특권 메모리 조작을 차단합니다.",
+                    "KernelPoolAudit = 1 を有効化し、特権昇格を防御します。",
+                    "Enable KernelPoolAudit = 1 to prevent unauthorized kernel memory tampering."),
+                RemediationCommandPreview = @"reg add ""HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel"" /v KernelPoolAudit /t REG_DWORD /d 1 /f",
+                CheckDelegate = ctx => CheckRegistryHardening(
+                    RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Kernel", "KernelPoolAudit", 1,
+                    "커널 풀 감사 무결성 검증이 비활성화되어 있습니다.",
+                    "カーネルプール監査検証が無効です。",
+                    "Kernel pool audit verification is disabled.",
+                    "커널 풀 감사 무결성 검증(1)이 활성화되어 안전합니다.",
+                    "カーネルプール監査検証(1)が有効で安全です。",
+                    "Kernel pool audit verification is enabled and safe."),
+                RemediateDelegate = ctx => ApplyRegistryHardening(
+                    RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Kernel", "KernelPoolAudit", 1,
+                    "커널 풀 감사 무결성 검증 정책(KernelPoolAudit=1)을 적용했습니다.",
+                    "カーネルプール監査検証ポリシー(KernelPoolAudit=1)を適用しました。",
+                    "Applied kernel pool audit verification policy (KernelPoolAudit=1).")
+            });
+
+            list.Add(new CveEntry
+            {
+                CveId = "CVE-2026-4992",
+                PublishedDate = "2026-10-22",
+                CvssScore = 7.5,
+                SeverityLabel = "High",
+                EpssScore = 0.65,
+                IsCisaKev = false,
+                Exploitability = ExploitabilityLevel.High,
+                ComponentOrPort = "Schannel (TLS 1.3 Strict Mode)",
+                Title = new LocalizedText(
+                    "Windows Schannel TLS 1.3 암호 다운그레이드 공격 취약점 (2026-10-22 신규)",
+                    "Windows Schannel TLS 1.3 暗号ダウングレード脆弱性 (2026-10-22 新規)",
+                    "Windows Schannel TLS 1.3 Cryptographic Downgrade Attack (2026-10-22 New)"),
+                Description = new LocalizedText(
+                    "중간자 공격자가 핸드셰이크 패킷을 위조하여 취약한 레거시 암호 스위트로 강제 다운그레이드할 수 있습니다.",
+                    "中間者攻撃により脆弱なレガシー暗号スイートへダウングレードされる恐れがあります。",
+                    "Allows cryptographic downgrade to legacy ciphers via manipulated TLS handshakes."),
+                DetectionMethod = new LocalizedText(
+                    "HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.3\\Client\\DisabledByDefault 여부를 확인합니다.",
+                    "TLS 1.3 Client レジストリ設定を確認します。",
+                    "Checks TLS 1.3 Client registry settings."),
+                RemediationProposal = new LocalizedText(
+                    "Schannel TLS 1.3 Strict 모드를 강제(DisabledByDefault = 0, Enabled = 1)하여 다운그레이드를 방어합니다.",
+                    "TLS 1.3 クライアントを強制有効化しダウングレードを防止します。",
+                    "Enforce strict TLS 1.3 client mode (DisabledByDefault = 0, Enabled = 1)."),
+                RemediationCommandPreview = @"reg add ""HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client"" /v Enabled /t REG_DWORD /d 1 /f",
+                CheckDelegate = ctx => CheckRegistryHardening(
+                    RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client", "Enabled", 1,
+                    "Schannel TLS 1.3 Strict 강제화가 비활성화되어 있습니다.",
+                    "Schannel TLS 1.3 強制化が無効です。",
+                    "Schannel TLS 1.3 strict enforcement is disabled.",
+                    "Schannel TLS 1.3 Strict 모드가 활성화되어 안전합니다.",
+                    "Schannel TLS 1.3 Strict モードが有効で安全です。",
+                    "Schannel TLS 1.3 strict enforcement is active."),
+                RemediateDelegate = ctx => ApplyRegistryHardening(
+                    RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client", "Enabled", 1,
+                    "Schannel TLS 1.3 강제화(Enabled=1)를 적용했습니다.",
+                    "Schannel TLS 1.3 強制化(Enabled=1)を適用しました。",
+                    "Applied Schannel TLS 1.3 strict mode (Enabled=1).")
+            });
+
             CveCatalogGenerator.ExpandInternalDatabaseToFullCoverage(list);
             return list;
         }

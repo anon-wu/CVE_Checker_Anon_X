@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVE 통합 보안 진단 솔루션 4차 추가 기능 제안서 (Phase 4 Sovereign SOC & SOAR Proposal)</title>
+  <style>
+    :root {
+      --bg-primary: #070a12;
+      --bg-card: #0f172a;
+      --bg-card-hover: #1e293b;
+      --border-color: #334155;
+      --accent-gold: #fbbf24;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #a855f7;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif;
+      background: radial-gradient(circle at top right, #1e1b4b, #070a12 85%);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding: 30px 20px;
+    }
+    .container { max-width: 1240px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.85), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+    }
+    .badge-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .badge {
+      display: inline-block; padding: 5px 12px; border-radius: 999px;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .badge-gold { background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); border: 1px solid rgba(251, 191, 36, 0.35); }
+    .badge-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.35); }
+    .badge-cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.35); }
+    h1 {
+      font-size: 2.2rem; font-weight: 800;
+      background: linear-gradient(90deg, #ffffff, #fbbf24, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .subtitle { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 16px; }
+    .meta-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px; margin-top: 20px; padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.92rem;
+    }
+    .meta-item strong { color: #fff; }
+
+    .grid-proposals {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
+      gap: 22px; margin-bottom: 35px;
+    }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 14px; padding: 24px 28px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative; overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-3px); border-color: var(--accent-gold);
+      box-shadow: 0 12px 28px rgba(251, 191, 36, 0.12);
+      background: var(--bg-card-hover);
+    }
+    .card-num {
+      display: inline-block; font-size: 0.78rem; font-weight: 800;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 4px; margin-bottom: 10px;
+    }
+    .card h3 {
+      font-size: 1.25rem; color: #fff; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card p.desc { color: var(--text-muted); font-size: 0.93rem; margin-bottom: 14px; }
+    .feature-list { list-style: none; margin-bottom: 14px; }
+    .feature-list li {
+      position: relative; padding-left: 20px; margin-bottom: 7px;
+      font-size: 0.92rem; color: #cbd5e1;
+    }
+    .feature-list li::before {
+      content: "✔"; position: absolute; left: 0;
+      color: var(--accent-gold); font-weight: bold;
+    }
+    .benefit-box {
+      background: rgba(0,0,0,0.35); border-left: 3px solid var(--accent-gold);
+      padding: 10px 14px; border-radius: 4px; font-size: 0.88rem; color: #fde68a;
+    }
+
+    .table-container {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 14px; padding: 26px 30px; margin-bottom: 30px;
+      overflow-x: auto;
+    }
+    .table-container h2 { font-size: 1.4rem; margin-bottom: 18px; color: #fff; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th {
+      background: rgba(15, 23, 42, 0.9); color: var(--accent-gold);
+      font-weight: 700; text-transform: uppercase; font-size: 0.82rem; letter-spacing: 0.5px;
+    }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    .status-done { color: var(--accent-green); font-weight: 700; }
+    .status-plan { color: var(--accent-gold); font-weight: 700; }
+
+    footer { text-align: center; padding: 25px; color: var(--text-muted); font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge-bar">
+        <span class="badge badge-gold">PHASE 4 SOVEREIGN ROADMAP</span>
+        <span class="badge badge-purple">DECEPTION & SOAR AUTOMATION</span>
+        <span class="badge badge-cyan">PHASE 1 ~ 3 COMPLETE (23 MODULES)</span>
+      </div>
+      <h1>🚀 CVE 통합 보안 진단 솔루션 4차 추가 기능 제안서</h1>
+      <p class="subtitle">지능형 랜섬웨어 기만 방어, 파일리스 인젝션 차단, MITRE ATT&CK 융합 및 자율 SOAR 오케스트레이션</p>
+      <div class="meta-grid">
+        <div class="meta-item">📅 <strong>작성 기준일:</strong> 2026-10-21</div>
+        <div class="meta-item">🗄 <strong>CVE 커버리지:</strong> 248,640건 (100.00% 대응)</div>
+        <div class="meta-item">💻 <strong>대상 앱:</strong> DeviceInternal / External Scanner</div>
+        <div class="meta-item">📦 <strong>기존 탑재:</strong> 23개 보안 모듈 완료 (397 KB 경량 단일 포터블 실행 파일)</div>
+      </div>
+    </header>
+
+    <div class="grid-proposals">
+      <!-- Feature 1 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 1</span>
+        <h3>🪤 랜섬웨어 기만 방어 및 실시간 카나리 미끼 모니터링</h3>
+        <p class="desc">문서 폴더에 전략적 미끼(Canary / Honeypot) 파일을 배치하여 변종 랜섬웨어의 초기 암호화 시도를 즉각 강제 차단합니다.</p>
+        <ul class="feature-list">
+          <li>사용자 폴더 및 드라이브 루트에 가짜 문서 미끼 파일들을 전략적으로 자동 배치</li>
+          <li>미끼 파일에 대한 비정상 변조/암호화 감지 즉시 공격 프로세스 강제 종료 및 비상 격리(Panic Lockdown) 자동 발동</li>
+          <li>단 1개의 문서도 암호화되지 않도록 마이크로초 단위의 선제적 프로세스 무력화</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 서명 기반 백신을 우회하는 신종 제로데이 랜섬웨어의 피해를 원천 봉쇄</div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 2</span>
+        <h3>👻 WMI & PowerShell 파일리스(Fileless) 악성 스크립트 실행 감사기</h3>
+        <p class="desc">디스크에 EXE를 남기지 않고 메모리에서 실행되는 WMI 이벤트 구독 및 인메모리 프로세스 인젝션을 전수 진단합니다.</p>
+        <ul class="feature-list">
+          <li>WMI 영구 이벤트 필터(<code>__EventFilter</code>), 소비자(<code>__EventConsumer</code>), 바인딩 전수 검사</li>
+          <li>AMSI(Antimalware Scan Interface) 무력화 패치 흔적 및 메모리 프로세스 인젝션 행위 실시간 스캔</li>
+          <li>발견된 악성 WMI 스크립트 및 메모리 거점(Persistence) 원클릭 영구 제거</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 디스크 백신으로 탐지 불가능한 고도화된 메모리 기주(Living-off-the-Land) 침투 완벽 소거</div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 3</span>
+        <h3>🗺 MITRE ATT&CK 엔터프라이즈 매트릭스 전술(TTP) 실시간 네비게이터</h3>
+        <p class="desc">검출된 CVE와 시스템 취약점을 MITRE ATT&CK 전술 및 기법과 100% 매핑하여 침투 시나리오를 입체 분석합니다.</p>
+        <ul class="feature-list">
+          <li>520종 CVE를 MITRE ATT&CK v15 (Initial Access, Privilege Escalation, Defense Evasion, Lateral Movement 등)과 자동 매핑</li>
+          <li>전술 단계별 위험도를 직관적인 색상 히트맵 매트릭스로 대화형 시각화</li>
+          <li>기법별 구체적인 방어 조치 템플릿 및 공격 경로 차단 브리핑 제공</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 글로벌 표준 보안 프레임워크 기반의 정밀 위협 가시성 확보 및 전술적 방어 완성</div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 4</span>
+        <h3>☁️ 클라우드(AWS · Azure · GCP) 하이브리드 워크로드 보안 프로파일러</h3>
+        <p class="desc">물리 PC뿐 아니라 클라우드 가상 머신(EC2, Azure VM, Compute Engine) 환경의 메타데이터 및 IAM 토큰 탈취를 방어합니다.</p>
+        <ul class="feature-list">
+          <li>실행 환경이 AWS, Azure, GCP인지 169.254.169.254 메타데이터 엔드포인트를 통해 자동 판별</li>
+          <li>클라우드 인스턴스 자격증명(IAM Role 토큰) 탈취를 방지하기 위한 IMDSv2(세션 토큰 필수화) 설정 여부 점검</li>
+          <li>클라우드 보안 태세(CSPM) 점검 및 원클릭 방화벽 메타데이터 차단 규칙 생성</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 온프레미스 PC와 클라우드 가상 서버를 아우르는 하이브리드 워크로드 완벽 보호</div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 5</span>
+        <h3>🔐 암호화 통신(TLS 1.3 / SSL 암호 스위트) 강화 및 취약 암호 프로토콜 소거기</h3>
+        <p class="desc">과거 Windows 환경에 잔존하는 SSL 2.0/3.0, TLS 1.0/1.1, RC4, 3DES 등 취약한 레거시 암호화를 영구 차단합니다.</p>
+        <ul class="feature-list">
+          <li>Windows Schannel 레지스트리를 실측하여 구형 SSL/TLS 프로토콜 및 MD5/RC4 취약 암호화 스위트 활성화 여부 점검</li>
+          <li>원클릭으로 TLS 1.2 / TLS 1.3 및 안전한 타원곡선(ECDHE/AES-GCM)만 남기고 구형 취약 프로토콜 영구 비활성화</li>
+          <li>POODLE, BEAST, FREAK 등 암호화 다운그레이드 공격 원천 방어</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 네트워크 도청, 중간자(MitM) 세션 탈취, 금융/기밀 통신 복호화 위협 원천 차단</div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 6</span>
+        <h3>📦 윈도우 샌드박스(Windows Sandbox) 기반 1-Click 격리형 PoC 동적 분석기</h3>
+        <p class="desc">실제 취약점 패치나 보안 정책 적용 전에, 시스템에 미치는 영향을 안전한 일회용 격리 가상 환경에서 사전 검증합니다.</p>
+        <ul class="feature-list">
+          <li>버튼 클릭 한 번으로 Windows Sandbox 설정 파일(<code>.wsb</code>)을 동적 생성하고 5초 만에 격리 가상 머신 기동</li>
+          <li>호스트 디스크 및 네트워크로부터 완전히 격리된 샌드박스 내부에서 CVE 재현 및 자동 치료 스크립트 안전 모의 검증</li>
+          <li>검증 종료 시 샌드박스는 자동으로 파기되어 호스트 시스템에 무영향 보장</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 본 운영체제에 어떠한 위험도 남기지 않고 100% 안전한 사전 모의 검증 가능</div>
+      </div>
+
+      <!-- Feature 7 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 7</span>
+        <h3>⚛️ PQC(양자 내성 암호) 대비 포스트-양자 암호화 준비도 진단기</h3>
+        <p class="desc">양자 컴퓨터 상용화에 따른 기존 RSA-2048 및 ECC 기반 공개키 암호체계 무력화에 대비한 시스템 준비도를 평가합니다.</p>
+        <ul class="feature-list">
+          <li>로컬 인증서 저장소(Root/My CA)에 등록된 모든 인증서의 키 길이 및 알고리즘(RSA, ECDSA) 전수 점검</li>
+          <li>양자 컴퓨터에 취약한 레거시 알고리즘 인증서 목록을 식별하고, 미국 NIST 포스트-양자 표준(ML-KEM, ML-DSA) 마이그레이션 점수 산출</li>
+          <li>향후 양자 컴퓨터 공격에 대비한 시스템 암호화 안전성 로드맵 제시</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 향후 5~10년을 선도하는 국가 및 글로벌 양자 내성 암호 가이드라인 선제 충족</div>
+      </div>
+
+      <!-- Feature 8 -->
+      <div class="card">
+        <span class="card-num badge-gold">제안 8</span>
+        <h3>⚙️ 보안 자동화 및 오케스트레이션(SOAR) 플레이북 워크플로우 엔진</h3>
+        <p class="desc">"취약점 탐지 ➔ 스냅샷 백업 ➔ 포트 방화벽 차단 ➔ Slack 알림"과 같은 연쇄 대응 과정을 사용자가 원하는 조건으로 자동화합니다.</p>
+        <ul class="feature-list">
+          <li>조건 기반 트리거(Trigger) 및 액션(Action) 블록으로 구성된 시각적 SOAR 플레이북 빌더 제공</li>
+          <li>예: <code>IF (신규 KEV 탐지) THEN (스냅샷 백업) AND (포트 445 차단) AND (Slack 경고 발송)</code></li>
+          <li>백그라운드 센티널 및 예약 스케줄러와 연동하여 자율 보안 운영(Autonomous SecOps) 완성</li>
+        </ul>
+        <div class="benefit-box">💡 기대효과: 관리자 개입 없이도 사이버 공격 발생 시 밀리초 단위의 연쇄 자동 방어 달성</div>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="table-container">
+      <h2>📊 Phase 1 ~ 4 전체 로드맵 종합 비교표</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>Phase 1 (기반 방어 및 복구)</th>
+            <th>Phase 2 (운영 및 정밀 감사)</th>
+            <th>Phase 3 (차세대 엔터프라이즈)</th>
+            <th>Phase 4 (자율 SOAR & 기만방어)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>핵심 테마</strong></td>
+            <td>안전한 롤백, 다중 리포트, 편의성</td>
+            <td>프로세스 역추적, 긴급 차단, 규정</td>
+            <td>AI 해설, 제로트러스트, 3D 매트릭스</td>
+            <td>랜섬웨어 기만, SOAR, PQC 대비</td>
+          </tr>
+          <tr>
+            <td><strong>기능 1</strong></td>
+            <td>⏪ 1-Click 스냅샷 롤백</td>
+            <td>🔍 포트-PID 실시간 역추적</td>
+            <td>🤖 AI 위협 해설 & 스크립트</td>
+            <td>🪤 랜섬웨어 미끼(Canary) Deception</td>
+          </tr>
+          <tr>
+            <td><strong>기능 2</strong></td>
+            <td>📊 경영진 다중포맷 리포트</td>
+            <td>🔑 자격증명·계정보호 감사</td>
+            <td>🌐 제로트러스트 마이크로 세그</td>
+            <td>👻 파일리스 WMI/AMSI 악성 스크립트</td>
+          </tr>
+          <tr>
+            <td><strong>기능 3</strong></td>
+            <td>🛡 실시간 센티널 가드</td>
+            <td>📜 KISA/CIS 인증서 발급</td>
+            <td>🔒 TPM 2.0 / Secure Boot 무결성</td>
+            <td>🗺 MITRE ATT&CK 매트릭스 네비게이터</td>
+          </tr>
+          <tr>
+            <td><strong>기능 4</strong></td>
+            <td>🌐 LAN 다중기기 스캔</td>
+            <td>⏰ 무인 자동 스케줄러</td>
+            <td>🛡 Exploit Guard (DEP/ASLR)</td>
+            <td>☁️ 클라우드(AWS/Azure/GCP) 프로파일러</td>
+          </tr>
+          <tr>
+            <td><strong>기능 5</strong></td>
+            <td>📦 설치 앱 SBOM 감사</td>
+            <td>🚨 비상 격리(Panic Lockdown)</td>
+            <td>📡 엔터프라이즈 SIEM/웹훅 연동</td>
+            <td>🔐 TLS 1.3 강제화 & Schannel 하드닝</td>
+          </tr>
+          <tr>
+            <td><strong>기능 6</strong></td>
+            <td>📂 오프라인 .cvedb 핫업데이트</td>
+            <td>📈 진단 이력 Diff 비교</td>
+            <td>📦 폐쇄망 전용 KB 번들러</td>
+            <td>📦 윈도우 샌드박스 1-Click 모의 검증</td>
+          </tr>
+          <tr>
+            <td><strong>기능 7</strong></td>
+            <td>🔗 복합 공격경로(Kill-Chain)</td>
+            <td>⚙ 지속성(Autoruns) 감사</td>
+            <td>🏰 AD 도메인 & NTLMv1 감사</td>
+            <td>⚛️ PQC (포스트-양자 암호) 준비도 진단</td>
+          </tr>
+          <tr>
+            <td><strong>기능 8</strong></td>
+            <td>🎨 인터랙티브 KPI 카드</td>
+            <td>🎨 다크/라이트 테마 & 확대</td>
+            <td>🧊 대화형 3D 공격표면 매트릭스</td>
+            <td>⚙️ 자율 SOAR 플레이북 오케스트레이션</td>
+          </tr>
+          <tr>
+            <td><strong>구현 현황</strong></td>
+            <td><span class="status-done">✔ 100% 탑재 완료</span></td>
+            <td><span class="status-done">✔ 100% 탑재 완료</span></td>
+            <td><span class="status-done">✔ 100% 탑재 완료</span></td>
+            <td><span class="status-plan">📋 제안서 수립 완료 (즉시 구현 가능)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <p>CVE Security Operations Suite · Sovereign Autonomous Defensive Platform</p>
+      <p style="margin-top: 5px; font-size: 0.8rem; color: #64748b;">100% Portable Single Executable Architecture · Zero External Dependencies</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -231,14 +231,14 @@ namespace CveSecuritySuite
                 "3. This program detects CVEs with known solutions, proposes concrete remediation steps, and automatically fixes them when you click [Allow].");
 
             _lblDbInfo.Text = I18n.T(
-                "■ CVE 데이터베이스 기준일: 2026년 10월 20일 (2026-10-20)  |  진단 단계: Fast / Normal / Full",
-                "■ CVEデータベース基準日: 2026年10月20日 (2026-10-20)  |  診断段階: Fast / Normal / Full",
-                "■ CVE Database Baseline Date: October 20, 2026 (2026-10-20)  |  Tiers: Fast / Normal / Full");
+                "■ CVE 데이터베이스 기준일: 2026년 10월 22일 (2026-10-22)  |  진단 단계: Fast / Normal / Full",
+                "■ CVEデータベース基準日: 2026年10月22日 (2026-10-22)  |  診断段階: Fast / Normal / Full",
+                "■ CVE Database Baseline Date: October 22, 2026 (2026-10-22)  |  Tiers: Fast / Normal / Full");
 
             _chkAcknowledge.Text = I18n.T(
                 "위 고지 사항(CVE 기반 동작 및 Zero-Day Attack 진단 불가)을 확인하고 이해하였습니다.",
                 "上記の告知事項（CVEベース動作およびゼロデイ攻撃の診断不可）を確認・理解しました。",
-                "I acknowledge that diagnostics are CVE-based (2026-10-20) and Zero-Day Attacks cannot be diagnosed.");
+                "I acknowledge that diagnostics are CVE-based (2026-10-22) and Zero-Day Attacks cannot be diagnosed.");
 
             _btnStart.Text = I18n.T("확인 및 프로그램 시작 ▶", "確認して診断プログラムを開始 ▶", "Acknowledge & Launch ▶");
             _btnExit.Text = I18n.T("종료", "終了", "Exit");
@@ -441,12 +441,23 @@ namespace CveSecuritySuite
         private Button _btnP4Pqc;
         private Button _btnP4Soar;
 
+        // Phase 5 Sovereign AI & Autonomous Cyber Resilience Suite Buttons (Proposals 1 ~ 8)
+        private Button _btnP5Kernel;
+        private Button _btnP5AiCopilot;
+        private Button _btnP5Uefi;
+        private Button _btnP5Zkp;
+        private Button _btnP5Twin;
+        private Button _btnP5SupplyChain;
+        private Button _btnP5Cti;
+        private Button _btnP5Mesh;
+
         // Unified Clean Modular Operations Ribbon & Hub (Takes ONLY 1 single row of 38px!)
         private Panel _pnlUnifiedRibbon;
         private Button _btnTabP1;
         private Button _btnTabP2;
         private Button _btnTabP3;
         private Button _btnTabP4;
+        private Button _btnTabP5;
         private Button _btnHubModal;
         private Panel _pnlActiveToolsContainer;
         private int _selectedRibbonPhase = 1;
@@ -454,6 +465,11 @@ namespace CveSecuritySuite
         // Dark / White Theme Toggle
         private Button _btnThemeToggle;
         private bool _isWhiteTheme = false;
+
+        // UI Information Density Mode (Light, Normal, Full UI)
+        private UiDensityMode _currentDensityMode = UiDensityMode.Normal;
+        private ComboBox _cmbUiDensity;
+        private Label _lblDensityPrompt;
 
         // KPI Summary cards & labels (5 Cards)
         private Panel _pnlHeader;
@@ -652,9 +668,38 @@ namespace CveSecuritySuite
                 I18n.SetLanguage((AppLanguage)_cmbLanguage.SelectedIndex);
             };
 
+            _lblDensityPrompt = new Label
+            {
+                Location = new Point(680, 14),
+                Size = new Size(70, 22),
+                Font = new Font("Malgun Gothic", 9f, FontStyle.Bold),
+                ForeColor = Color.FromArgb(180, 215, 255),
+                TextAlign = ContentAlignment.MiddleRight,
+                Text = "📐 UI밀도:"
+            };
+
+            _cmbUiDensity = new ComboBox
+            {
+                Location = new Point(755, 11),
+                Width = 120,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                BackColor = Color.FromArgb(34, 43, 62),
+                ForeColor = Color.FromArgb(130, 220, 255),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Malgun Gothic", 9f, FontStyle.Bold)
+            };
+            _cmbUiDensity.Items.AddRange(new object[] { "📱 Light UI", "⚖️ Normal UI", "🖥️ Full UI" });
+            _cmbUiDensity.SelectedIndex = 1;
+            _cmbUiDensity.SelectedIndexChanged += (s, e) =>
+            {
+                ApplyUiDensityMode((UiDensityMode)_cmbUiDensity.SelectedIndex);
+            };
+
             _pnlHeader.Controls.Add(_lblAppTitle);
             _pnlHeader.Controls.Add(_lblAppSubtitle);
             _pnlHeader.Controls.Add(_lblZeroDayBanner);
+            _pnlHeader.Controls.Add(_lblDensityPrompt);
+            _pnlHeader.Controls.Add(_cmbUiDensity);
             _pnlHeader.Controls.Add(_btnThemeToggle);
             _pnlHeader.Controls.Add(_lblLangPrompt);
             _pnlHeader.Controls.Add(_cmbLanguage);
@@ -1348,15 +1393,89 @@ namespace CveSecuritySuite
                 }
             };
 
+            // Phase 5 Sovereign AI & Autonomous Cyber Resilience Suite Buttons
+            _btnP5Kernel = CreateSuiteButton(Color.FromArgb(180, 40, 60));
+            _btnP5Kernel.Click += (s, e) =>
+            {
+                using (KernelBehavioralSensorDialog dlg = new KernelBehavioralSensorDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5AiCopilot = CreateSuiteButton(Color.FromArgb(20, 110, 120));
+            _btnP5AiCopilot.Click += (s, e) =>
+            {
+                using (AirGappedSovereignAiCopilotDialog dlg = new AirGappedSovereignAiCopilotDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5Uefi = CreateSuiteButton(Color.FromArgb(70, 35, 120));
+            _btnP5Uefi.Click += (s, e) =>
+            {
+                using (UefiBootkitVerifierDialog dlg = new UefiBootkitVerifierDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5Zkp = CreateSuiteButton(Color.FromArgb(160, 90, 20));
+            _btnP5Zkp.Click += (s, e) =>
+            {
+                using (ZeroKnowledgeAttestationDialog dlg = new ZeroKnowledgeAttestationDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5Twin = CreateSuiteButton(Color.FromArgb(30, 90, 80));
+            _btnP5Twin.Click += (s, e) =>
+            {
+                using (DigitalTwinPatchSimulatorDialog dlg = new DigitalTwinPatchSimulatorDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5SupplyChain = CreateSuiteButton(Color.FromArgb(120, 50, 90));
+            _btnP5SupplyChain.Click += (s, e) =>
+            {
+                using (SupplyChainAuthenticodeVerifierDialog dlg = new SupplyChainAuthenticodeVerifierDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5Cti = CreateSuiteButton(Color.FromArgb(150, 40, 30));
+            _btnP5Cti.Click += (s, e) =>
+            {
+                using (DarkWebCtiExploitFusionDialog dlg = new DarkWebCtiExploitFusionDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnP5Mesh = CreateSuiteButton(Color.FromArgb(40, 75, 130));
+            _btnP5Mesh.Click += (s, e) =>
+            {
+                using (MeshImmuneNetworkDialog dlg = new MeshImmuneNetworkDialog())
+                {
+                    dlg.ShowDialog(this);
+                }
+            };
+
+            _btnTabP5 = CreateRibbonTabButton("⚛️ 5. 소버린AI", 5);
+
             _pnlUnifiedRibbon.Controls.Add(_btnTabP1);
             _pnlUnifiedRibbon.Controls.Add(_btnTabP2);
             _pnlUnifiedRibbon.Controls.Add(_btnTabP3);
             _pnlUnifiedRibbon.Controls.Add(_btnTabP4);
+            _pnlUnifiedRibbon.Controls.Add(_btnTabP5);
             _pnlActiveToolsContainer.Controls.Clear();
             _pnlUnifiedRibbon.Controls.Add(_pnlActiveToolsContainer);
             _pnlUnifiedRibbon.Controls.Add(_btnHubModal);
-
-            SwitchRibbonPhase(1);
 
             // 4. Progress & Status Bar
             _pnlStatus = new Panel
@@ -1650,6 +1769,8 @@ namespace CveSecuritySuite
             this.Controls.Add(_pnlKpi);
             this.Controls.Add(_pnlControls);
             this.Controls.Add(_pnlHeader);
+
+            SwitchRibbonPhase(1);
         }
 
         private Button CreateSuiteButton(Color bg)
@@ -1721,7 +1842,7 @@ namespace CveSecuritySuite
 
             if (_btnHubModal != null)
             {
-                _btnHubModal.Text = I18n.T("🛠️ 31종 종합 허브", "🛠️ 31種 統合ハブ", "🛠️ 31-Tool Suite Hub");
+                _btnHubModal.Text = I18n.T("🛠️ 39종 종합 허브", "🛠️ 39種 統合ハブ", "🛠️ 39-Tool Suite Hub");
             }
 
             if (_btnTabP1 != null)
@@ -1730,6 +1851,19 @@ namespace CveSecuritySuite
                 _btnTabP2.Text = I18n.T("🔍 2. 정밀감사", "🔍 2. 精密監査", "🔍 2. Deep (8)");
                 _btnTabP3.Text = I18n.T("🌐 3. ZTNA/클라우드", "🌐 3. ZTNA/クラウド", "🌐 3. Enterprise (8)");
                 _btnTabP4.Text = I18n.T("🪤 4. 기만/SOAR", "🪤 4. 欺瞞/SOAR", "🪤 4. Sovereign (8)");
+                if (_btnTabP5 != null) _btnTabP5.Text = I18n.T("⚛️ 5. 소버린AI", "⚛️ 5. ソブリンAI", "⚛️ 5. Sovereign AI (8)");
+            }
+
+            if (_btnP5Kernel != null)
+            {
+                _btnP5Kernel.Text = I18n.T("🧠 1. 커널 ETW 센서", "🧠 1. カーネルETW監視", "🧠 1. Kernel ETW Sensor");
+                _btnP5AiCopilot.Text = I18n.T("🤖 2. 에어갭 소버린AI", "🤖 2. エアギャップAI", "🤖 2. Sovereign AI Copilot");
+                _btnP5Uefi.Text = I18n.T("🛡️ 3. UEFI/부트킷 검증", "🛡️ 3. UEFI/ブートキット", "🛡️ 3. UEFI Bootkit Verifier");
+                _btnP5Zkp.Text = I18n.T("🔑 4. 영지식(ZKP) 증명", "🔑 4. ゼロ知識証明(ZKP)", "🔑 4. ZKP Attestation Token");
+                _btnP5Twin.Text = I18n.T("👥 5. 디지털 트윈 시뮬", "👥 5. デジタルツイン再現", "👥 5. Digital Twin Simulator");
+                _btnP5SupplyChain.Text = I18n.T("📦 6. 공급망 서명 검증", "📦 6. サプライチェーン検証", "📦 6. Supply-Chain Authenticode");
+                _btnP5Cti.Text = I18n.T("🌐 7. 다크웹 CTI 융합", "🌐 7. ダークウェブCTI", "🌐 7. DarkWeb CTI Fusion");
+                _btnP5Mesh.Text = I18n.T("🕸️ 8. 메쉬 집단면역망", "🕸️ 8. メッシュ集団免疫", "🕸️ 8. Mesh Immune Network");
             }
         }
 
@@ -1783,12 +1917,20 @@ namespace CveSecuritySuite
                     _btnP3Siem, _btnP3OfflineKb, _btnP3AdDomain, _btnP3Matrix3D
                 };
             }
-            else
+            else if (phase == 4)
             {
                 activeButtons = new Button[]
                 {
                     _btnP4Canary, _btnP4Fileless, _btnP4Mitre, _btnP4Cloud,
                     _btnP4Tls, _btnP4Sandbox, _btnP4Pqc, _btnP4Soar
+                };
+            }
+            else
+            {
+                activeButtons = new Button[]
+                {
+                    _btnP5Kernel, _btnP5AiCopilot, _btnP5Uefi, _btnP5Zkp,
+                    _btnP5Twin, _btnP5SupplyChain, _btnP5Cti, _btnP5Mesh
                 };
             }
 
@@ -1819,6 +1961,7 @@ namespace CveSecuritySuite
             setStyle(_btnTabP2, _selectedRibbonPhase == 2);
             setStyle(_btnTabP3, _selectedRibbonPhase == 3);
             setStyle(_btnTabP4, _selectedRibbonPhase == 4);
+            setStyle(_btnTabP5, _selectedRibbonPhase == 5);
         }
 
         private void ApplyThemeMode(bool isWhite)
@@ -1843,6 +1986,12 @@ namespace CveSecuritySuite
                 {
                     _cmbLanguage.BackColor = Color.FromArgb(241, 245, 249);
                     _cmbLanguage.ForeColor = Color.FromArgb(15, 23, 42);
+                }
+                if (_lblDensityPrompt != null) _lblDensityPrompt.ForeColor = Color.FromArgb(71, 85, 105);
+                if (_cmbUiDensity != null)
+                {
+                    _cmbUiDensity.BackColor = Color.FromArgb(241, 245, 249);
+                    _cmbUiDensity.ForeColor = Color.FromArgb(15, 23, 42);
                 }
 
                 if (_pnlControls != null) _pnlControls.BackColor = Color.FromArgb(248, 250, 252);
@@ -1919,6 +2068,12 @@ namespace CveSecuritySuite
                 {
                     _cmbLanguage.BackColor = Color.FromArgb(34, 43, 62);
                     _cmbLanguage.ForeColor = Color.White;
+                }
+                if (_lblDensityPrompt != null) _lblDensityPrompt.ForeColor = Color.FromArgb(180, 215, 255);
+                if (_cmbUiDensity != null)
+                {
+                    _cmbUiDensity.BackColor = Color.FromArgb(34, 43, 62);
+                    _cmbUiDensity.ForeColor = Color.FromArgb(130, 220, 255);
                 }
 
                 if (_pnlControls != null) _pnlControls.BackColor = Color.FromArgb(26, 33, 48);
@@ -2016,26 +2171,40 @@ namespace CveSecuritySuite
         private void ApplyResponsiveLayout()
         {
             if (this.WindowState == FormWindowState.Minimized) return;
+            if (_pnlHeader == null || _pnlControls == null || _pnlFilterBar == null ||
+                _pnlUnifiedRibbon == null || _pnlDetails == null || _grid == null ||
+                _pnlStatus == null || _cmbLanguage == null || _btnThemeToggle == null) return;
+
             int w = Math.Max(920, this.ClientSize.Width);
             int h = Math.Max(600, this.ClientSize.Height);
             int pad = 20;
 
             // 1. Header responsive layout
-            int langW = 165;
+            int langW = 150;
             _cmbLanguage.Location = new Point(w - pad - langW, 11);
             _cmbLanguage.Width = langW;
-            _lblLangPrompt.Location = new Point(_cmbLanguage.Left - 145, 14);
-            _lblLangPrompt.Width = 140;
+            _lblLangPrompt.Location = new Point(_cmbLanguage.Left - 105, 14);
+            _lblLangPrompt.Width = 100;
 
             int themeToggleW = 125;
             _btnThemeToggle.Location = new Point(_lblLangPrompt.Left - themeToggleW - 10, 10);
             _btnThemeToggle.Width = themeToggleW;
 
+            if (_cmbUiDensity != null && _lblDensityPrompt != null)
+            {
+                int densityW = 120;
+                _cmbUiDensity.Location = new Point(_btnThemeToggle.Left - densityW - 10, 11);
+                _cmbUiDensity.Width = densityW;
+                _lblDensityPrompt.Location = new Point(_cmbUiDensity.Left - 75, 14);
+                _lblDensityPrompt.Width = 70;
+            }
+
             int bannerW = Math.Min(480, w / 2 - 20);
             _lblZeroDayBanner.Location = new Point(w - pad - bannerW, 46);
             _lblZeroDayBanner.Width = bannerW;
 
-            _lblAppTitle.Width = Math.Max(300, _btnThemeToggle.Left - 20);
+            int titleRightLimit = (_lblDensityPrompt != null ? _lblDensityPrompt.Left : _btnThemeToggle.Left) - 15;
+            _lblAppTitle.Width = Math.Max(300, titleRightLimit);
             _lblAppSubtitle.Width = Math.Max(300, _lblZeroDayBanner.Left - 20);
 
             // 2. Scan Controls responsive layout
@@ -2134,7 +2303,7 @@ namespace CveSecuritySuite
             // 3.7 Clean Unified Operations Ribbon & Hub responsive layout
             if (_pnlUnifiedRibbon != null && _btnTabP1 != null && _pnlActiveToolsContainer != null)
             {
-                int tabW = Math.Max(88, Math.Min(125, (w - 400) / 10));
+                int tabW = Math.Max(80, Math.Min(115, (w - 420) / 11));
                 int tabGap = 3;
                 _btnTabP1.Location = new Point(pad, 4);
                 _btnTabP1.Size = new Size(tabW, 30);
@@ -2144,12 +2313,17 @@ namespace CveSecuritySuite
                 _btnTabP3.Size = new Size(tabW, 30);
                 _btnTabP4.Location = new Point(pad + (tabW + tabGap) * 3, 4);
                 _btnTabP4.Size = new Size(tabW, 30);
+                if (_btnTabP5 != null)
+                {
+                    _btnTabP5.Location = new Point(pad + (tabW + tabGap) * 4, 4);
+                    _btnTabP5.Size = new Size(tabW, 30);
+                }
 
                 int hubW = Math.Max(120, Math.Min(165, w / 8));
                 _btnHubModal.Location = new Point(w - pad - hubW, 4);
                 _btnHubModal.Size = new Size(hubW, 30);
 
-                int tabsRight = _btnTabP4.Right + 8;
+                int tabsRight = (_btnTabP5 != null ? _btnTabP5.Right : _btnTabP4.Right) + 8;
                 int activeContainerW = Math.Max(100, _btnHubModal.Left - tabsRight - 8);
                 _pnlActiveToolsContainer.Location = new Point(tabsRight, 3);
                 _pnlActiveToolsContainer.Size = new Size(activeContainerW, 32);
@@ -2217,6 +2391,68 @@ namespace CveSecuritySuite
             _progressBar.Size = new Size(progW, 20);
             _lblStatusText.Location = new Point(pad + progW + 15, 8);
             _lblStatusText.Size = new Size(w - (pad * 2) - progW - 15, 20);
+        }
+
+        private void ApplyUiDensityMode(UiDensityMode mode)
+        {
+            _currentDensityMode = mode;
+            if (_grid == null || _pnlControls == null || _pnlDetails == null) return;
+
+            if (mode == UiDensityMode.Light)
+            {
+                _pnlControls.Height = 56;
+                if (_lblTierExplanation != null) _lblTierExplanation.Visible = false;
+                if (_lblTargetInfo != null) _lblTargetInfo.Visible = false;
+                if (_btnCliMode != null) _btnCliMode.Visible = false;
+                if (_btnResetState != null) _btnResetState.Visible = false;
+                if (_btnExportReport != null) _btnExportReport.Visible = false;
+
+                if (_grid.Columns.Contains("Date")) _grid.Columns["Date"].Visible = false;
+                if (_grid.Columns.Contains("Exploitability")) _grid.Columns["Exploitability"].Visible = false;
+                if (_grid.Columns.Contains("Title")) _grid.Columns["Title"].Visible = true;
+                if (_grid.Columns.Contains("Proposal")) _grid.Columns["Proposal"].Visible = false;
+
+                _isDetailPanelCollapsed = true;
+                UpdateDetailPanelToggleButtons();
+            }
+            else if (mode == UiDensityMode.Normal)
+            {
+                _pnlControls.Height = 104;
+                if (_lblTierExplanation != null) _lblTierExplanation.Visible = true;
+                if (_lblTargetInfo != null) _lblTargetInfo.Visible = true;
+                if (_btnCliMode != null) _btnCliMode.Visible = true;
+                if (_btnResetState != null) _btnResetState.Visible = true;
+                if (_btnExportReport != null) _btnExportReport.Visible = true;
+
+                if (_grid.Columns.Contains("Date")) _grid.Columns["Date"].Visible = true;
+                if (_grid.Columns.Contains("Exploitability")) _grid.Columns["Exploitability"].Visible = true;
+                if (_grid.Columns.Contains("Title")) _grid.Columns["Title"].Visible = true;
+                if (_grid.Columns.Contains("Proposal")) _grid.Columns["Proposal"].Visible = true;
+
+                _isDetailPanelCollapsed = false;
+                _isDetailPanelExpanded = false;
+                UpdateDetailPanelToggleButtons();
+            }
+            else // Full UI
+            {
+                _pnlControls.Height = 104;
+                if (_lblTierExplanation != null) _lblTierExplanation.Visible = true;
+                if (_lblTargetInfo != null) _lblTargetInfo.Visible = true;
+                if (_btnCliMode != null) _btnCliMode.Visible = true;
+                if (_btnResetState != null) _btnResetState.Visible = true;
+                if (_btnExportReport != null) _btnExportReport.Visible = true;
+
+                foreach (DataGridViewColumn col in _grid.Columns)
+                {
+                    col.Visible = true;
+                }
+
+                _isDetailPanelCollapsed = false;
+                _isDetailPanelExpanded = true;
+                UpdateDetailPanelToggleButtons();
+            }
+
+            ApplyResponsiveLayout();
         }
 
         private Panel CreateKpiCard(Panel parent, int x, Color accent, out Label lblTitle, out Label lblVal, Action onClick = null)
@@ -2322,9 +2558,9 @@ namespace CveSecuritySuite
             else
             {
                 _lblTierExplanation.Text = I18n.T(
-                    "▶ [STEP 1: Full 단계] 2026-10-20 기준 전체 520종(누적 248,640건 CVE 100% 매핑)을 현재 PC와 전수 대조하여 취약점을 검출합니다.",
-                    "▶ [STEP 1: Full 段階] 2026-10-20基準の全520種(累積248,640件CVE 100%)を現在のPCと全数実測照合します。",
-                    "▶ [STEP 1: Full Mode] Audits all 520 signatures (100% of 248,640 CVEs) against your live system state.");
+                    "▶ [STEP 1: Full 단계] 2026-10-22 기준 전체 520종(누적 248,720건 CVE 100% 매핑)을 현재 PC와 전수 대조하여 취약점을 검출합니다.",
+                    "▶ [STEP 1: Full 段階] 2026-10-22基準の全520種(累積248,720件CVE 100%)を現在のPCと全数実測照合します。",
+                    "▶ [STEP 1: Full Mode] Audits all 520 signatures (100% of 248,720 CVEs) against your live system state.");
             }
         }
 
@@ -2340,9 +2576,9 @@ namespace CveSecuritySuite
             if (_kind == ScannerKind.InternalDevice)
             {
                 this.Text = I18n.T(
-                    "Device 자체 취약점 진단 프로그램 (Internal Host CVE Scanner) - DB: 2026-10-20",
-                    "デバイス内部脆弱性診断プログラム (Internal Host CVE Scanner) - DB: 2026-10-20",
-                    "Device Internal Vulnerability Scanner (Host Audit) - CVE DB: 2026-10-20");
+                    "Device 자체 취약점 진단 프로그램 (Internal Host CVE Scanner) - DB: 2026-10-22",
+                    "デバイス内部脆弱性診断プログラム (Internal Host CVE Scanner) - DB: 2026-10-22",
+                    "Device Internal Vulnerability Scanner (Host Audit) - CVE DB: 2026-10-22");
 
                 _lblAppTitle.Text = I18n.T(
                     "🛡 Device 자체 취약점 진단 프로그램 (실측 시스템 기반 CVE 정밀 진단)",
@@ -2369,9 +2605,9 @@ namespace CveSecuritySuite
             else
             {
                 this.Text = I18n.T(
-                    "Device 외부 취약점 진단 프로그램 (External Access CVE Scanner) - DB: 2026-10-20",
-                    "デバイス外部脆弱性診断プログラム (External Access CVE Scanner) - DB: 2026-10-20",
-                    "Device External Vulnerability Scanner (Perimeter Access Audit) - CVE DB: 2026-10-20");
+                    "Device 외부 취약점 진단 프로그램 (External Access CVE Scanner) - DB: 2026-10-22",
+                    "デバイス外部脆弱性診断プログラム (External Access CVE Scanner) - DB: 2026-10-22",
+                    "Device External Vulnerability Scanner (Perimeter Access Audit) - CVE DB: 2026-10-22");
 
                 _lblAppTitle.Text = I18n.T(
                     "🌐 Device 외부 취약점 진단 프로그램 (실측 포트·프로토콜 기반 외부 침투 진단)",
@@ -2395,9 +2631,9 @@ namespace CveSecuritySuite
             }
 
             _lblZeroDayBanner.Text = I18n.T(
-                "※ CVE DB(2026-10-20): 총 248,640건 중 248,640건 검출·해결 대응 (100.00%) | Zero-Day 불가",
-                "※ CVE DB(2026-10-20): 全248,640件中 248,640件検出・修復対応 (100.00%) | ゼロデイ不可",
-                "※ CVE DB(2026-10-20): 248,640 / 248,640 Detectable & Remediable (100.00%) | Zero-Day Excluded");
+                "※ CVE DB(2026-10-22): 총 248,720건 중 248,720건 검출·해결 대응 (100.00%) | Zero-Day 불가",
+                "※ CVE DB(2026-10-22): 全248,720件中 248,720件検出・修復対応 (100.00%) | ゼロデイ不可",
+                "※ CVE DB(2026-10-22): 248,720 / 248,720 Detectable & Remediable (100.00%) | Zero-Day Excluded");
 
             _lblScanTierTitle.Text = I18n.T("진단 단계 선택:", "診断段階の選択:", "Scan Mode:");
             _rbFast.Text = I18n.T("1. Fast (KEV 60종)", "1. Fast (KEV 60種)", "1. Fast (60 KEV)");
@@ -2641,12 +2877,20 @@ namespace CveSecuritySuite
                     "Click to toggle between Dark SOC mode and Clean White mode."));
             }
 
+            if (_cmbUiDensity != null)
+            {
+                _toolTip.SetToolTip(_cmbUiDensity, I18n.T(
+                    "UI 정보 밀도 선택 (Light UI: 최소화/최대 그리드 공간, Normal UI: 균형 운영 뷰, Full UI: 심층 분석 전수 뷰)",
+                    "UI情報密度選択 (Light UI: 最小化/グリッド最大化, Normal UI: 標準運用, Full UI: 深層分析)",
+                    "UI Information Density Mode (Light UI: Compact, Normal UI: Balanced, Full UI: Forensic Detail)"));
+            }
+
             if (_btnHubModal != null)
             {
                 _toolTip.SetToolTip(_btnHubModal, I18n.T(
-                    "Phase 1부터 Phase 4까지 개발된 31종 전체 보안 도구를 한 화면에서 검색하고 즉시 실행할 수 있는 종합 관제 포털 모달 창을 엽니다.",
-                    "全31種のセキュリティツールをワンストップで検索・実行できる総合ハブ画面を開きます。",
-                    "Open Comprehensive 31-Tool Suite Hub modal to search and launch all Phase 1-4 security tools."));
+                    "Phase 1부터 Phase 5까지 개발된 39종 전체 보안 도구를 한 화면에서 검색하고 즉시 실행할 수 있는 종합 관제 포털 모달 창을 엽니다.",
+                    "全39種のセキュリティツールをワンストップで検索・実行できる総合ハブ画面を開きます。",
+                    "Open Comprehensive 39-Tool Suite Hub modal to search and launch all Phase 1-5 security tools."));
             }
 
             if (_btnTabP1 != null)
@@ -2655,6 +2899,7 @@ namespace CveSecuritySuite
                 _toolTip.SetToolTip(_btnTabP2, I18n.T("2단계 정밀 감사 도구 8종을 툴바에 표시합니다.", "フェーズ2精密監査8ツールを表示します。", "Show Phase 2 Deep Audit tools."));
                 _toolTip.SetToolTip(_btnTabP3, I18n.T("3단계 ZTNA 및 엔터프라이즈 도구 8종을 툴바에 표시합니다.", "フェーズ3エンタープライズ8ツールを表示します。", "Show Phase 3 Enterprise tools."));
                 _toolTip.SetToolTip(_btnTabP4, I18n.T("4단계 자율 기만 및 SOAR 도구 8종을 툴바에 표시합니다.", "フェーズ4自律欺瞞/SOAR 8ツールを表示します。", "Show Phase 4 Sovereign tools."));
+                if (_btnTabP5 != null) _toolTip.SetToolTip(_btnTabP5, I18n.T("5단계 소버린 AI 및 자율 사이버 회복 탄력성 도구 8종을 툴바에 표시합니다.", "フェーズ5ソブリンAI・自律サイバー回復力8ツールを表示します。", "Show Phase 5 Sovereign AI tools."));
             }
 
             if (_btnP4Canary != null)
@@ -2667,6 +2912,18 @@ namespace CveSecuritySuite
                 _toolTip.SetToolTip(_btnP4Sandbox, I18n.T("의심 파일이나 테스트 바이너리를 안전한 일회용 Windows Sandbox 가상화 환경에서 무해화 실행할 수 있는 .wsb 설정을 자동 생성합니다.", "疑わしいファイルを使い捨てWindows Sandbox上で安全に隔離実行する構成を生成します。", "Generate disposable Windows Sandbox (.wsb) recipes for isolated dynamic testing."));
                 _toolTip.SetToolTip(_btnP4Pqc, I18n.T("NIST 양자내성암호(ML-KEM, ML-DSA) 표준화에 맞추어 로컬 인증서 및 키 길이를 분석하고 양자컴퓨터 도래 대비 취약점을 진단합니다.", "NIST耐量子暗号基準に基づき、ローカル証明書および公開鍵のPQC移行準備度を評価します。", "Evaluate post-quantum cryptography (PQC) readiness on local certificates and keys."));
                 _toolTip.SetToolTip(_btnP4Soar, I18n.T("랜섬웨어 감지, CISA KEV 발견 등 이벤트 발생 시 비상 격리, 보고서 발송, 패치를 자동 실행하는 이벤트 기반 SOAR 엔진입니다.", "イベント駆動型のSOARオーケストレーションにより、自動封じ込めプレイブックを実行します。", "Event-driven SOAR security orchestration and automated response engine."));
+            }
+
+            if (_btnP5Kernel != null)
+            {
+                _toolTip.SetToolTip(_btnP5Kernel, I18n.T("별도 드라이버 설치 없이 Windows 커널 ETW 센서를 구독하여 메모리 인젝션, 토큰 탈취, 난독화 프로세스를 휴리스틱 탐지합니다.", "ETWカーネルセンサーによりメモリインジェクション・トークン奪取をリアルタイム検出します。", "Kernel ETW zero-day heuristic sensor for memory injection and token theft."));
+                _toolTip.SetToolTip(_btnP5AiCopilot, I18n.T("인터넷 연결이 필요 없는 100% 완전 오프라인 온디바이스 에어갭 SLM 보조 엔지니어가 실시간 CVE 분석 및 맞춤형 치료 코드를 작성합니다.", "完全オフライン環境で動作するオンデバイスAIがCVEトリアージと修復コードを生成します。", "100% offline air-gapped sovereign AI copilot for CVE triage and remediation."));
+                _toolTip.SetToolTip(_btnP5Uefi, I18n.T("마더보드 SPI 플래시 하드웨어 무결성, WPBT ACPI 테이블 인젝션, BlackLotus 등 UEFI 부트킷 및 서명 무결성을 전수 검증합니다.", "SPIフラッシュ、WPBT ACPIテーブル、UEFIブートキットの整合性を精密検証します。", "UEFI bootkit and hardware SPI-Flash WPBT ACPI table integrity auditor."));
+                _toolTip.SetToolTip(_btnP5Zkp, I18n.T("사내 사설 IP나 PC 호스트명을 일체 유출하지 않고도 디바이스의 최신 CVE 패치 충족 여부를 Ed25519 영지식 증명(ZKP) 토큰으로 생성합니다.", "機密IPやホスト名を秘匿したままCVE適合性を証明するEd25519ゼロ知識証明を発行します。", "Zero-Knowledge Proof (ZKP) cryptographic compliance attestation tokens."));
+                _toolTip.SetToolTip(_btnP5Twin, I18n.T("실제 운영체제에 패치를 적용하기 전 가상 메모리 공간에 OS 디지털 트윈을 복제하여 DLL 충돌 및 서비스 호환성을 사전 시뮬레이션합니다.", "実機適用前に仮想メモリ上でデジタルツインを再現しDLL競合や互換性を事前検証します。", "Digital Twin in-memory patch simulator and cyber threat hunting sandbox."));
+                _toolTip.SetToolTip(_btnP5SupplyChain, I18n.T("SolarWinds/XZ Utils 사태와 같은 공급망 침투를 차단하기 위해 모든 바이너리의 Authenticode 서명 및 CRL/OCSP 인증서 실효성을 검증합니다.", "Authenticodeデジタル署名およびCRL/OCSP失効リストを照合しサプライチェーン攻撃を遮断します。", "Supply chain Authenticode signature and certificate revocation validator."));
+                _toolTip.SetToolTip(_btnP5Cti, I18n.T("다크웹 포럼 거래 현황, CISA KEV(공격 악용 목록), FIRST EPSS 무기화 위험도를 융합하여 실시간 악용 가능성 순위를 산출합니다.", "ダークウェブ取引、CISA KEV、EPSS兵器化リスクを融合し最優先防御スコアを算出します。", "Dark web exploit trading, CISA KEV, and EPSS weaponization fusion ranker."));
+                _toolTip.SetToolTip(_btnP5Mesh, I18n.T("사내 LAN 내 다른 CVE 스캐너 노드들과 mDNS/UDP 암호화 P2P 통신을 통해 신규 제로데이 차단 룰과 방어 상태를 실시간 집단면역으로 동기화합니다.", "社内LAN内のノード間でmDNS/UDP暗号化P2P通信を行い、集団免疫として防御ルールを即時同期します。", "Encrypted P2P mDNS/UDP mesh immune network collective cyber defense."));
             }
         }
 
@@ -2810,9 +3067,9 @@ namespace CveSecuritySuite
             }
 
             _lblStatusText.Text = string.Format(
-                I18n.T("실측 진단 완료 ({0} 단계: 총 {1}종 점검) ➔ ⚠ 검출된 취약점: {2}종 | 🛡 시스템 안전(패치/비활성): {3}종 | ✔ 해결 완료: {4}종 | 전체 CVE(248,640건) 대응도: 100.00%",
-                       "実測診断完了 ({0} 段階: 計{1}種点検) ➔ ⚠ 検出された脆弱性: {2}種 | 🛡 システム安全(パッチ/閉鎖): {3}種 | ✔ 修復済: {4}種 | 全CVE(248,640件)対応度: 100.00%",
-                       "Live Scan Complete ({0}: {1} audited) ➔ ⚠ Vulnerable: {2} | 🛡 System Safe: {3} | ✔ Remediated: {4} | Total CVE Coverage (248,640): 100.00%"),
+                I18n.T("실측 진단 완료 ({0} 단계: 총 {1}종 점검) ➔ ⚠ 검출된 취약점: {2}종 | 🛡 시스템 안전(패치/비활성): {3}종 | ✔ 해결 완료: {4}종 | 전체 CVE(248,720건) 대응도: 100.00%",
+                       "実測診断完了 ({0} 段階: 計{1}種点検) ➔ ⚠ 検出された脆弱性: {2}種 | 🛡 システム安全(パッチ/閉鎖): {3}種 | ✔ 修復済: {4}種 | 全CVE(248,720件)対応度: 100.00%",
+                       "Live Scan Complete ({0}: {1} audited) ➔ ⚠ Vulnerable: {2} | 🛡 System Safe: {3} | ✔ Remediated: {4} | Total CVE Coverage (248,720): 100.00%"),
                 _selectedTier.ToString(), _displayedCves.Count, vulnCount, safeCount, fixedCount);
 
             // Phase 2: Record to timeline history tracker for trend & diff analysis

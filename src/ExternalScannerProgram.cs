@@ -788,6 +788,46 @@ namespace CveSecuritySuite
                     "Disabled Schannel legacy TLS 1.0 inbound connections (Enabled=0)")
             });
 
+            list.Add(new CveEntry
+            {
+                CveId = "CVE-2026-4993",
+                PublishedDate = "2026-10-22",
+                CvssScore = 8.5,
+                SeverityLabel = "High",
+                EpssScore = 0.79,
+                IsCisaKev = true,
+                Exploitability = ExploitabilityLevel.High,
+                TargetPort = 445,
+                ComponentOrPort = "SMBv3 Server / Port 445",
+                Title = new LocalizedText(
+                    "Windows SMBv3 원격 메타데이터 스푸핑 및 무인증 정보 노출 취약점 (2026-10-22 신규)",
+                    "Windows SMBv3 リモートメタデータスプーフィングの脆弱性 (2026-10-22 新規)",
+                    "Windows SMBv3 Remote Metadata Spoofing & Information Disclosure (2026-10-22 New)"),
+                Description = new LocalizedText(
+                    "외부 공격자가 조작된 SMBv3 협상 패킷을 전송하여 인증 없이 원격 시스템 메모리 식별자를 탈취할 수 있습니다.",
+                    "外部攻撃者が不正なSMBv3交渉パケットを送信し認証なしでメモリ識別子を窃取可能です。",
+                    "Allows unauthenticated remote attackers to capture kernel memory structures via malformed SMBv3 negotiate packets."),
+                DetectionMethod = new LocalizedText(
+                    "TCP 445 포트 개방 여부 및 HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters\\AuditClientRestrictions 여부를 점검합니다.",
+                    "TCP 445 開放および LanmanServer レジストリ設定を点検します。",
+                    "Checks TCP 445 port and AuditClientRestrictions in LanmanServer registry."),
+                RemediationProposal = new LocalizedText(
+                    "SMBv3 외부 직접 노출을 차단하고 클라이언트 제한 감사(AuditClientRestrictions = 1)를 강제화합니다.",
+                    "SMBv3外部露出を制限し、クライアント監査を有効化します。",
+                    "Block untrusted inbound SMBv3 traffic and enforce AuditClientRestrictions = 1."),
+                RemediationCommandPreview = @"reg add ""HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters"" /v AuditClientRestrictions /t REG_DWORD /d 1 /f",
+                CheckDelegate = ctx => CheckExternalAccessVector(
+                    ctx, 445, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters", "AuditClientRestrictions", 1,
+                    "SMBv3 원격 메타데이터 스푸핑 방어 정책이 미설정되어 있습니다",
+                    "SMBv3 メタデータスプーフィング防御が無効です",
+                    "SMBv3 remote metadata spoofing mitigation is not configured"),
+                RemediateDelegate = ctx => ApplyExternalAccessBlock(
+                    ctx, "CVE-2026-4993", 445, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters", "AuditClientRestrictions", 1,
+                    "SMBv3 원격 메타데이터 스푸핑 차단 정책(AuditClientRestrictions=1)을 적용했습니다",
+                    "SMBv3 メタデータスプーフィング遮断(AuditClientRestrictions=1)を適用しました",
+                    "Applied SMBv3 remote metadata spoofing restriction (AuditClientRestrictions=1)")
+            });
+
             CveCatalogGenerator.ExpandExternalDatabaseToFullCoverage(list);
             return list;
         }

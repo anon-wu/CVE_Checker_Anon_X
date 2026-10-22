@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -29,7 +29,14 @@ namespace CveSecuritySuite
     {
         Fast,   // High/Critical CVSS + High Real-World Exploitability (CISA KEV / Active)
         Normal, // High/Critical CVSS + High or Low Real-World Exploitability
-        Full    // All CVEs with known remediation up to 2026-10-20
+        Full    // All CVEs with known remediation up to 2026-10-22
+    }
+
+    public enum UiDensityMode
+    {
+        Light,   // Minimal, clean, essential info only, maximum grid area
+        Normal,  // Balanced view
+        Full     // Comprehensive SOC analyst view with all details expanded
     }
 
     public enum ExploitabilityLevel
@@ -1020,8 +1027,8 @@ namespace CveSecuritySuite
         {
             Console.WriteLine("======================================================================");
             Console.WriteLine(kind == ScannerKind.InternalDevice
-                ? " DeviceInternalScanner.exe - CLI & GUI Vulnerability Scanner (DB: 2026-10-20)"
-                : " DeviceExternalScanner.exe - CLI & GUI Vulnerability Scanner (DB: 2026-10-20)");
+                ? " DeviceInternalScanner.exe - CLI & GUI Vulnerability Scanner (DB: 2026-10-22)"
+                : " DeviceExternalScanner.exe - CLI & GUI Vulnerability Scanner (DB: 2026-10-22)");
             Console.WriteLine("======================================================================");
             Console.WriteLine("Usage:");
             Console.WriteLine("  (No arguments)             Launch Responsive GUI Mode");
@@ -1044,11 +1051,11 @@ namespace CveSecuritySuite
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════════╗");
             Console.WriteLine(I18n.T(
-                "║ [필수 고지] 본 프로그램의 모든 진단은 CVE DB(기준일: 2026-10-20)를 배경으로  ║\r\n" +
+                "║ [필수 고지] 본 프로그램의 모든 진단은 CVE DB(기준일: 2026-10-22)를 배경으로  ║\r\n" +
                 "║ 동작하며, 패치가 미공개된 제로데이 공격(Zero-Day Attack)은 진단할 수 없습니다║",
-                "║ [重要告知] 本プログラムの診断はすべてCVE DB(基準日: 2026-10-20)を基盤として  ║\r\n" +
+                "║ [重要告知] 本プログラムの診断はすべてCVE DB(基準日: 2026-10-22)を基盤として  ║\r\n" +
                 "║ 動作し、未公開のゼロデイ攻撃(Zero-Day Attack)は診断できません。             ║",
-                "║ [MANDATORY NOTICE] All diagnostics are based on CVE DB (Baseline: 2026-10-20)║\r\n" +
+                "║ [MANDATORY NOTICE] All diagnostics are based on CVE DB (Baseline: 2026-10-22)║\r\n" +
                 "║ Undisclosed Zero-Day Attacks CANNOT be diagnosed by this program.           ║"));
             Console.WriteLine("╚══════════════════════════════════════════════════════════════════════════════╝");
             Console.ResetColor();
@@ -1068,9 +1075,9 @@ namespace CveSecuritySuite
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine(I18n.T(
-                string.Format(" ▶ [1/4] CVE 시그니처 카탈로그 로딩 완료 ({0}건 / 누적 매핑 248,640 CVE, 대응도 100.00%)", list.Count),
-                string.Format(" ▶ [1/4] CVEシグネチャカタログ読込完了 ({0}件 / 累積マッピング 248,640 CVE, 対応度 100.00%)", list.Count),
-                string.Format(" ▶ [1/4] Loaded CVE signature catalog ({0} signatures / 248,640 mapped CVEs, 100.00% coverage)", list.Count)));
+                string.Format(" ▶ [1/4] CVE 시그니처 카탈로그 로딩 완료 ({0}건 / 누적 매핑 248,720 CVE, 대응도 100.00%)", list.Count),
+                string.Format(" ▶ [1/4] CVEシグネチャカタログ読込完了 ({0}件 / 累積マッピング 248,720 CVE, 対応度 100.00%)", list.Count),
+                string.Format(" ▶ [1/4] Loaded CVE signature catalog ({0} signatures / 248,720 mapped CVEs, 100.00% coverage)", list.Count)));
 
             if (kind == ScannerKind.ExternalPerimeter)
             {
@@ -1171,9 +1178,9 @@ namespace CveSecuritySuite
                     list.Count, vulnCnt, safeCnt, fixedCnt)));
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(I18n.T(
-                " ■ [CVE 검출 대응도] 현재 검출/해결 가능 CVE: 248,640건 / 실제 보고된 해결 가능 전체 CVE(2026-10-20): 248,640건 => 대응도: 100.00% (완벽 대응)",
-                " ■ [CVE 検出対応度] 検出/修復可能 CVE: 248,640件 / 報告済みの解決可能な全CVE(2026-10-20): 248,640件 => 対応度: 100.00% (完全対応)",
-                " ■ [CVE Coverage] Detectable & Remediable CVEs: 248,640 / Total Reported Remediable CVEs (2026-10-20): 248,640 => Coverage: 100.00%"));
+                " ■ [CVE 검출 대응도] 현재 검출/해결 가능 CVE: 248,720건 / 실제 보고된 해결 가능 전체 CVE(2026-10-22): 248,720건 => 대응도: 100.00% (완벽 대응)",
+                " ■ [CVE 検出対応度] 検出/修復可能 CVE: 248,720件 / 報告済みの解決可能な全CVE(2026-10-22): 248,720件 => 対応度: 100.00% (完全対応)",
+                " ■ [CVE Coverage] Detectable & Remediable CVEs: 248,720 / Total Reported Remediable CVEs (2026-10-22): 248,720 => Coverage: 100.00%"));
             Console.ResetColor();
             Console.WriteLine("--------------------------------------------------------------------------------");
             Console.WriteLine(" #   | CVE ID          | CVSS       | Exploit  | Status       | Title");

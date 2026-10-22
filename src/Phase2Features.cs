@@ -788,7 +788,7 @@ namespace CveSecuritySuite
                 StringBuilder html = new StringBuilder();
                 html.AppendLine("<!DOCTYPE html><html><head><meta charset='utf-8'/><title>Security Compliance Certificate</title>");
                 html.AppendLine("<style>body{font-family:'Malgun Gothic',sans-serif;background:#0e1420;color:#fff;padding:40px;}.cert{border:3px solid #4fa8ff;border-radius:14px;padding:36px;background:#162033;max-width:900px;margin:0 auto;}h1{color:#68c4ff;margin-top:0;}table{width:100%;border-collapse:collapse;margin-top:20px;}th,td{border:1px solid #2d3e5e;padding:10px;text-align:left;}th{background:#1f2d47;}</style></head><body>");
-                html.AppendFormat("<div class='cert'><h1>🛡 KISA · CIS · ISO/IEC 27001 Security Compliance Certificate</h1><p><b>Audited Host:</b> {0} (OS Build {1}.{2}) | <b>Baseline:</b> 2026-10-20 (248,640 CVEs 100.00%) | <b>Compliance Score:</b> {3:0.0}%</p>", Environment.MachineName, ctx.OsBuildNumber, ctx.OsUbr, pct);
+                html.AppendFormat("<div class='cert'><h1>🛡 KISA · CIS · ISO/IEC 27001 Security Compliance Certificate</h1><p><b>Audited Host:</b> {0} (OS Build {1}.{2}) | <b>Baseline:</b> 2026-10-22 (248,720 CVEs 100.00%) | <b>Compliance Score:</b> {3:0.0}%</p>", Environment.MachineName, ctx.OsBuildNumber, ctx.OsUbr, pct);
                 html.AppendLine("<table><thead><tr><th>Standard</th><th>Control ID</th><th>Requirement</th><th>Mapped CVEs</th><th>Compliance</th></tr></thead><tbody>");
                 foreach (string[] r in rows)
                 {
