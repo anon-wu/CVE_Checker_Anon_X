@@ -1,0 +1,38 @@
+# Build & Compiler Intermediates
+bin/
+obj/
+*.netmodule
+*.pdb
+*.tmp
+*.log
+*.ico
+
+# Source Code & Local Build Scripts (Protected locally to prevent Reverse-Engineering & Cloning Abuse)
+src/
+build.ps1
+
+# Raw Executables & Scripts (Distribute ONLY clean script-free releases/CVE_Security_Operations_Suite_Portable.zip)
+*.exe
+*.ps1
+*.bat
+*.cmd
+*.vbs
+*.snk
+
+# Runtime & Customer License Artifacts (Never commit activated keys or air-gap .lic files)
+*.lic
+license.key
+
+# STRICT CONFIDENTIALITY GUARD: Pro Operator Tools, SOP, Private Keys & Internal Ledgers
+*Pro_Operator*
+*ProLicenseOperator*
+*CONFIDENTIAL*
+*Private*
+*Internal_Operations*
+*ReleaseHardener*
+*개인키*
+*보안금고*
+*서명키*
+*관리원장*
+operator_tools/
+confidential_ops/

@@ -1,0 +1,34 @@
+CVE Security Operations Suite — v11.4 Master Edition
+Copyright (c) 2026 CVE Security Operations Project. All rights reserved.
+Official Contact & Commercial Licensing: jayd424000@gmail.com
+
+================================================================================
+1. COMMUNITY EDITION LICENSE (FREE PUBLIC EDITION)
+================================================================================
+Permission is hereby granted, free of charge, to individual users, academic
+institutions, researchers, and non-profit organizations to download, execute,
+and use the Community Edition features (Host & Perimeter CVE Vulnerability
+Auditors and Phase 1–2 Core Defense Tools) without time limitation, subject to
+the following conditions:
+
+  (a) Non-Abuse & Authorized Auditing Only: You may execute this software only
+      on devices, hosts, and networks that you own or have explicit legal
+      authorization to audit.
+  (b) Anti-Reverse-Engineering & Integrity Preservation: Decompilation,
+      disassembly, modification, binary patching, Strong-Name signature
+      stripping, or circumvention of commercial license controls is strictly
+      prohibited.
+  (c) No Warranty & Zero-Day Limitation Notice: All vulnerability checks operate
+      against officially published CVE intelligence (baseline 2026-10-29).
+      Undisclosed Zero-Day attacks cannot be diagnosed. The software is provided
+      "AS IS", without warranty of any kind.
+
+================================================================================
+2. PRO & ENTERPRISE EDITION LICENSE (COMMERCIAL EDITION)
+================================================================================
+Unlocking and operating Phase 3–11 Enterprise Cyber Defense Tools (#16 through
+#87) or deploying the suite across commercial/enterprise/government environments
+requires a valid Commercial Serial Key (PRO-... / ENT-...) or an RSA-4096
+digitally signed Air-Gap License Certificate (.lic) issued officially by:
+
+  Official Licensing Desk: jayd424000@gmail.com
