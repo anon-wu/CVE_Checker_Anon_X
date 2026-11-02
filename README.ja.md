@@ -1,4 +1,4 @@
-# [★] CVE Security Operations Suite — v11.4 Master Edition
+# [★] CVE Security Operations Suite — v11.5 Master Edition
 
 <p align="center">
   <b>🌐 Language / 言語選択 / 언어 선택:</b><br/>
@@ -9,8 +9,8 @@
 
 ---
 
-> **リリースバージョン:** `v11.4 Master Edition (Build 11.4.0.0)`  
-> **CVE DB 基準日:** `2026-10-29` | **累計カバー範囲:** `248,890件のCVE (100.00% マッピング / スキャナあたり520種の深層実測シグネチャ)`  
+> **リリースバージョン:** `v11.5 Master Edition (Build 11.5.0.0)`  
+> **CVE DB 基準日:** `2026-11-02` | **累計カバー範囲:** `249,120件のCVE (100.00% マッピング / スキャナあたり520種の深層実測シグネチャ)`  
 > **対応言語・フォント:** `日本語 (OSS Noto Sans JP 均一高視認性フォント)` · `한국어 (Malgun Gothic)` · `English (Segoe UI)` (`< 30ms` 瞬時切替)  
 > **バイナリ整合性・保護:** `RSA-2048 Strong-Name 電子署名 (Token: efa16b5fcb79fdf2)` · `[SuppressIldasm]` · `RSA-4096 商用ライセンス検証`  
 > **公式ポータブル版ダウンロード:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
@@ -35,7 +35,7 @@
 
 ## 1. 概要およびシステムアーキテクチャ
 
-**CVE Security Operations Suite v11.4 Master Edition** は、エンドポイント端末内部の構成監査（**`DeviceInternalScanner.exe` — Host Audit**）と外部ネットワーク境界の露出監査（**`DeviceExternalScanner.exe` — Perimeter Audit**）を高精度に実測し、ユーザーの明示的な事前承認（**`[許可 / Allow]`**）のもとでワンクリック自動修復およびスナップショット復元（ロールバック）を実行する**オールインワン・ポータブル統合サイバーセキュリティスイート**です。
+**CVE Security Operations Suite v11.5 Master Edition** は、エンドポイント端末内部の構成監査（**`DeviceInternalScanner.exe` — Host Audit**）と外部ネットワーク境界の露出監査（**`DeviceExternalScanner.exe` — Perimeter Audit**）を高精度に実測し、ユーザーの明示的な事前承認（**`[許可 / Allow]`**）のもとでワンクリック自動修復およびスナップショット復元（ロールバック）を実行する**オールインワン・ポータブル統合サイバーセキュリティスイート**です。
 
 Windows 標準搭載の `.NET Framework 4.8` ランタイム（標準 Windows GUI サブシステム）上で動作し、外部パッケージや常駐エージェントのインストールは一切不要です。個人・教育・非営利環境向けの**永久無料公開版（Community Edition）**と、**全11フェーズ・87種の専門防衛ツール群**を完全解放する**商用プロ／エンタープライズ版（Pro & Enterprise Edition）**の両方をサポートしています。
 
@@ -51,7 +51,7 @@ flowchart LR
 
 ### [★] 4大必須セキュリティ告知および設計原則
 
-1. **公式 CVE データベースに基づく実測診断**: 本スイートのすべての脆弱性診断および修復処理は、公式登録された **CVE（Common Vulnerabilities and Exposures）** データベース（`2026-10-29` 基準・累計 `248,890` 件、スキャナあたり `520` 種の深層実測シグネチャへ `100.00%` マッピング）に基づいて動作します。
+1. **公式 CVE データベースに基づく実測診断**: 本スイートのすべての脆弱性診断および修復処理は、公式登録された **CVE（Common Vulnerabilities and Exposures）** データベース（`2026-11-02` 基準・累計 `249,120` 件、スキャナあたり `520` 種の深層実測シグネチャへ `100.00%` マッピング）に基づいて動作します。
 2. **ゼロデイ攻撃（Zero-Day Attack）診断不可の事前明示**: 公式パッチや緩和策が未公開である未知の**ゼロデイ攻撃（Zero-Day Attack）**は原理上診断できません。起動時の必須セキュリティ告知画面および CLI バナーにて、この技術的限界を透明性をもって事前に明示します。
 3. **ユーザーの事前承認（`Allow`）と 100% 安全なロールバック原則**: 無断でシステム設定を変更することは一切ありません。検出された脆弱性ごとに具体的な実測根拠と修復コマンドを提示し、ユーザーが明示的に **`[許可 (Allow)]`** を承認した項目のみ、自動スナップショット保存後に安全に適用します。
 4. **超高速起動と OSS フォント `Noto Sans JP` による美しい日本語表示**: 非同期カタログ・プリウォーミングにより告知画面の同意直後にメイン画面へ遷移します。さらに日本語表示にはオープンソースフォント **`Noto Sans JP`** を採用し、文字化けや漢字サイズの不均一を完全に解消した上で、韓国語・日本語・英語を `< 30ms` 以内にリアルタイム切り替え可能です。
@@ -60,10 +60,10 @@ flowchart LR
 
 ## 2. ブラウザからの安全なダウンロードおよび SHA-256 整合性検証ガイド
 
-`v11.4 Master Edition` は、Microsoft Edge・Google Chrome・Mozilla Firefox などのブラウザのダウンロード検証および Microsoft Defender と完全に調和するよう、以下の**クリーンリリースパッケージ規格**を採用しています。
+`v11.5 Master Edition` は、Microsoft Edge・Google Chrome・Mozilla Firefox などのブラウザのダウンロード検証および Microsoft Defender と完全に調和するよう、以下の**クリーンリリースパッケージ規格**を採用しています。
 
 - **スクリプトを含まない純粋なバイナリ・ドキュメント構成**: [`releases/CVE_Security_Operations_Suite_Portable.zip`](releases/CVE_Security_Operations_Suite_Portable.zip) には、公式ビルドされた Windows GUI 実行ファイル2種（`DeviceInternalScanner.exe`, `DeviceExternalScanner.exe`）、3言語ドキュメント（`README.md`, `README.en.md`, `README.ja.md`）、ライセンス規約（`LICENSE.txt`）、および暗号学的ハッシュ一覧（`SHA256SUMS.txt`）のみが格納されています。ブラウザの誤検知を引き起こす `.ps1` / `.bat` / `.vbs` スクリプトや Defender 設定変更コマンドは一切含まれていません。
-- **標準 Windows GUI サブシステムおよび RSA-2048 アセンブリ署名**: 高解像度 Win32 アイコンリソース、正規バージョン情報（`11.4.0.0`）、および RSA-2048 Strong-Name 整合性署名（`PublicKeyToken: efa16b5fcb79fdf2`）が適用されています。
+- **標準 Windows GUI サブシステムおよび RSA-2048 アセンブリ署名**: 高解像度 Win32 アイコンリソース、正規バージョン情報（`11.5.0.0`）、および RSA-2048 Strong-Name 整合性署名（`PublicKeyToken: efa16b5fcb79fdf2`）が適用されています。
 
 ### ダウンロードおよび整合性検証手順（PowerShell）
 
@@ -89,7 +89,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | 比較項目 | `DeviceInternalScanner.exe`（端末内部・ホスト診断） | `DeviceExternalScanner.exe`（外部ネットワーク境界診断） |
 | :--- | :--- | :--- |
 | **主要監査対象** | OS カーネル・ビルド番号、セキュリティレジストリ、Windows サービス、権限昇格（EoP）要因、ローカルポリシー、導入済みソフトウェア SBOM | 外部開放 TCP/UDP ポート、SMB/RDP/WinRM/RPC/TLS/UPnP/SNMP 通信プロトコル、およびファイアウォール境界露出 |
-| **内蔵シグネチャ数** | `520` 種のホスト実測シグネチャクラスタ（`248,890` 件の CVE 対応） | `520` 種のネットワーク境界シグネチャクラスタ（`248,890` 件の CVE 対応） |
+| **内蔵シグネチャ数** | `520` 種のホスト実測シグネチャクラスタ（`249,120` 件の CVE 対応） | `520` 種のネットワーク境界シグネチャクラスタ（`249,120` 件の CVE 対応） |
 | **3段階スキャンモード** | **高速（Fast — CISA KEV 重要項目）** · **標準（Normal）** · **精密（Full — 全520種）** | **高速（Fast — 高リスクポート）** · **標準（Normal）** · **精密（Full — 並列深層検査）** |
 | **自動修復方式** | 事前承認（`Allow`）時のみ変更前スナップショットを保存し、レジストリ／サービス堅牢化を適用 | 事前承認（`Allow`）時のみスナップショットを保存し、脆弱プロトコル遮断・境界保護を適用 |
 | **復元（Rollback）** | 内蔵スナップショット管理機能による 1-Click 即時原状回復に対応 | 内蔵スナップショット管理機能による 1-Click 即時原状回復に対応 |
@@ -102,7 +102,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | :--- | :--- | :--- |
 | **ライセンス形態** | 個人・教育・非営利環境にて永久無料（会員登録・インストール不要） | 商用シリアルキー（`PRO-...` / `ENT-...`）および **RSA-4096 署名付き閉鎖網 `.lic` 認証** |
 | **内部・外部 CVE 診断エンジン** | 全520種シグネチャ対応（`Fast` / `Normal` / `Full` 全3段階対応） | 全520種 + 閉鎖網カスタム `.cvedb` ホット更新・全社オーケストレーション |
-| **CVE DB 基準日** | `2026-10-29`（累計 `248,890` 件 `100.00%` マッピング） | `2026-10-29` + 閉鎖網／プライベートミラー優先配信 |
+| **CVE DB 基準日** | `2026-11-02`（累計 `249,120` 件 `100.00%` マッピング） | `2026-11-02` + 閉鎖網／プライベートミラー優先配信 |
 | **防衛ツールハブ（Tools Hub）** | **Phase 1 ～ Phase 2 コア防衛ツール 15種を無料提供** | **Phase 1 ～ Phase 11 全領域 87種の専門防衛ツールを 100% 完全解放** |
 | **自動修復・ロールバック** | 事前承認（`Allow`）ベースの自動修復およびスナップショット復元 | 無制限ロールバック + RFC 3161 / WORM マークルツリー不変監査台帳 |
 | **監査レポート出力** | 対話型 HTML5 経営層レポート（PDF 印刷対応）、UTF-8 CSV、JSON | KISA 重要インフラ・ISMS-P・CIS Benchmark・ISO/IEC 27001 適合性証明書 |
@@ -190,7 +190,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 .\DeviceInternalScanner.exe --lang ja --sbom --batch
 
 # [事前承認修復 & ロールバック] 特定 CVE の自動修復（スナップショット自動保存）および最新スナップショットからの原状回復
-.\DeviceInternalScanner.exe --allow CVE-2026-43990 --batch
+.\DeviceInternalScanner.exe --allow CVE-2026-5101 --batch
 .\DeviceInternalScanner.exe --rollback latest --batch
 ```
 

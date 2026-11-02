@@ -1,4 +1,4 @@
-# [★] CVE Security Operations Suite — v11.4 Master Edition
+# [★] CVE Security Operations Suite — v11.5 Master Edition
 
 <p align="center">
   <b>🌐 Language / 言語選択 / 언어 선택:</b><br/>
@@ -9,8 +9,8 @@
 
 ---
 
-> **Release Version:** `v11.4 Master Edition (Build 11.4.0.0)`  
-> **CVE DB Baseline:** `2026-10-29` | **Cumulative Coverage:** `248,890 CVEs (100.00% Mapped / 520 Deep Live Signatures per Scanner)`  
+> **Release Version:** `v11.5 Master Edition (Build 11.5.0.0)`  
+> **CVE DB Baseline:** `2026-11-02` | **Cumulative Coverage:** `249,120 CVEs (100.00% Mapped / 520 Deep Live Signatures per Scanner)`  
 > **Languages & Typography:** `한국어 (맑은 고딕)` · `日本語 (OSS Noto Sans JP)` · `English (Segoe UI)` (`< 30ms` 실시간 즉시 전환)  
 > **Binary Integrity & Protection:** `RSA-2048 Strong-Name Signed (Token: efa16b5fcb79fdf2)` · `[SuppressIldasm]` · `RSA-4096 Pro License Verification`  
 > **Official Portable Download:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
@@ -35,7 +35,7 @@
 
 ## 1. 개요 및 시스템 아키텍처 (Overview & Architecture)
 
-**CVE Security Operations Suite v11.4 Master Edition**은 엔드포인트 내부 시스템(**`DeviceInternalScanner.exe` — Host Audit**)과 외부 네트워크 경계면(**`DeviceExternalScanner.exe` — Perimeter Audit**)의 실측 보안 취약점을 정밀 대조하고, 사용자 사전 승인(**`[허용 / Allow]`**) 하에 원클릭 자동 조치 및 스냅샷 원상 복구(Rollback)를 수행하는 **올인원 포터블 사이버 보안 관제 스위트**입니다.
+**CVE Security Operations Suite v11.5 Master Edition**은 엔드포인트 내부 시스템(**`DeviceInternalScanner.exe` — Host Audit**)과 외부 네트워크 경계면(**`DeviceExternalScanner.exe` — Perimeter Audit**)의 실측 보안 취약점을 정밀 대조하고, 사용자 사전 승인(**`[허용 / Allow]`**) 하에 원클릭 자동 조치 및 스냅샷 원상 복구(Rollback)를 수행하는 **올인원 포터블 사이버 보안 관제 스위트**입니다.
 
 Windows 기본 내장 런타임(`.NET Framework 4.8`, 표준 Windows GUI 서브시스템) 기반으로 외부 패키지나 에이전트 설치 없이 단일 포터블 실행 파일로 즉시 기동하며, 개인·교육·비영리 환경용 **평생 무료 공개판(Community Edition)**과 **87종 전방위 방어 도구함**을 전수 해금하는 **상용 프로/엔터프라이즈 에디션(Pro & Enterprise Edition)**을 모두 지원합니다.
 
@@ -51,7 +51,7 @@ flowchart LR
 
 ### [★] 4대 필수 보안 고지 및 설계 원칙 (Mandatory Security Principles)
 
-1. **공식 CVE DB 기반 정밀 실측 진단**: 본 스위트의 모든 취약점 진단 및 조치는 공식 등재된 **CVE(Common Vulnerabilities and Exposures)** 데이터베이스(`2026-10-29` 기준 누적 `248,890`건, 스캐너당 `520`종 심층 실측 시그니처 클러스터 `100.00%` 매핑)를 배경으로 동작합니다.
+1. **공식 CVE DB 기반 정밀 실측 진단**: 본 스위트의 모든 취약점 진단 및 조치는 공식 등재된 **CVE(Common Vulnerabilities and Exposures)** 데이터베이스(`2026-11-02` 기준 누적 `249,120`건, 스캐너당 `520`종 심층 실측 시그니처 클러스터 `100.00%` 매핑)를 배경으로 동작합니다.
 2. **제로데이 공격(Zero-Day Attack) 진단 불가 투명 고지**: 아직 공식 패치나 완화책이 공개되지 않은 미공개 **Zero-Day Attack**은 원천적으로 진단할 수 없으며, 초기 기동 보안 고지 화면 및 CLI 시작 배너에서 이를 투명하게 사전 고지합니다.
 3. **사용자 사전 승인(`Allow`) 및 100% 안전 롤백 원칙**: 무통보 백그라운드 시스템 변경을 절대 수행하지 않습니다. 검출된 취약점에 대해 구체적인 실측 근거와 조치 명령어를 투명하게 제시하며, 사용자가 명시적으로 **`[허용(Allow)]`**을 승인한 항목만 자동 스냅샷 백업 후 안전하게 조치를 수행합니다.
 4. **초고속 기동 및 3개 국어 네이티브 타이포그래피**: 백그라운드 카탈로그 프리워밍으로 보안 고지 동의 즉시 메인 포털로 진입하며, 한국어(`맑은 고딕`)·일본어(오픈소스 **`Noto Sans JP`** 균일 가독성 폰트)·영어(`Segoe UI`) 전환 시 창 재생성 없이 전 화면과 87종 도구 다이얼로그가 `< 30ms` 이내에 즉시 변환됩니다.
@@ -60,10 +60,10 @@ flowchart LR
 
 ## 2. 브라우저 안전 다운로드 및 SHA-256 무결성 검증 가이드
 
-`v11.4 Master Edition`은 Microsoft Edge, Google Chrome, Firefox 등 주요 웹 브라우저의 다운로드 보안 검증 및 Microsoft Defender와의 호환성을 준수하도록 다음과 같은 **클린 릴리스 패키징 규격**을 적용했습니다.
+`v11.5 Master Edition`은 Microsoft Edge, Google Chrome, Firefox 등 주요 웹 브라우저의 다운로드 보안 검증 및 Microsoft Defender와의 호환성을 준수하도록 다음과 같은 **클린 릴리스 패키징 규격**을 적용했습니다.
 
 - **순수 바이너리·문서 클린 아카이브**: [`releases/CVE_Security_Operations_Suite_Portable.zip`](releases/CVE_Security_Operations_Suite_Portable.zip) 내부에는 오직 공식 컴파일된 Windows GUI 실행 파일 2종(`DeviceInternalScanner.exe`, `DeviceExternalScanner.exe`), 3개 국어 문서(`README.md`, `README.en.md`, `README.ja.md`), 라이선스 안내문(`LICENSE.txt`), 암호학적 해시 명세서(`SHA256SUMS.txt`)만 포함되며, 브라우저 오탐을 유발하는 외부 실행 스크립트(`.ps1`, `.bat`, `.vbs`)나 Defender 설정 변경 명령을 일절 포함하지 않습니다.
-- **표준 Windows GUI 서브시스템 및 RSA-2048 어셈블리 서명**: 표준 Win32 아이콘 리소스, 버전 메타데이터(`11.4.0.0`), 그리고 RSA-2048 Strong-Name 무결성 서명(`PublicKeyToken: efa16b5fcb79fdf2`)이 적용되어 있습니다.
+- **표준 Windows GUI 서브시스템 및 RSA-2048 어셈블리 서명**: 표준 Win32 아이콘 리소스, 버전 메타데이터(`11.5.0.0`), 그리고 RSA-2048 Strong-Name 무결성 서명(`PublicKeyToken: efa16b5fcb79fdf2`)이 적용되어 있습니다.
 
 ### 다운로드 및 무결성 검증 절차 (PowerShell)
 
@@ -89,7 +89,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | 비교 항목 | `DeviceInternalScanner.exe` (내부 자체 진단) | `DeviceExternalScanner.exe` (외부 경계 진단) |
 | :--- | :--- | :--- |
 | **핵심 감사 영역** | OS 커널·빌드 버전, 보안 레지스트리, 시스템 서비스, 권한 상승(EoP), 로컬 보안 정책, 설치 소프트웨어 SBOM | 외부 노출 TCP/UDP 포트, SMB/RDP/WinRM/RPC/TLS/UPnP/SNMP 네트워크 프로토콜 및 방화벽 경계면 |
-| **내장 시그니처** | `520`종 호스트 실측 시그니처 클러스터 (`248,890` CVE 매핑) | `520`종 네트워크 경계 시그니처 클러스터 (`248,890` CVE 매핑) |
+| **내장 시그니처** | `520`종 호스트 실측 시그니처 클러스터 (`249,120` CVE 매핑) | `520`종 네트워크 경계 시그니처 클러스터 (`249,120` CVE 매핑) |
 | **3단계 스캔 모드** | **신속(Fast — CISA KEV 핵심)** · **표준(Normal)** · **정밀(Full — 520종 전수)** | **신속(Fast — 주요 위험 포트)** · **표준(Normal)** · **정밀(Full — 병렬 심층 스캔)** |
 | **자동 조치 방식** | 사전 승인(`Allow`) 시 보안 레지스트리/서비스 하드닝 적용 및 이전 값 스냅샷 저장 | 사전 승인(`Allow`) 시 취약 프로토콜 비활성화·경계 차단 정책 적용 및 스냅샷 저장 |
 | **복구(Rollback)** | 스냅샷 관리자를 통한 1-Click 즉시 원상 복구 지원 | 스냅샷 관리자를 통한 1-Click 즉시 원상 복구 지원 |
@@ -102,7 +102,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | :--- | :--- | :--- |
 | **라이선스 정책** | 개인·교육·비영리 평생 무료 (설치·회원가입 불필요) | 상용 시리얼 키(`PRO-...` / `ENT-...`) 및 **RSA-4096 에어갭 `.lic` 전자서명 인증** |
 | **내부/외부 CVE 진단 엔진** | 520종 핵심 시그니처 (`Fast` / `Normal` / `Full` 3단계 전수 지원) | 520종 전수 + 폐쇄망 커스텀 `.cvedb` 핫업데이트 & 전사 오케스트레이션 |
-| **CVE DB 기준일** | `2026-10-29` (`248,890`건 `100.00%` 매핑) | `2026-10-29` + 에어갭/프라이빗 미러 피드 우선 갱신 |
+| **CVE DB 기준일** | `2026-11-02` (`249,120`건 `100.00%` 매핑) | `2026-11-02` + 에어갭/프라이빗 미러 피드 우선 갱신 |
 | **보안 도구함 (Tools Hub)** | **Phase 1 ~ Phase 2 핵심 방어 도구 15종 무료 제공** | **Phase 1 ~ Phase 11 전 영역 87종 방어 도구 100% 전수 해금** |
 | **자동 조치 & 복구** | 사전 승인(`Allow`) 기반 자동 조치 & 스냅샷 원상 복구 | 무제한 스냅샷 롤백 + RFC 3161 / WORM 머클 트리 불변 감사 원장 |
 | **감사 보고서 출력** | 대화형 HTML5 경영진 보고서(PDF 인쇄 지원), UTF-8 CSV, JSON | KISA 주요정보통신기반시설 · ISMS-P · CIS · ISO/IEC 27001 적합성 인증서 |
@@ -190,7 +190,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 .\DeviceInternalScanner.exe --sbom --batch
 
 # [사전 승인 조치 & 롤백] 특정 CVE 자동 조치(스냅샷 자동 백업) 및 최신 스냅샷 원상 복구
-.\DeviceInternalScanner.exe --allow CVE-2026-43990 --batch
+.\DeviceInternalScanner.exe --allow CVE-2026-5101 --batch
 .\DeviceInternalScanner.exe --rollback latest --batch
 ```
 

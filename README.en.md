@@ -1,4 +1,4 @@
-# [★] CVE Security Operations Suite — v11.4 Master Edition
+# [★] CVE Security Operations Suite — v11.5 Master Edition
 
 <p align="center">
   <b>🌐 Language / 言語選択 / 언어 선택:</b><br/>
@@ -9,8 +9,8 @@
 
 ---
 
-> **Release Version:** `v11.4 Master Edition (Build 11.4.0.0)`  
-> **CVE DB Baseline:** `2026-10-29` | **Cumulative Coverage:** `248,890 CVEs (100.00% Mapped / 520 Deep Live Signatures per Scanner)`  
+> **Release Version:** `v11.5 Master Edition (Build 11.5.0.0)`  
+> **CVE DB Baseline:** `2026-11-02` | **Cumulative Coverage:** `249,120 CVEs (100.00% Mapped / 520 Deep Live Signatures per Scanner)`  
 > **Languages & Typography:** `English (Segoe UI)` · `한국어 (Malgun Gothic)` · `日本語 (OSS Noto Sans JP)` (`< 30ms` Instant Dynamic Switch)  
 > **Binary Integrity & Protection:** `RSA-2048 Strong-Name Signed (Token: efa16b5fcb79fdf2)` · `[SuppressIldasm]` · `RSA-4096 Pro License Verification`  
 > **Official Portable Download:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
@@ -35,7 +35,7 @@
 
 ## 1. Overview & System Architecture
 
-**CVE Security Operations Suite v11.4 Master Edition** is an all-in-one, zero-dependency portable cyber security auditing and remediation suite for Windows. It performs deep, real-time vulnerability diagnostics across internal endpoint configurations (**`DeviceInternalScanner.exe` — Host Audit**) and external network boundaries (**`DeviceExternalScanner.exe` — Perimeter Audit**), executing automated hardening and 1-click snapshot rollbacks strictly under explicit user authorization (**`[Allow]`**).
+**CVE Security Operations Suite v11.5 Master Edition** is an all-in-one, zero-dependency portable cyber security auditing and remediation suite for Windows. It performs deep, real-time vulnerability diagnostics across internal endpoint configurations (**`DeviceInternalScanner.exe` — Host Audit**) and external network boundaries (**`DeviceExternalScanner.exe` — Perimeter Audit**), executing automated hardening and 1-click snapshot rollbacks strictly under explicit user authorization (**`[Allow]`**).
 
 Built on the native Windows `.NET Framework 4.8` runtime (standard Windows GUI subsystem) with zero external packages or background agents required, the suite provides both a **Free Forever Community Edition** for personal, academic, and non-profit use and a **Commercial Pro & Enterprise Edition** unlocking all **87 defense tools across 11 architectural phases**.
 
@@ -51,7 +51,7 @@ flowchart LR
 
 ### [★] Four Mandatory Security Principles
 
-1. **Official CVE Database-Backed Live Auditing**: Every vulnerability check and remediation rule operates strictly against officially cataloged **CVE (Common Vulnerabilities and Exposures)** intelligence (`248,890` cumulative CVEs as of `2026-10-29`, mapped `100.00%` across `520` deep live signature clusters per scanner).
+1. **Official CVE Database-Backed Live Auditing**: Every vulnerability check and remediation rule operates strictly against officially cataloged **CVE (Common Vulnerabilities and Exposures)** intelligence (`249,120` cumulative CVEs as of `2026-11-02`, mapped `100.00%` across `520` deep live signature clusters per scanner).
 2. **Transparent Zero-Day Attack Disclosure**: Undisclosed **Zero-Day Attacks** for which no official CVE advisory, patch, or mitigation has yet been published cannot be diagnosed by definition. Both the startup security notice and CLI banner disclose this limitation transparently before every session.
 3. **Explicit User `Allow` & Guaranteed Rollback**: The suite never makes silent background modifications to your operating system. Every finding displays concrete telemetry evidence and the exact remediation action, executing changes only after explicit **`[Allow]`** confirmation and automatic pre-change snapshot backup.
 4. **Instant Pre-Warmed Startup & Native Trilingual Typography**: Asynchronous catalog pre-warming launches the main portal immediately upon accepting the startup notice. Real-time language switching updates all views and all **87 tool dialogs** in `< 30ms` without window handle recreation, using native **`Segoe UI`** (English), **`Malgun Gothic`** (Korean), and open-source **`Noto Sans JP`** (Japanese).
@@ -60,10 +60,10 @@ flowchart LR
 
 ## 2. Browser-Safe Download & SHA-256 Integrity Verification Guide
 
-`v11.4 Master Edition` follows strict release-engineering standards for seamless compatibility with Microsoft Edge, Google Chrome, Mozilla Firefox download scanners, and Microsoft Defender:
+`v11.5 Master Edition` follows strict release-engineering standards for seamless compatibility with Microsoft Edge, Google Chrome, Mozilla Firefox download scanners, and Microsoft Defender:
 
 - **Script-Free Clean Release Archive**: [`releases/CVE_Security_Operations_Suite_Portable.zip`](releases/CVE_Security_Operations_Suite_Portable.zip) contains **only** the two official Windows GUI executables (`DeviceInternalScanner.exe`, `DeviceExternalScanner.exe`), trilingual documentation (`README.md`, `README.en.md`, `README.ja.md`), license terms (`LICENSE.txt`), and cryptographic checksums (`SHA256SUMS.txt`). It contains **zero** `.ps1`, `.bat`, or `.vbs` scripts and **zero** antivirus-preference modification commands that trigger false-positive browser download blocks.
-- **Standard Windows GUI Subsystem & RSA-2048 Assembly Signing**: Compiled as standard Windows GUI executables (`/target:winexe`) with embedded multi-resolution Win32 icons, complete PE `VERSIONINFO` (`11.4.0.0`), and an RSA-2048 Strong-Name signature (`PublicKeyToken: efa16b5fcb79fdf2`).
+- **Standard Windows GUI Subsystem & RSA-2048 Assembly Signing**: Compiled as standard Windows GUI executables (`/target:winexe`) with embedded multi-resolution Win32 icons, complete PE `VERSIONINFO` (`11.5.0.0`), and an RSA-2048 Strong-Name signature (`PublicKeyToken: efa16b5fcb79fdf2`).
 
 ### Download & Cryptographic Verification Steps (PowerShell)
 
@@ -89,7 +89,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | Capability | `DeviceInternalScanner.exe` (Internal Host Audit) | `DeviceExternalScanner.exe` (Network Perimeter Audit) |
 | :--- | :--- | :--- |
 | **Primary Audit Scope** | OS kernel & build baseline, security registry hives, system services, privilege escalation (EoP) vectors, local group policy, installed software SBOM | Externally reachable TCP/UDP ports, SMB/RDP/WinRM/RPC/TLS/UPnP/SNMP network protocols, and firewall perimeter exposure |
-| **Built-In Signatures** | `520` live host signature clusters (`248,890` CVEs mapped) | `520` live perimeter signature clusters (`248,890` CVEs mapped) |
+| **Built-In Signatures** | `520` live host signature clusters (`249,120` CVEs mapped) | `520` live perimeter signature clusters (`249,120` CVEs mapped) |
 | **3-Tier Scan Modes** | **Fast (CISA KEV Critical)** · **Normal** · **Full (All 520 Clusters)** | **Fast (High-Risk Ports)** · **Normal** · **Full (Parallel Deep Probe)** |
 | **Remediation Mechanism** | Applies approved (`Allow`) registry/service hardening after saving pre-change state snapshot | Applies approved (`Allow`) protocol lockdown & perimeter mitigation after saving state snapshot |
 | **1-Click Rollback** | Full 1-Click state restoration via built-in Snapshot Rollback Manager | Full 1-Click state restoration via built-in Snapshot Rollback Manager |
@@ -102,7 +102,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | :--- | :--- | :--- |
 | **Licensing Policy** | Free forever for personal, academic, and non-profit use (zero registration) | Commercial Serial Key (`PRO-...` / `ENT-...`) or **RSA-4096 Signed Air-Gap `.lic` Certificate** |
 | **Host & Perimeter CVE Engine** | All 520 live signature clusters (`Fast` / `Normal` / `Full` scan tiers) | All 520 clusters + offline custom `.cvedb` hot-updates & fleet orchestration |
-| **CVE Intelligence Baseline** | `2026-10-29` (`248,890` CVEs `100.00%` mapped) | `2026-10-29` + priority air-gap / private mirror feed updates |
+| **CVE Intelligence Baseline** | `2026-11-02` (`249,120` CVEs `100.00%` mapped) | `2026-11-02` + priority air-gap / private mirror feed updates |
 | **Security Tools Hub** | **Phase 1 – Phase 2 Core Defense Tools (15 Tools Free)** | **All Phase 1 – Phase 11 Enterprise Defense Tools (All 87 Tools Unlocked)** |
 | **Remediation & Rollback** | Explicit `Allow` remediation & snapshot state restoration | Unlimited snapshot rollbacks + RFC 3161 / WORM Merkle-tree immutable audit ledger |
 | **Executive & Audit Reports** | Interactive HTML5 Executive Report (PDF print-ready), UTF-8 CSV, JSON | KISA Critical Infrastructure · ISMS-P · CIS Benchmark · ISO/IEC 27001 Compliance Certificates |
@@ -190,7 +190,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 .\DeviceInternalScanner.exe --sbom --batch
 
 # [Explicit Allow Remediation & Rollback] Remediate a specific CVE (with auto-snapshot) and restore latest snapshot
-.\DeviceInternalScanner.exe --allow CVE-2026-43990 --batch
+.\DeviceInternalScanner.exe --allow CVE-2026-5101 --batch
 .\DeviceInternalScanner.exe --rollback latest --batch
 ```
 
