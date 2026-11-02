@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample CVE Executive Audit Report (v11.5 Master Edition)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif; background: #0c1017; color: #e1e7f0; margin: 0; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; background: #131a26; border: 1px solid #1f2c40; border-radius: 12px; padding: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .header { border-bottom: 2px solid #1f2c40; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .title { font-size: 22px; font-weight: bold; color: #00d2ff; }
+    .meta { color: #8a99ad; font-size: 13px; margin-top: 5px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 12px; }
+    .badge-critical { background: #ff3366; color: #fff; }
+    .badge-high { background: #ff9900; color: #000; }
+    .badge-pass { background: #00e676; color: #000; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+    .summary-card { background: #0b0e14; border: 1px solid #1a2538; border-radius: 8px; padding: 15px; text-align: center; }
+    .card-num { font-size: 26px; font-weight: bold; margin-bottom: 4px; font-family: monospace; }
+    .card-lbl { color: #8a99ad; font-size: 12px; }
+    .table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .table th, .table td { padding: 12px; border-bottom: 1px solid #1c2638; text-align: left; font-size: 13px; }
+    .table th { background: #0e141f; color: #8a99ad; }
+    .code { font-family: monospace; background: #07090e; padding: 2px 6px; border-radius: 4px; color: #60ff9e; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <div class="title">🛡️ CVE Security Operations Suite — Executive Audit Report</div>
+        <div class="meta">Host: <b>SEC-CORP-W11-01</b> | OS Build: <b>22631.4391</b> | CVE DB Baseline: <b>2026-11-02 (249,120 CVEs)</b> | Tier: <b>Fast (KEV Focused)</b></div>
+      </div>
+      <div>
+        <span class="badge badge-critical">ACTION REQUIRED</span>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="card-num" style="color: #00d2ff;">249,120</div>
+        <div class="card-lbl">Global Mapped CVEs</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-num" style="color: #ff3366;">2</div>
+        <div class="card-lbl">Detected Vulnerabilities</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-num" style="color: #00e676;">58</div>
+        <div class="card-lbl">Hardened / Safe Signatures</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-num" style="color: #ffd600;">100%</div>
+        <div class="card-lbl">Rollback Snapshot Ready</div>
+      </div>
+    </div>
+
+    <h3 style="color: #fff; margin-bottom: 10px;">📋 Audit Findings & 1-Click Remediation Proposals</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>CVE ID</th>
+          <th>Severity</th>
+          <th>Affected Component</th>
+          <th>Audit Evidence</th>
+          <th>Automated Hardening Action (Upon User Allow)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>CVE-2026-5101</b> <span class="badge badge-critical">KEV</span></td>
+          <td><span class="badge badge-high">High (8.8)</span></td>
+          <td>lsass.exe (Kerberos PAC)</td>
+          <td>PacSignatureValidation is not configured (0); ticket spoofing possible.</td>
+          <td><span class="code">reg add "HKLM\SYSTEM\...\Lsa\Kerberos\Parameters" /v PacSignatureValidation /t REG_DWORD /d 1 /f</span></td>
+        </tr>
+        <tr>
+          <td><b>CVE-2024-38063</b> <span class="badge badge-critical">KEV</span></td>
+          <td><span class="badge badge-critical">Critical (9.8)</span></td>
+          <td>tcpip.sys (IPv6 Stack)</td>
+          <td>Cve202438063Mitigation not active; unauthenticated fragment flaw.</td>
+          <td><span class="code">reg add "HKLM\SYSTEM\...\Tcpip6\Parameters" /v Cve202438063Mitigation /t REG_DWORD /d 1 /f</span></td>
+        </tr>
+        <tr>
+          <td><b>CVE-2020-0796</b> <span class="badge badge-pass">SAFE</span></td>
+          <td><span class="badge badge-critical">Critical (10.0)</span></td>
+          <td>LanmanServer (SMBv3)</td>
+          <td>DisableCompression = 1 is active on system; protected from SMBGhost.</td>
+          <td><span style="color:#00e676;">Already Mitigated & Verified</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

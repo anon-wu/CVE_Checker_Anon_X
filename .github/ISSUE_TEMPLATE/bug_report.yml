@@ -1,0 +1,41 @@
+name: "Bug Report"
+description: "Report an issue, false-positive detection, or scanner unexpected behavior"
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please report any issues or false-positive detections below.
+  - type: dropdown
+    id: scanner_type
+    attributes:
+      label: Scanner Component
+      options:
+        - "DeviceInternalScanner.exe (Host Audit)"
+        - "DeviceExternalScanner.exe (Perimeter Audit)"
+        - "Web Installer (install.ps1)"
+        - "CLI / Headless Mode"
+    validations:
+      required: true
+  - type: input
+    id: os_version
+    attributes:
+      label: Windows OS Build
+      description: "e.g. Windows 11 23H2 (Build 22631.4391) or Windows Server 2022"
+      placeholder: "winver build number"
+    validations:
+      required: true
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Description of the Problem
+      description: "Explain what happened and what you expected to happen."
+    validations:
+      required: true
+  - type: textarea
+    id: logs_or_screenshot
+    attributes:
+      label: CLI Logs or Error Output
+      description: "Copy and paste terminal output."
+      render: shell

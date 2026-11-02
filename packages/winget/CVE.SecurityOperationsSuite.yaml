@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.6.0.schema.json
+PackageIdentifier: CVE.SecurityOperationsSuite
+PackageVersion: 11.5.0.0
+DefaultLocale: en-US
+Publisher: CVE Security Operations Project
+PackageName: CVE Security Operations Suite
+License: Freeware
+ShortDescription: All-in-One Zero-Dependency Portable Cyber Security Auditing & Remediation Platform.
+Description: |
+  CVE Security Operations Suite v11.5 Master Edition is an all-in-one portable vulnerability assessment and automated remediation suite for Windows.
+  Fully mapped to 249,120+ CVEs across host endpoint and network perimeter layers with 1-click snapshot rollback and zero-day transparent disclosures.
+Moniker: cve-suite
+Tags:
+  - cve
+  - security
+  - vulnerability-scanner
+  - audit
+  - cisa-kev
+  - zero-trust
+  - windows-hardening
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0
+---
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.6.0.schema.json
+PackageIdentifier: CVE.SecurityOperationsSuite
+PackageVersion: 11.5.0.0
+Installers:
+  - Architecture: x64
+    InstallerType: zip
+    InstallerUrl: https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/releases/CVE_Security_Operations_Suite_Portable.zip
+    InstallerSha256: 2D818C99E6C560F2BAFB0EF472B8A1BCDE8EC17BF26A427331D48D7D620EED51
+    NestedInstallerType: portable
+    NestedInstallerFiles:
+      - RelativeFilePath: DeviceInternalScanner.exe
+        PortableCommandAlias: cve-internal
+      - RelativeFilePath: DeviceExternalScanner.exe
+        PortableCommandAlias: cve-external
+ManifestType: installer
+ManifestVersion: 1.6.0

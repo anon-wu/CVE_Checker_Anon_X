@@ -19,6 +19,9 @@ build.ps1
 *.vbs
 *.snk
 
+# Allow official public zero-friction web installer
+!install.ps1
+
 # Runtime & Customer License Artifacts (Never commit activated keys or air-gap .lic files)
 *.lic
 license.key

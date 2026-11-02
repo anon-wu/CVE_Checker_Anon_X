@@ -1,0 +1,46 @@
+name: Verify Release Integrity & SHA-256
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify SHA256SUMS.txt Integrity
+        shell: powershell
+        run: |
+          Write-Host "Verifying Portable ZIP SHA-256..."
+          $sumsPath = "SHA256SUMS.txt"
+          if (-not (Test-Path $sumsPath)) {
+            throw "SHA256SUMS.txt missing!"
+          }
+          $zipPath = "releases/CVE_Security_Operations_Suite_Portable.zip"
+          if (-not (Test-Path $zipPath)) {
+            throw "releases/CVE_Security_Operations_Suite_Portable.zip missing!"
+          }
+          $actual = (Get-FileHash -LiteralPath $zipPath -Algorithm SHA256).Hash.ToUpper()
+          $content = Get-Content $sumsPath -Raw
+          if ($content -notmatch $actual) {
+            throw "Hash mismatch for $zipPath! Actual computed: $actual"
+          }
+          Write-Host "[OK] SHA-256 Integrity Verified for Portable Release: $actual" -ForegroundColor Green
+
+      - name: Test One-Liner Web Installer (Dry-Run)
+        shell: powershell
+        run: |
+          $tempDir = Join-Path $env:TEMP "ci_install_test"
+          & .\install.ps1 -InstallDir $tempDir -SkipShortcut
+          if (-not (Test-Path (Join-Path $tempDir "DeviceInternalScanner.exe"))) {
+            throw "Internal scanner failed to extract!"
+          }
+          if (-not (Test-Path (Join-Path $tempDir "DeviceExternalScanner.exe"))) {
+            throw "External scanner failed to extract!"
+          }
+          Write-Host "[OK] Web Installer Verified!" -ForegroundColor Green

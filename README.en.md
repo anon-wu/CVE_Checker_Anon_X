@@ -1,6 +1,16 @@
 # [★] CVE Security Operations Suite — v11.5 Master Edition
 
 <p align="center">
+  <a href="https://github.com/anon-wu/CVE_Checker_Anon_X/releases"><img src="https://img.shields.io/badge/Release-v11.5_Master-00d2ff.svg?style=for-the-badge&logo=github" alt="Release v11.5"/></a>
+  <img src="https://img.shields.io/badge/CVE_Database-249%2C120_Entries-red.svg?style=for-the-badge&logo=securityscorecard" alt="CVE Database"/>
+  <img src="https://img.shields.io/badge/Coverage-100.00%25-brightgreen.svg?style=for-the-badge" alt="100% Coverage"/>
+  <img src="https://img.shields.io/badge/Platform-Windows_10_%7C_11_%7C_Server-0078D6.svg?style=for-the-badge&logo=windows" alt="Platform"/>
+  <img src="https://img.shields.io/badge/Integrity-RSA--2048_Strong--Name-success.svg?style=for-the-badge" alt="RSA-2048"/>
+  <img src="https://img.shields.io/badge/Antivirus-21%2B_Engines_Clean-orange.svg?style=for-the-badge" alt="Antivirus Coexistence"/>
+  <a href="https://anon-wu.github.io/CVE_Checker_Anon_X/"><img src="https://img.shields.io/badge/Web_Portal-GitHub_Pages_Live-blueviolet.svg?style=for-the-badge&logo=googlechrome" alt="GitHub Pages"/></a>
+</p>
+
+<p align="center">
   <b>🌐 Language / 言語選択 / 언어 선택:</b><br/>
   <a href="README.md"><b>[🇰🇷 한국어 전문 가이드 (README.md)]</b></a> &nbsp;|&nbsp;
   <a href="README.en.md"><b>[🇺🇸 English Full Documentation (Current)]</b></a> &nbsp;|&nbsp;
@@ -16,6 +26,25 @@
 > **Official Portable Download:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
 > **Official Repository:** [https://github.com/anon-wu/CVE_Checker_Anon_X](https://github.com/anon-wu/CVE_Checker_Anon_X)  
 > **Official Contact & Pro/Enterprise Licensing:** `jayd424000@gmail.com`
+
+---
+
+---
+
+### ⚡ Zero-Friction One-Liner Quick-Install (PowerShell)
+
+Install and verify the suite in seconds with zero manual extraction. This official script downloads the latest release, verifies cryptographic SHA-256 checksums, unblocks Windows SmartScreen flags, and creates Desktop shortcuts automatically:
+
+```powershell
+# [One-Liner Quick Install & Integrity Verification] PowerShell (Admin or Standard User)
+irm https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/install.ps1 | iex
+
+# [Scoop Package Manager]
+scoop install https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/packages/scoop/cve-security-suite.json
+```
+
+> 🌐 **Interactive Web Portal & Live CVE Catalog**: [https://anon-wu.github.io/CVE_Checker_Anon_X/](https://anon-wu.github.io/CVE_Checker_Anon_X/)  
+> 📦 **Direct Portable ZIP Download**: [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) (540KB) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)
 
 ---
 

@@ -1,0 +1,50 @@
+name: "CVE Signature Addition Request"
+description: "Suggest a new CVE vulnerability signature or hardening rule to be incorporated into the suite"
+title: "[CVE-REQ]: CVE-YYYY-NNNN — "
+labels: ["cve-signature", "community-feed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping expand the community CVE signature coverage!
+  - type: input
+    id: cve_id
+    attributes:
+      label: CVE Identifier
+      description: "e.g. CVE-2026-XXXX"
+      placeholder: "CVE-2026-12345"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: CVSS Severity
+      options:
+        - "Critical (9.0 - 10.0)"
+        - "High (7.0 - 8.9)"
+        - "Medium (4.0 - 6.9)"
+        - "Low (0.1 - 3.9)"
+    validations:
+      required: true
+  - type: checkboxes
+    id: is_kev
+    attributes:
+      label: CISA Known Exploited Vulnerability (KEV)
+      options:
+        - label: "This CVE is listed in the CISA KEV catalog or has known active in-the-wild exploitation"
+  - type: textarea
+    id: affected_component
+    attributes:
+      label: Affected Subsystem & Vector
+      description: "e.g. SMBv3, Schannel TLS 1.3, Kerberos PAC, Win32k, etc."
+      placeholder: "Specify Windows service, DLL, sys driver, or network port."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_mitigation
+    attributes:
+      label: Proposed Mitigation / Registry Hardening Rule
+      description: "Safe registry setting, policy value, or firewall rule."
+      placeholder: "e.g. HKLM\\SYSTEM\\... Key=Value"
+    validations:
+      required: true
