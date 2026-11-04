@@ -219,7 +219,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 .\DeviceInternalScanner.exe --sbom --batch
 
 # [Explicit Allow Remediation & Rollback] Remediate a specific CVE (with auto-snapshot) and restore latest snapshot
-.\DeviceInternalScanner.exe --allow CVE-2026-5101 --batch
+.\DeviceInternalScanner.exe --allow CVE-2024-38063 --batch
 .\DeviceInternalScanner.exe --rollback latest --batch
 ```
 

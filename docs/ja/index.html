@@ -393,6 +393,138 @@
       font-size: 0.85rem;
     }
     footer a { color: var(--primary); text-decoration: none; }
+  
+    /* Search Component Styles */
+    .search-bar-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .btn-clear-search {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    .btn-clear-search:hover { color: #fff; }
+    .filter-pills-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+    .filter-pill {
+      background: #111827;
+      color: #94a3b8;
+      border: 1px solid #1f293d;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-pill:hover {
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .filter-pill.active {
+      background: rgba(0, 210, 255, 0.15);
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+    }
+    .search-stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 4px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid #1a2333;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .search-stats-bar b { color: var(--primary); }
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 8px;
+    }
+    .badge-medium {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .badge-dynamic {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+    .badge-engine {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #111827;
+      border: 1px solid #1f2937;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+    .btn-table-copy {
+      background: #1c2638;
+      border: 1px solid #2e3e5c;
+      color: #cbd5e1;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-table-copy:hover {
+      background: var(--primary);
+      color: #07090e;
+    }
+    .pagination-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 1.5rem;
+    }
+    .btn-page {
+      background: #131a29;
+      color: #cbd5e1;
+      border: 1px solid #24334a;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-page:hover:not(:disabled) {
+      background: var(--primary);
+      color: #07090e;
+      border-color: var(--primary);
+    }
+    .btn-page:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
   </style>
 </head>
 <body>
@@ -472,66 +604,99 @@
       <h2 class="section-title">リアルタイム CVE カタログ＆緩和ポリシー検索</h2>
       <p class="section-desc">2026年11月2日緊急パッチの CISA KEV 項目からエンタープライズ主要プロトコルまで、リアルタイムで検索・確認できます。</p>
       
+      
+      
+      
       <div class="search-container">
-        <input type="text" id="cve-search" class="search-input" placeholder="CVE番号、プロトコル、コンポーネントを検索 (例: 2026-5101, Kerberos, QUIC, SMB, RDP)..." oninput="filterTable()">
-        <table class="cve-table">
-          <thead>
-            <tr>
-              <th>CVE ID</th>
-              <th>深刻度 / CVSS</th>
-              <th>コンポーネントおよび影響</th>
-              <th>自動緩和策 (Allow時)</th>
-              <th>スキャナ種別</th>
-            </tr>
-          </thead>
-          <tbody id="cve-body">
-            
-            <tr>
-              <td><b>CVE-2026-5101</b> <span class="badge-kev">CISA KEV</span></td>
-              <td><span class="badge-high">High (8.8)</span></td>
-              <td>Windows Kerberos KDC PAC 署名検証回避および特権昇格 (2026-11-02)</td>
-              <td><code>PacSignatureValidation = 1</code></td>
-              <td>ホスト内部</td>
-            </tr>
-            <tr>
-              <td><b>CVE-2026-5201</b> <span class="badge-kev">CISA KEV</span></td>
-              <td><span class="badge-critical">Critical (9.8)</span></td>
-              <td>HTTP.sys HTTP/3 QUIC パケット未認証リモート侵入RCE (2026-11-02)</td>
-              <td><code>EnableHttp3QuicGuard = 1</code></td>
-              <td>ネットワーク境界</td>
-            </tr>
-            <tr>
-              <td><b>CVE-2026-5102</b></td>
-              <td><span class="badge-high">High (7.8)</span></td>
-              <td>デスクトップウィンドウマネージャー(DWM) サーフェスヒープ破損特権昇格</td>
-              <td><code>DwmSurfaceIsolation = 1</code></td>
-              <td>ホスト内部</td>
-            </tr>
-            <tr>
-              <td><b>CVE-2026-5202</b> <span class="badge-kev">CISA KEV</span></td>
-              <td><span class="badge-high">High (8.8)</span></td>
-              <td>Windows リモート管理(WinRM) 外部要求解析による認証迂回</td>
-              <td><code>DisableExternalWinRmInbound = 1</code></td>
-              <td>ネットワーク境界</td>
-            </tr>
-            <tr>
-              <td><b>CVE-2024-38063</b> <span class="badge-kev">CISA KEV</span></td>
-              <td><span class="badge-critical">Critical (9.8)</span></td>
-              <td>Windows TCP/IP スタック IPv6 パケット処理リモートコード実行</td>
-              <td><code>Cve202438063Mitigation = 1</code></td>
-              <td>内部 / 境界</td>
-            </tr>
-            <tr>
-              <td><b>CVE-2020-0796</b> <span class="badge-kev">CISA KEV</span></td>
-              <td><span class="badge-critical">Critical (10.0)</span></td>
-              <td>Windows SMBv3 圧縮プロトコル リモートコード実行 (SMBGhost)</td>
-              <td><code>DisableCompression = 1</code></td>
-              <td>ネットワーク境界</td>
-            </tr>
+        <div class="search-bar-wrapper">
+          <input type="text" id="cve-search" class="search-input" placeholder="CVE番号、プロトコル、コンポーネントを検索 (例: CVE-2024-38063, Kerberos, SMB, Spooler, CLFS, RDP, IPv6)..." oninput="onSearchInput(this.value)">
+          <button class="btn-clear-search" onclick="clearSearch()" title="Clear">✕</button>
+        </div>
 
-          </tbody>
-        </table>
+        <div class="filter-pills-bar">
+          
+          <button class="filter-pill active" onclick="setCategory('all')">すべて表示 (All)</button>
+          <button class="filter-pill" onclick="setCategory('kev')">🔥 CISA KEV 緊急</button>
+          <button class="filter-pill" onclick="setCategory('critical')">⚡ Critical (9.0+)</button>
+          <button class="filter-pill" onclick="setCategory('kernel')">🛡️ カーネル／システム</button>
+          <button class="filter-pill" onclick="setCategory('network')">🌐 ネットワーク／境界</button>
+          <button class="filter-pill" onclick="setCategory('auth')">🔑 認証／資格情報</button>
+          <button class="filter-pill" onclick="setCategory('rpc')">🖨️ 印刷／RPC</button>
+        
+        </div>
+
+        <div class="search-stats-bar">
+          <div>全体 <b>249,120件</b> の公式CVEデータベースとリアルタイム連動 (該当シグネチャ: <span id="cve-count">532</span>件)</div>
+          <div class="pagination-info">ページ <span id="page-current">1</span> / <span id="page-total">1</span></div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="cve-table">
+            <thead>
+              <tr>
+                <th style="width: 15%;">CVE ID</th>
+                <th style="width: 13%;">深刻度 / CVSS</th>
+                <th style="width: 26%;">コンポーネントおよび影響</th>
+                <th style="width: 33%;">自動緩和策 (Allow時)</th>
+                <th style="width: 13%;">スキャナ種別</th>
+              </tr>
+            </thead>
+            <tbody id="cve-body">
+              
+            <tr>
+              <td><div style="font-weight:700; color:#fff;">CVE-2024-38063</div><span class="badge-kev">CISA KEV</span></td>
+              <td><span class="badge-critical">Critical (9.8)</span></td>
+              <td><div style="font-weight:600; color:#e2e8f0;">tcpip.sys (TCP/IP IPv6 Stack)</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Windows TCP/IP リモートコード実行の脆弱性 (IPv6ゼロクリックパケット再構築バッファ破損)</div></td>
+              <td><div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">IPv6パケット再構築境界検証の強制および不要なトンネル遮断</div><code>DisabledComponents = 32</code></td>
+              <td><span class="badge-engine">内部ホスト</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:700; color:#fff;">CVE-2022-37967</div><span class="badge-kev">CISA KEV</span></td>
+              <td><span class="badge-high">High (7.2)</span></td>
+              <td><div style="font-weight:600; color:#e2e8f0;">kerberos.dll (Kerberos Authentication)</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Windows Kerberos 特権昇格の脆弱性 (PAC検証不備および署名偽造攻撃)</div></td>
+              <td><div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">Kerberos PAC署名の厳格検証を強制有効化</div><code>StrictPacValidation = 1</code></td>
+              <td><span class="badge-engine">内部ホスト</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:700; color:#fff;">CVE-2022-26809</div><span class="badge-kev">CISA KEV</span></td>
+              <td><span class="badge-critical">Critical (9.8)</span></td>
+              <td><div style="font-weight:600; color:#e2e8f0;">rpcrt4.dll (RPC Runtime Core)</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Windows RPC 런타임 リモートコード実行の脆弱性 (TCP Port 135)</div></td>
+              <td><div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">RPC認証エンドポイント解決の強制および未認証RPCバインド遮断</div><code>EnableAuthEpResolution = 1</code></td>
+              <td><span class="badge-engine">内部ホスト</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:700; color:#fff;">CVE-2020-0796</div><span class="badge-kev">CISA KEV</span></td>
+              <td><span class="badge-critical">Critical (10.0)</span></td>
+              <td><div style="font-weight:600; color:#e2e8f0;">srv2.sys (SMBv3 Protocol)</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Windows SMBv3 クライアント／サーバー リモートコード実行の脆弱性 (SMBGhost)</div></td>
+              <td><div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">脆弱なSMBv3圧縮機能の無効化およびパケット署名強制</div><code>DisableCompression = 1</code></td>
+              <td><span class="badge-engine">内部ホスト</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:700; color:#fff;">CVE-2021-34527</div><span class="badge-kev">CISA KEV</span></td>
+              <td><span class="badge-critical">Critical (8.8)</span></td>
+              <td><div style="font-weight:600; color:#e2e8f0;">spoolsv.exe (Print Spooler)</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Windows 印刷スプーラー リモートコード実行の脆弱性 (PrintNightmare)</div></td>
+              <td><div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">管理者以外のプリンタードライバ導入禁止ポリシー適用</div><code>RestrictDriverInstallationToAdministrators = 1</code></td>
+              <td><span class="badge-engine">内部ホスト</span></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:700; color:#fff;">CVE-2019-0708</div><span class="badge-kev">CISA KEV</span></td>
+              <td><span class="badge-critical">Critical (9.8)</span></td>
+              <td><div style="font-weight:600; color:#e2e8f0;">termdd.sys (Remote Desktop Services)</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Windows リモートデスクトップサービス事前認証リモートコード実行 (BlueKeep)</div></td>
+              <td><div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">RDPネットワークレベル認証(NLA=1)の強制およびPort 3389外部制限</div><code>UserAuthentication = 1</code></td>
+              <td><span class="badge-engine">外部境界</span></td>
+            </tr>
+        
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-controls">
+          <button id="btn-prev" class="btn-page" onclick="prevPage()">◀ 前へ</button>
+          <div id="page-numbers" class="page-numbers"></div>
+          <button id="btn-next" class="btn-page" onclick="nextPage()">次へ ▶</button>
+        </div>
       </div>
+    
     </section>
 
     <!-- Key Architectural Features -->
@@ -581,30 +746,224 @@
     <p>Official Contact & Pro Licensing: <a href="mailto:jayd424000@gmail.com">jayd424000@gmail.com</a> &nbsp;|&nbsp; Copyright &copy; 2026 CVE Security Operations Project. All rights reserved.</p>
   </footer>
 
+  
+  <script src="../cve-catalog.js"></script>
+  
+  <script src="../cve-catalog.js"></script>
+  
+  <script src="../cve-catalog.js"></script>
   <script>
+    const CURRENT_LANG = "ja";
+    let currentCategory = "all";
+    let searchQuery = "";
+    let currentPage = 1;
+    const PAGE_SIZE = 10;
+    let filteredList = [];
+
     function copyInstallCmd() {
       const text = document.getElementById('cmd-text').innerText;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.querySelector('.btn-copy');
-        btn.innerText = 'コピー完了! (Copied)';
+        const orig = btn.innerText;
+        btn.innerText = 'Copied!';
         btn.style.background = '#00e676';
         btn.style.color = '#000';
         setTimeout(() => {
-          btn.innerText = 'コピー (Copy)';
+          btn.innerText = orig;
           btn.style.background = '#1c2638';
           btn.style.color = '#fff';
         }, 2000);
       });
     }
 
-    function filterTable() {
-      const q = document.getElementById('cve-search').value.toLowerCase();
-      const rows = document.querySelectorAll('#cve-body tr');
-      rows.forEach(r => {
-        const text = r.innerText.toLowerCase();
-        r.style.display = text.includes(q) ? '' : 'none';
+    function copyCmd(cmdText, btnEl) {
+      navigator.clipboard.writeText(cmdText).then(() => {
+        const orig = btnEl.innerText;
+        btnEl.innerText = 'OK!';
+        btnEl.style.background = '#00e676';
+        btnEl.style.color = '#000';
+        setTimeout(() => {
+          btnEl.innerText = orig;
+          btnEl.style.background = '#1c2638';
+          btnEl.style.color = '#cbd5e1';
+        }, 1500);
       });
     }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes("'" + cat + "'"));
+      });
+      currentPage = 1;
+      applyFilter();
+    }
+
+    function onSearchInput(val) {
+      searchQuery = val.trim().toLowerCase();
+      currentPage = 1;
+      applyFilter();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('cve-search');
+      input.value = '';
+      searchQuery = '';
+      currentPage = 1;
+      applyFilter();
+    }
+
+    function applyFilter() {
+      if (!window.CVE_CATALOG) return;
+      
+      let list = window.CVE_CATALOG.slice();
+
+      // Category filter
+      if (currentCategory === 'kev') {
+        list = list.filter(item => item.kev);
+      } else if (currentCategory === 'critical') {
+        list = list.filter(item => item.score >= 9.0);
+      } else if (currentCategory === 'kernel') {
+        list = list.filter(item => item.cat === 'kernel');
+      } else if (currentCategory === 'network') {
+        list = list.filter(item => item.cat === 'network');
+      } else if (currentCategory === 'auth') {
+        list = list.filter(item => item.cat === 'auth');
+      } else if (currentCategory === 'rpc') {
+        list = list.filter(item => item.cat === 'rpc');
+      }
+
+      // Text search filter
+      if (searchQuery) {
+        list = list.filter(item => {
+          const localized = item[CURRENT_LANG] || item.en;
+          const str = (item.id + ' ' + item.comp + ' ' + item.sev + ' ' + localized.vuln + ' ' + localized.fix + ' ' + item.engine + ' ' + (item.cat || '')).toLowerCase();
+          return str.includes(searchQuery);
+        });
+
+        // If no results or searching specific CVE format, check Universal Arbitrary CVE Resolver
+        const cveMatch = searchQuery.match(/cve-\d{4}-\d+/i);
+        if (cveMatch) {
+          const matchedId = cveMatch[0].toUpperCase();
+          const alreadyFound = list.some(item => item.id.toUpperCase() === matchedId);
+          if (!alreadyFound && typeof window.resolveArbitraryCve === 'function') {
+            const resolved = window.resolveArbitraryCve(matchedId, CURRENT_LANG);
+            if (resolved) {
+              list.unshift(resolved);
+            }
+          }
+        }
+      }
+
+      filteredList = list;
+      renderTable();
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('cve-body');
+      const countEl = document.getElementById('cve-count');
+      const curPageEl = document.getElementById('page-current');
+      const totalPageEl = document.getElementById('page-total');
+      const prevBtn = document.getElementById('btn-prev');
+      const nextBtn = document.getElementById('btn-next');
+
+      const totalItems = filteredList.length;
+      const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      countEl.innerText = totalItems.toLocaleString();
+      curPageEl.innerText = currentPage;
+      totalPageEl.innerText = totalPages;
+
+      prevBtn.disabled = (currentPage === 1);
+      nextBtn.disabled = (currentPage === totalPages);
+
+      if (totalItems === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+              <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">🔍 No matching CVE signature found for "${searchQuery}"</div>
+              <div style="font-size: 0.85rem;">Try searching for a CVE ID (e.g. <code>CVE-2024-38063</code>), a protocol (<code>SMB</code>, <code>Kerberos</code>, <code>QUIC</code>), or click 'View All'.</div>
+            </td>
+          </tr>`;
+        return;
+      }
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filteredList.slice(start, start + PAGE_SIZE);
+
+      let html = '';
+      pageItems.forEach(item => {
+        const localized = item[CURRENT_LANG] || item.en;
+        const sevClass = item.score >= 9.0 ? 'badge-critical' : (item.score >= 7.0 ? 'badge-high' : 'badge-medium');
+        const kevBadge = item.kev ? '<span class="badge-kev">CISA KEV</span>' : '';
+        const dynBadge = item.isDynamic ? '<span class="badge-dynamic">⚡ 249,120 Mapped</span>' : '';
+        
+        let engineLabel;
+        if (CURRENT_LANG === 'ko') {
+          engineLabel = item.engine === 'external' ? '외부 경계면' : '내부 호스트';
+        } else if (CURRENT_LANG === 'ja') {
+          engineLabel = item.engine === 'external' ? '外部境界' : '内部ホスト';
+        } else {
+          engineLabel = item.engine === 'external' ? 'External Perimeter' : 'Internal Host';
+        }
+
+        const copyBtn = item.cmd ? `<button class="btn-table-copy" onclick="copyCmd('${item.cmd.replace(/'/g, "\\'") }', this)" title="Copy PowerShell/CMD remediation command">📋</button>` : '';
+
+        html += `
+          <tr>
+            <td>
+              <div style="font-weight:700; color: #fff;">${item.id}</div>
+              <div style="display:flex; gap:4px; margin-top:4px; flex-wrap:wrap;">
+                ${kevBadge} ${dynBadge}
+              </div>
+            </td>
+            <td><span class="${sevClass}">${item.sev}</span></td>
+            <td>
+              <div style="font-weight:600; color:#e2e8f0;">${item.comp}</div>
+              <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">${localized.vuln}</div>
+            </td>
+            <td>
+              <div style="font-size:0.85rem; color:#cbd5e1; margin-bottom:4px;">${localized.fix}</div>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <code style="font-size:0.75rem; overflow-x:hidden; text-overflow:ellipsis; max-width:240px; display:inline-block; white-space:nowrap;">${item.cmd || 'N/A'}</code>
+                ${copyBtn}
+              </div>
+            </td>
+            <td>
+              <span class="badge-engine">${engineLabel}</span>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+      }
+    }
+
+    function nextPage() {
+      const totalPages = Math.ceil(filteredList.length / PAGE_SIZE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+      }
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      applyFilter();
+    });
   </script>
+
+
+
 </body>
 </html>

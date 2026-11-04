@@ -219,7 +219,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 .\DeviceInternalScanner.exe --lang ja --sbom --batch
 
 # [事前承認修復 & ロールバック] 特定 CVE の自動修復（スナップショット自動保存）および最新スナップショットからの原状回復
-.\DeviceInternalScanner.exe --allow CVE-2026-5101 --batch
+.\DeviceInternalScanner.exe --allow CVE-2024-38063 --batch
 .\DeviceInternalScanner.exe --rollback latest --batch
 ```
 

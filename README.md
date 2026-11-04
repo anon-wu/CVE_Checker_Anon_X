@@ -219,7 +219,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 .\DeviceInternalScanner.exe --sbom --batch
 
 # [사전 승인 조치 & 롤백] 특정 CVE 자동 조치(스냅샷 자동 백업) 및 최신 스냅샷 원상 복구
-.\DeviceInternalScanner.exe --allow CVE-2026-5101 --batch
+.\DeviceInternalScanner.exe --allow CVE-2024-38063 --batch
 .\DeviceInternalScanner.exe --rollback latest --batch
 ```
 
