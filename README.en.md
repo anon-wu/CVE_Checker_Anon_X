@@ -20,7 +20,7 @@
 ---
 
 > **Release Version:** `v11.5 Master Edition (Build 11.5.0.0)`  
-> **CVE DB Baseline:** `2026-11-04` | **Cumulative Coverage:** `249,280 CVEs (100.00% Mapped / 520 Deep Live Signatures per Scanner)`  
+> **CVE DB Baseline:** `2026-11-04` | **Cumulative Coverage:** `249,280 CVEs (100.00% Mapped / 433 Verified Signatures (Fast: 76, Normal: 314, Full: 433))`  
 > **Languages & Typography:** `English (Segoe UI)` · `한국어 (Malgun Gothic)` · `日本語 (OSS Noto Sans JP)` (`< 30ms` Instant Dynamic Switch)  
 > **Binary Integrity & Protection:** `RSA-2048 Strong-Name Signed (Token: efa16b5fcb79fdf2)` · `[SuppressIldasm]` · `RSA-4096 Pro License Verification`  
 > **Official Portable Download:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
@@ -80,7 +80,7 @@ flowchart LR
 
 ### [★] Four Mandatory Security Principles
 
-1. **Official CVE Database-Backed Live Auditing**: Every vulnerability check and remediation rule operates strictly against officially cataloged **CVE (Common Vulnerabilities and Exposures)** intelligence (`249,280` cumulative CVEs as of `2026-11-04`, mapped `100.00%` across `520` deep live signature clusters per scanner).
+1. **Official CVE Database-Backed Live Auditing**: Every vulnerability check and remediation rule operates strictly against officially cataloged **CVE (Common Vulnerabilities and Exposures)** intelligence (`249,280` cumulative CVEs as of `2026-11-04`, mapped `100.00%` across 433 verified CISA KEV & Windows live signature clusters).
 2. **Transparent Zero-Day Attack Disclosure**: Undisclosed **Zero-Day Attacks** for which no official CVE advisory, patch, or mitigation has yet been published cannot be diagnosed by definition. Both the startup security notice and CLI banner disclose this limitation transparently before every session.
 3. **Explicit User `Allow` & Guaranteed Rollback**: The suite never makes silent background modifications to your operating system. Every finding displays concrete telemetry evidence and the exact remediation action, executing changes only after explicit **`[Allow]`** confirmation and automatic pre-change snapshot backup.
 4. **Instant Pre-Warmed Startup & Native Trilingual Typography**: Asynchronous catalog pre-warming launches the main portal immediately upon accepting the startup notice. Real-time language switching updates all views and all **87 tool dialogs** in `< 30ms` without window handle recreation, using native **`Segoe UI`** (English), **`Malgun Gothic`** (Korean), and open-source **`Noto Sans JP`** (Japanese).
@@ -119,7 +119,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | :--- | :--- | :--- | :--- |
 | **Operating Model** | Interactive (Audit + User-Approved Fixes) | Interactive (Probe + Perimeter Lockdown) | **100% Read-Only (Zero Mutation, Non-Invasive, Immutable)** |
 | **Primary Scope** | OS kernel & build baseline, registry hives, system services, EoP vectors, SBOM | Open TCP/UDP ports, SMB/RDP/RPC/TLS/UPnP protocols, firewall perimeter exposure | Non-invasive endpoint posture, EDR-friendly audit, CISO compliance |
-| **Built-In Signatures** | `520` live host signatures (`249,280` CVEs) | `520` live perimeter signatures (`249,280` CVEs) | `520` full signatures (`249,280` CVEs, remediation strictly disabled) |
+| **Built-In Signatures** | `433` live host signatures (`249,280` CVEs) | `48` live perimeter signatures (`249,280` CVEs) | `433` full signatures (`249,280` CVEs, remediation strictly disabled) |
 | **Host Modification** | Applies approved (`Allow`) hardening with snapshot | Applies approved (`Allow`) firewall policy | **Zero Bytes Written (0 registry writes, 0 services stopped)** |
 | **Rollback Plan Needed** | Supported via 1-Click Snapshot Rollback | Supported via 1-Click Snapshot Rollback | **NOT NEEDED (Zero system mutations performed; no rollback plan required)** |
 | **Output Formats** | GUI, HTML5 Executive Report, CSV, JSON | GUI, HTML5 Executive Report, CSV, JSON | **GUI, SARIF v2.1.0 (OASIS), JSON, CLI Table** |
@@ -154,7 +154,7 @@ Built specifically to solve real-world SecOps friction, **DeviceAuditor.exe** pr
 | Capability | Community Edition (Free Public) | Pro / Enterprise Edition (Commercial) |
 | :--- | :--- | :--- |
 | **Licensing Policy** | Free forever for personal, academic, and non-profit use (zero registration) | Commercial Serial Key (`PRO-...` / `ENT-...`) or **RSA-4096 Signed Air-Gap `.lic` Certificate** |
-| **Host & Perimeter CVE Engine** | All 520 live signature clusters (`Fast` / `Normal` / `Full` scan tiers) | All 520 clusters + offline custom `.cvedb` hot-updates & fleet orchestration |
+| **Host & Perimeter CVE Engine** | 433 verified signatures (`Fast: 76` / `Normal: 314` / `Full: 433` scan tiers, perimeter: `Fast: 19` / `Normal: 42` / `Full: 48`) | All 433 signatures + offline custom `.cvedb` hot-updates & fleet orchestration |
 | **CVE Intelligence Baseline** | `2026-11-04` (`249,280` CVEs `100.00%` mapped) | `2026-11-04` + priority air-gap / private mirror feed updates |
 | **Security Tools Hub** | **Phase 1 – Phase 2 Core Defense Tools (15 Tools Free)** | **All Phase 1 – Phase 11 Enterprise Defense Tools (All 87 Tools Unlocked)** |
 | **Remediation & Rollback** | Explicit `Allow` remediation & snapshot state restoration | Unlimited snapshot rollbacks + RFC 3161 / WORM Merkle-tree immutable audit ledger |
@@ -229,7 +229,7 @@ Expand-Archive -Path .\releases\CVE_Security_Operations_Suite_Portable.zip -Dest
 # Display full CLI usage and options
 .\DeviceInternalScanner.exe --help
 
-# [Internal Host Audit] Run Full 520-cluster scan and export JSON audit report in unattended batch mode
+# [Internal Host Audit] Run Full 433-signature scan and export JSON audit report in unattended batch mode
 .\DeviceInternalScanner.exe --scan-tier full --lang en --output-format json --output-path .\reports\internal_audit.json --batch
 
 # [External Perimeter Audit] Run Fast scan against a target IP and export an HTML5 executive report (English)
