@@ -128,7 +128,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 ### 🛡️ DeviceAuditor.exe 詳細ガイド（完全無変形ゼロタッチ企業監査ツール）
 
 > *"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read only way to check endpoint state is a much easier sell to the security team."*  
-> — **Naseeba Kanu 氏** (TFalke 共同創設者 | Windows デバイス管理)
+> — **エンタープライズ SecOps & デバイス管理の基本原則**
 
 企業の SecOps および CISO の現場課題を解決するために開発された **100% 読み取り専用（システム無変形）監査ツール** です：
 - **100% 読み取り専用保証**: レジストリ書き込み0件、サービス停止0件、ファイル改変0件をコードレベルで保証。システム状態を一切変更しないため、**ロールバック計画や変更管理申請が不要**です。

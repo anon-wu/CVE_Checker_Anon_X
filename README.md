@@ -128,7 +128,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 ### 🛡️ DeviceAuditor.exe 상세 사용법 (무변형 제로-터치 엔터프라이즈 감사기)
 
 > *"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read only way to check endpoint state is a much easier sell to the security team."*  
-> — **Naseeba Kanu** (Co-founder at TFalke | Windows device management)
+> — **엔터프라이즈 SecOps & 디바이스 관리 핵심 원칙 (Enterprise SecOps Principle)**
 
 보안팀과 CISO의 실제 엔터프라이즈 감사 제약사항을 적극 반영하여 제작된 **100% 무변형(Zero Host Mutation) 읽기 전용 감사기**입니다:
 - **100% 읽기 전용(Read-Only)**: 레지스트리 쓰기 0건, 서비스 중단 0건, 파일 수정 0건을 코드 레벨에서 보장하며, 시스템을 전혀 변경하지 않으므로 보안팀의 **롤백 계획(Rollback Plan)이나 변경 관리 티켓이 일체 불필요**합니다.

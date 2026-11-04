@@ -128,7 +128,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 ### 🛡️ DeviceAuditor.exe Detailed Guide (Zero-Touch Read-Only Enterprise Auditor)
 
 > *"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read only way to check endpoint state is a much easier sell to the security team."*  
-> — **Naseeba Kanu** (Co-founder at TFalke | Windows device management)
+> — **Enterprise SecOps & Device Management Principle**
 
 Built specifically to solve real-world SecOps friction, **DeviceAuditor.exe** provides guaranteed **Zero Host Mutation (0 Bytes Written)** endpoint auditing:
 - **100% Read-Only**: 0 registry writes, 0 stopped services, 0 modified files. Security teams **do not need a rollback plan or change tickets**.
