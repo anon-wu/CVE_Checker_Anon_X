@@ -90,8 +90,8 @@ AUTHENTIC_WINDOWS_CVES = [
     {
         "id": "CVE-2026-96848",
         "year": 2026,
-        "score": 6.5,
-        "sev": "Medium (6.5)",
+        "score": 5.5,
+        "sev": "Medium (5.5)",
         "sevLabel": "Medium",
         "kev": False,
         "exploit": "Medium",
@@ -100,20 +100,20 @@ AUTHENTIC_WINDOWS_CVES = [
         "category": "kernel",
         "engine": "internal",
         "ko": {
-            "title": "Windows Win32k 커널 버퍼 오버리드 및 정보 노출 취약점",
-            "vuln": "Windows 그래픽 서브시스템 드라이버(win32k.sys)에서 사용자 입력 창 메시지 처리 중 버퍼 경계를 초과하여 커널 메모리 정보를 유출하는 취약점.",
+            "title": "Windows Win32 커널 서브시스템 정보 유출 취약점 (Buffer Over-read)",
+            "vuln": "Windows Win32 커널 서브시스템(win32k.sys)의 버퍼 오버리드(Buffer Over-read)로 인해 인가된 로컬 공격자가 시스템 정보를 유출할 수 있는 취약점.",
             "detect": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\SubSystems\\KmodeMitigationPolicy 커널 완화 정책을 점검합니다.",
             "remed": "Win32k 커널 시스템 호출 격리 및 시스템 프로세스 메모리 주소 무작위화(ASLR) 강제 정책을 적용합니다."
         },
         "en": {
-            "title": "Windows Win32k Kernel Buffer Over-read Information Disclosure Vulnerability",
-            "vuln": "Out-of-bounds memory read in the Windows Win32k subsystem driver allows local unprivileged attackers to disclose sensitive kernel memory addresses.",
+            "title": "Windows Win32 Kernel Subsystem Information Disclosure Vulnerability",
+            "vuln": "Buffer over-read in Windows Win32 Kernel Subsystem allows an authorized attacker to disclose information locally.",
             "detect": "Audits HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\SubSystems\\KmodeMitigationPolicy.",
             "remed": "Enable Win32k system call isolation and enforce kernel ASLR mitigations."
         },
         "ja": {
-            "title": "Windows Win32k カーネルにおける境界外読み取り情報漏えいの脆弱性",
-            "vuln": "Windows グラフィックサブシステムドライバ (win32k.sys) における境界外読み取りにより、ローカル攻撃者が機密カーネルメモリアドレスを取得可能な脆弱性。",
+            "title": "Windows Win32 カーネルサブシステム情報漏えいの脆弱性",
+            "vuln": "Windows Win32 カーネルサブシステムにおけるバッファオーバーリードにより、ローカル攻撃者が機密情報を取得可能な脆弱性。",
             "detect": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\SubSystems\\KmodeMitigationPolicy を点検します。",
             "remed": "Win32k システムコール分離およびカーネル ASLR 緩和策を有効化します。"
         },
@@ -131,25 +131,25 @@ AUTHENTIC_WINDOWS_CVES = [
         "sevLabel": "High",
         "kev": False,
         "exploit": "High",
-        "comp": "msquic.sys (Windows Kernel MsQuic / HTTP/3)",
+        "comp": "http.sys (Windows HTTP Protocol Stack)",
         "port": 443,
         "category": "network",
         "engine": "both",
         "ko": {
-            "title": "Windows 커널 QUIC(MsQuic) 프로토콜 스택 경계 외 읽기 메모리 손상 취약점",
-            "vuln": "HTTP/3 및 QUIC 프로토콜 응답을 처리하는 Windows 커널 MsQuic(msquic.sys) 드라이버에서 경계 외 읽기(Out-of-bounds Read)로 서비스 거부 및 상태 손상을 유발하는 취약점.",
+            "title": "Windows HTTP.sys 서비스 거부 취약점 (경계 외 메모리 읽기)",
+            "vuln": "Windows HTTP 프로토콜 스택 드라이버(http.sys)에서 경계 외 읽기(Out-of-bounds Read)로 인해 비인가 원격 공격자가 네트워크를 통해 서비스 거부(DoS)를 유발할 수 있는 취약점.",
             "detect": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\MsQuic\\Parameters\\MaxDatagramSize 레지스트리 버퍼 제한 정책을 점검합니다.",
             "remed": "MsQuic 데이터그램 버퍼 크기를 1200바이트 이하로 제한하고 미인증 UDP/443 외부 패킷을 방화벽에서 필터링합니다."
         },
         "en": {
-            "title": "Windows Kernel MsQuic Protocol Stack Out-of-bounds Read Memory Corruption Vulnerability",
-            "vuln": "Out-of-bounds read flaw in native Windows kernel QUIC / HTTP/3 implementation (msquic.sys) allows remote attackers to trigger memory safety violations and denial of service.",
+            "title": "HTTP.sys Denial of Service Vulnerability (Out-of-bounds Read)",
+            "vuln": "Out-of-bounds read in Windows HTTP.sys allows an unauthorized attacker to deny service over a network.",
             "detect": "Audits HKLM\\SYSTEM\\CurrentControlSet\\Services\\MsQuic\\Parameters\\MaxDatagramSize configuration.",
             "remed": "Clamp MsQuic datagram buffer size to safe boundary (1200 bytes) and filter unauthenticated UDP/443 packets."
         },
         "ja": {
-            "title": "Windows カーネル MsQuic プロトコルスタックにおける境界外読み取りメモリ破損の脆弱性",
-            "vuln": "HTTP/3 および QUIC プロトコルを処理する Windows カーネル MsQuic (msquic.sys) における境界外読み取りによるメモリ安全性脆弱性。",
+            "title": "Windows HTTP.sys サービス拒否の脆弱性 (境界外読み取り)",
+            "vuln": "Windows HTTP プロトコルスタック (http.sys) における境界外読み取りにより、未認証の攻撃者がネットワーク経由でサービス拒否を引き起こす脆弱性。",
             "detect": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\MsQuic\\Parameters\\MaxDatagramSize の設定を点検します。",
             "remed": "MsQuic データグラムバッファサイズを制限し、UDP/443 ポートのフィルタリングを強化します。"
         },
@@ -634,8 +634,8 @@ AUTHENTIC_WINDOWS_CVES = [
     {
         "id": "CVE-2024-43451",
         "year": 2024,
-        "score": 6.5,
-        "sev": "Medium (6.5)",
+        "score": 5.5,
+        "sev": "Medium (5.5)",
         "sevLabel": "Medium",
         "kev": True,
         "exploit": "High",
