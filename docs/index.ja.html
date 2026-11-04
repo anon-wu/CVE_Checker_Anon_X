@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CVE Security Operations Suite — v11.5 Master Edition</title>
-  <meta name="description" content="All-in-One Zero-Dependency Portable Cyber Security Auditing & Remediation Platform. 249,120+ CVEs fully mapped across 11 phases and 87 defense tools.">
+  <meta name="description" content="All-in-One Zero-Dependency Portable Cyber Security Auditing & Remediation Platform. 249,280+ CVEs fully mapped across 11 phases and 87 defense tools.">
   <meta property="og:title" content="CVE Security Operations Suite — v11.5 Master Edition">
-  <meta property="og:description" content="2026-11-02 Global CVE Baseline Sync | 249,120 Cumulative CVEs | 87 Defense Tools | Zero-Dependency Single Portable Executable">
+  <meta property="og:description" content="2026-11-04 Global CVE Baseline Sync | 249,280 Cumulative CVEs | 87 Defense Tools | Zero-Dependency Single Portable Executable">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anon-wu.github.io/CVE_Checker_Anon_X/">
   <meta name="theme-color" content="#0a0e17">
@@ -556,13 +556,13 @@
 
   <main class="container">
     <section class="hero">
-      <div class="hero-badge">🛡️ 2026-11-02 NVD / MITRE グローバル最新基準同期完了</div>
+      <div class="hero-badge">🛡️ 2026-11-04 NVD / MITRE グローバル最新基準同期完了</div>
       <h1>自律サイバー防衛の完全統合<br/>CVE Security Operations Suite</h1>
       <p>単一のポータブル実行ファイルで端末内部の構成監査と外部ネットワーク境界の脆弱性を実測し、ユーザー承認のもとで安全に自動修復および1-Clickロールバックを実行します。</p>
 
       <div class="stats-grid" id="stats">
         <div class="stat-card">
-          <div class="stat-number">249,120件</div>
+          <div class="stat-number">249,280件</div>
           <div class="stat-label">公式対応CVE 全数マッピング</div>
         </div>
         <div class="stat-card">
@@ -602,7 +602,9 @@
     <!-- Interactive Search Demo -->
     <section id="search">
       <h2 class="section-title">リアルタイム CVE カタログ＆緩和ポリシー検索</h2>
-      <p class="section-desc">2026年11月2日緊急パッチの CISA KEV 項目からエンタープライズ主要プロトコルまで、リアルタイムで検索・確認できます。</p>
+      <p class="section-desc">2026年11月4日基準の最新 CISA KEV 項目からエンタープライズ主要プロトコルまで、リアルタイムで検索・確認できます。</p>
+      
+      
       
       
       
@@ -626,7 +628,7 @@
         </div>
 
         <div class="search-stats-bar">
-          <div>全体 <b>249,120件</b> の公式CVEデータベースとリアルタイム連動 (該当シグネチャ: <span id="cve-count">532</span>件)</div>
+          <div>全体 <b>249,280件</b> の公式CVEデータベースとリアルタイム連動 (該当シグネチャ: <span id="cve-count">532</span>件)</div>
           <div class="pagination-info">ページ <span id="page-current">1</span> / <span id="page-total">1</span></div>
         </div>
 
@@ -752,6 +754,10 @@
   <script src="cve-catalog.js"></script>
   
   <script src="cve-catalog.js"></script>
+  
+  <script src="cve-catalog.js"></script>
+  
+  <script src="cve-catalog.js"></script>
   <script>
     const CURRENT_LANG = "ja";
     let currentCategory = "all";
@@ -852,6 +858,11 @@
               list.unshift(resolved);
             }
           }
+        } else if (/^\d{4}$/.test(searchQuery)) {
+          const yearItems = window.CVE_CATALOG.filter(item => item.id.includes(searchQuery) || (item[CURRENT_LANG] || item.en).vuln.includes(searchQuery));
+          if (yearItems.length > 0) {
+            list = yearItems;
+          }
         }
       }
 
@@ -899,7 +910,7 @@
         const localized = item[CURRENT_LANG] || item.en;
         const sevClass = item.score >= 9.0 ? 'badge-critical' : (item.score >= 7.0 ? 'badge-high' : 'badge-medium');
         const kevBadge = item.kev ? '<span class="badge-kev">CISA KEV</span>' : '';
-        const dynBadge = item.isDynamic ? '<span class="badge-dynamic">⚡ 249,120 Mapped</span>' : '';
+        const dynBadge = item.isDynamic ? '<span class="badge-dynamic">⚡ 249,280 Mapped</span>' : '';
         
         let engineLabel;
         if (CURRENT_LANG === 'ko') {
@@ -962,6 +973,8 @@
       applyFilter();
     });
   </script>
+
+
 
 
 

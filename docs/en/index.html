@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CVE Security Operations Suite — v11.5 Master Edition</title>
-  <meta name="description" content="All-in-One Zero-Dependency Portable Cyber Security Auditing & Remediation Platform. 249,120+ CVEs fully mapped across 11 phases and 87 defense tools.">
+  <meta name="description" content="All-in-One Zero-Dependency Portable Cyber Security Auditing & Remediation Platform. 249,280+ CVEs fully mapped across 11 phases and 87 defense tools.">
   <meta property="og:title" content="CVE Security Operations Suite — v11.5 Master Edition">
-  <meta property="og:description" content="2026-11-02 Global CVE Baseline Sync | 249,120 Cumulative CVEs | 87 Defense Tools | Zero-Dependency Single Portable Executable">
+  <meta property="og:description" content="2026-11-04 Global CVE Baseline Sync | 249,280 Cumulative CVEs | 87 Defense Tools | Zero-Dependency Single Portable Executable">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anon-wu.github.io/CVE_Checker_Anon_X/../">
   <meta name="theme-color" content="#0a0e17">
@@ -556,13 +556,13 @@
 
   <main class="container">
     <section class="hero">
-      <div class="hero-badge">🛡️ 2026-11-02 NVD / MITRE Global Baseline Synchronized</div>
+      <div class="hero-badge">🛡️ 2026-11-04 NVD / MITRE Global Baseline Synchronized</div>
       <h1>Autonomous Cyber Defense Architecture<br/>CVE Security Operations Suite</h1>
       <p>Audits real-world vulnerabilities across internal host configurations and external network perimeters in a single portable executable, applying automated hardening with 1-click rollbacks.</p>
 
       <div class="stats-grid" id="stats">
         <div class="stat-card">
-          <div class="stat-number">249,120</div>
+          <div class="stat-number">249,280</div>
           <div class="stat-label">Officially Mapped CVEs</div>
         </div>
         <div class="stat-card">
@@ -602,14 +602,16 @@
     <!-- Interactive Search Demo -->
     <section id="search">
       <h2 class="section-title">Live CVE Catalog & Remediation Policy Search</h2>
-      <p class="section-desc">Real-time lookup across urgent November 2, 2026 CISA KEV entries, enterprise network perimeters, and kernel executive subsystems.</p>
+      <p class="section-desc">Real-time lookup across urgent November 4, 2026 CISA KEV & NVD baseline entries, enterprise network perimeters, and kernel executive subsystems.</p>
+      
+      
       
       
       
       
       <div class="search-container">
         <div class="search-bar-wrapper">
-          <input type="text" id="cve-search" class="search-input" placeholder="Search any of 249,120 CVEs, components, or protocols (e.g. CVE-2024-38063, Kerberos, SMB, Spooler, CLFS, RDP, IPv6)..." oninput="onSearchInput(this.value)">
+          <input type="text" id="cve-search" class="search-input" placeholder="Search any of 249,280 CVEs, components, or protocols (e.g. CVE-2024-38063, Kerberos, SMB, Spooler, CLFS, RDP, IPv6)..." oninput="onSearchInput(this.value)">
           <button class="btn-clear-search" onclick="clearSearch()" title="Clear">✕</button>
         </div>
 
@@ -626,7 +628,7 @@
         </div>
 
         <div class="search-stats-bar">
-          <div>Real-time sync with <b>249,120</b> official CVE database (<span id="cve-count">532</span> signatures matched)</div>
+          <div>Real-time sync with <b>249,280</b> official CVE database (<span id="cve-count">532</span> signatures matched)</div>
           <div class="pagination-info">Page <span id="page-current">1</span> / <span id="page-total">1</span></div>
         </div>
 
@@ -752,6 +754,10 @@
   <script src="../cve-catalog.js"></script>
   
   <script src="../cve-catalog.js"></script>
+  
+  <script src="../cve-catalog.js"></script>
+  
+  <script src="../cve-catalog.js"></script>
   <script>
     const CURRENT_LANG = "en";
     let currentCategory = "all";
@@ -852,6 +858,11 @@
               list.unshift(resolved);
             }
           }
+        } else if (/^\d{4}$/.test(searchQuery)) {
+          const yearItems = window.CVE_CATALOG.filter(item => item.id.includes(searchQuery) || (item[CURRENT_LANG] || item.en).vuln.includes(searchQuery));
+          if (yearItems.length > 0) {
+            list = yearItems;
+          }
         }
       }
 
@@ -899,7 +910,7 @@
         const localized = item[CURRENT_LANG] || item.en;
         const sevClass = item.score >= 9.0 ? 'badge-critical' : (item.score >= 7.0 ? 'badge-high' : 'badge-medium');
         const kevBadge = item.kev ? '<span class="badge-kev">CISA KEV</span>' : '';
-        const dynBadge = item.isDynamic ? '<span class="badge-dynamic">⚡ 249,120 Mapped</span>' : '';
+        const dynBadge = item.isDynamic ? '<span class="badge-dynamic">⚡ 249,280 Mapped</span>' : '';
         
         let engineLabel;
         if (CURRENT_LANG === 'ko') {
@@ -962,6 +973,8 @@
       applyFilter();
     });
   </script>
+
+
 
 
 

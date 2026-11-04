@@ -18,7 +18,7 @@ $ErrorActionPreference = "Stop"
 Write-Host ""
 Write-Host "========================================================================" -ForegroundColor Cyan
 Write-Host "   CVE Security Operations Suite - Automated Zero-Friction Installer     " -ForegroundColor White
-Write-Host "   Version: v11.5 Master Edition  |  CVE DB: 2026-11-02 (249,120 CVEs)   " -ForegroundColor Gray
+Write-Host "   Version: v11.5 Master Edition  |  CVE DB: 2026-11-04 (249,280 CVEs)   " -ForegroundColor Gray
 Write-Host "========================================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -82,6 +82,7 @@ try {
 
         $intExe = Join-Path $InstallDir "DeviceInternalScanner.exe"
         $extExe = Join-Path $InstallDir "DeviceExternalScanner.exe"
+        $audExe = Join-Path $InstallDir "DeviceAuditor.exe"
 
         if (Test-Path $intExe) {
             $intLink = $wshShell.CreateShortcut((Join-Path $desktop "Device Internal CVE Scanner.lnk"))
@@ -98,6 +99,14 @@ try {
             $extLink.Description = "CVE Security Operations Suite - Perimeter Vulnerability Auditor (v11.5)"
             $extLink.Save()
         }
+
+        if (Test-Path $audExe) {
+            $audLink = $wshShell.CreateShortcut((Join-Path $desktop "Device Zero-Touch Auditor.lnk"))
+            $audLink.TargetPath = $audExe
+            $audLink.WorkingDirectory = $InstallDir
+            $audLink.Description = "CVE Security Operations Suite - Zero-Touch Read-Only Auditor (v11.5)"
+            $audLink.Save()
+        }
         Write-Host "  [OK] Desktop shortcuts created." -ForegroundColor Green
     }
 
@@ -108,6 +117,7 @@ try {
     Write-Host " Install Location : $InstallDir" -ForegroundColor White
     Write-Host " Internal Scanner : $(Join-Path $InstallDir 'DeviceInternalScanner.exe')" -ForegroundColor Gray
     Write-Host " External Scanner : $(Join-Path $InstallDir 'DeviceExternalScanner.exe')" -ForegroundColor Gray
+    Write-Host " Auditor Edition  : $(Join-Path $InstallDir 'DeviceAuditor.exe') (Zero-Touch Read-Only)" -ForegroundColor Gray
     Write-Host ""
     Write-Host " Quick Terminal Commands:" -ForegroundColor Yellow
     Write-Host "   & '$InstallDir\DeviceInternalScanner.exe' --help" -ForegroundColor DarkCyan

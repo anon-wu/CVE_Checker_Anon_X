@@ -4,7 +4,7 @@
 
 | Version | Supported | Notes |
 | :--- | :---: | :--- |
-| `v11.5 Master Edition` | :white_check_mark: | Current active release (2026-11-02 CVE Baseline) |
+| `v11.5 Master Edition` | :white_check_mark: | Current active release (2026-11-04 CVE Baseline) |
 | `< v11.4` | :x: | Legacy versions (Please update to v11.5) |
 
 ---

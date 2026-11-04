@@ -8,7 +8,7 @@ License: Freeware
 ShortDescription: All-in-One Zero-Dependency Portable Cyber Security Auditing & Remediation Platform.
 Description: |
   CVE Security Operations Suite v11.5 Master Edition is an all-in-one portable vulnerability assessment and automated remediation suite for Windows.
-  Fully mapped to 249,120+ CVEs across host endpoint and network perimeter layers with 1-click snapshot rollback and zero-day transparent disclosures.
+  Fully mapped to 249,280+ CVEs across host endpoint and network perimeter layers with 1-click snapshot rollback, zero-touch read-only auditor, and zero-day transparent disclosures.
 Moniker: cve-suite
 Tags:
   - cve
@@ -28,12 +28,14 @@ Installers:
   - Architecture: x64
     InstallerType: zip
     InstallerUrl: https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/releases/CVE_Security_Operations_Suite_Portable.zip
-    InstallerSha256: 2D818C99E6C560F2BAFB0EF472B8A1BCDE8EC17BF26A427331D48D7D620EED51
+    InstallerSha256: 33C3D80ED2F189D4220047D8860E8C14800F112864E345D8729B2B972C4BEC5D
     NestedInstallerType: portable
     NestedInstallerFiles:
       - RelativeFilePath: DeviceInternalScanner.exe
         PortableCommandAlias: cve-internal
       - RelativeFilePath: DeviceExternalScanner.exe
         PortableCommandAlias: cve-external
+      - RelativeFilePath: DeviceAuditor.exe
+        PortableCommandAlias: cve-auditor
 ManifestType: installer
 ManifestVersion: 1.6.0
