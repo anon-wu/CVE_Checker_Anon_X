@@ -600,6 +600,63 @@
     </section>
 
     <!-- Interactive Search Demo -->
+    
+    
+
+    
+    <!-- Dedicated Zero-Touch Auditor Section -->
+    <section id="auditor" style="margin-top: 3rem; margin-bottom: 3.5rem;">
+      <div style="background: linear-gradient(135deg, rgba(22, 27, 34, 0.95) 0%, rgba(13, 17, 23, 0.95) 100%); border: 1px solid rgba(88, 166, 255, 0.35); border-radius: 16px; padding: 2.2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 1.2rem;">
+          <div>
+            <span style="background: rgba(46, 160, 67, 0.15); color: #3fb950; border: 1px solid rgba(46, 160, 67, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px;">
+              FREE & OPEN AUDITOR • NASEEBA KANU ENTERPRISE SPEC
+            </span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: #fff; margin-top: 0.8rem; margin-bottom: 0.4rem;">
+              🛡️ DeviceAuditor.exe — 100% 무변형 읽기 전용 엔터프라이즈 감사기
+            </h2>
+            <p style="color: #8b949e; font-size: 1rem; max-width: 820px; line-height: 1.6;">
+              TFalke 공동창업자 <b>Naseeba Kanu</b>의 핵심 조언을 수용하여 설계된 초경량 제로-터치 감사 도구입니다. <b>"EDR과 싸우거나 롤백 계획이 필요한 감사는 보안팀이 도입하지 못합니다. 가볍고 읽기 전용인 상태 확인 방식이 보안팀에게 훨씬 매력적입니다."</b>
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/releases/CVE_Security_Operations_Suite_Portable.zip" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+              ⬇️ DeviceAuditor.exe 무료 다운로드
+            </a>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1.5rem;">
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #58a6ff; margin-bottom: 0.5rem;">🔒 100% 무변형 읽기 전용 (0 Byte Mutation)</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              레지스트리 쓰기 0건, 서비스 중단 0건, 파일 수정 0건을 코드 레벨에서 보장합니다. 시스템을 전혀 변경하지 않으므로 변경 관리 위원회(CAB) 승인이나 <b>롤백 계획(Rollback Plan)이 전혀 불필요</b>합니다.
+            </p>
+          </div>
+
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #3fb950; margin-bottom: 0.5rem;">⚡ EDR 무간섭 & 초고속 진단</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              CrowdStrike, SentinelOne, Defender for Endpoint 등 어떤 EDR 솔루션과도 충돌이나 오탐 경고를 유발하지 않으며, 표준 Windows API 읽기만으로 수초 내에 감사를 완료합니다.
+            </p>
+          </div>
+
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #d2a8ff; margin-bottom: 0.5rem;">📊 JSON & OASIS SARIF v2.1.0 완벽 지원</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              GUI에서 1클릭 복사/저장뿐만 아니라, CLI(<code>--json</code>, <code>--sarif</code>, <code>--lang=ko|en|ja</code>)를 통해 <b>TFalke, Microsoft Intune, SIEM, GitHub Code Scanning</b>에 즉시 연동됩니다.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 0.9rem 1.2rem; font-family: Consolas, monospace; font-size: 0.85rem; color: #79c0ff; overflow-x: auto;">
+          <span style="color: #8b949e;"># TFalke / Intune 파이프라인 자동화 CLI 실행 예시</span><br/>
+          <span>.\DeviceAuditor.exe --json --lang=ko --out="audit_report.json"</span><br/>
+          <span>.\DeviceAuditor.exe --sarif --out="cve_audit.sarif"</span>
+        </div>
+      </div>
+    </section>
+
     <section id="search">
       <h2 class="section-title">실시간 CVE 카탈로그 & 완화 정책 검색</h2>
       <p class="section-desc">2026년 11월 4일 기준 최신 KEV 및 NVD 글로벌 취약점부터 엔터프라이즈 레거시 프로토콜까지 실시간으로 검색해 보세요.</p>

