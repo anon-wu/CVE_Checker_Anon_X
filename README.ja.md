@@ -125,6 +125,28 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | **出力形式** | GUI 対話画面、HTML5 レポート、CSV、JSON | GUI 対話画面、HTML5 レポート、CSV、JSON | **GUI 対話画面、SARIF v2.1.0（OASIS 規格）、JSON、CLI テーブル** |
 | **主要対象ユーザー** | システム管理者、社内 IT 運用担当、SecOps エンジニア | ペネトレーションテスト担当、セキュリティ監査人 | **CISO、EDR 運用チーム、TFalke/Intune デバイス管理者、監査員** |
 
+### 🛡️ DeviceAuditor.exe 詳細ガイド（完全無変形ゼロタッチ企業監査ツール）
+
+> *"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read only way to check endpoint state is a much easier sell to the security team."*  
+> — **Naseeba Kanu 氏** (TFalke 共同創設者 | Windows デバイス管理)
+
+企業の SecOps および CISO の現場課題を解決するために開発された **100% 読み取り専用（システム無変形）監査ツール** です：
+- **100% 読み取り専用保証**: レジストリ書き込み0件、サービス停止0件、ファイル改変0件をコードレベルで保証。システム状態を一切変更しないため、**ロールバック計画や変更管理申請が不要**です。
+- **EDR 無干渉**: CrowdStrike、SentinelOne、Defender などの EDR と競合せず安全に実行可能です。
+- **3言語 (日本語・英語・韓国語) 同時対応**: ヘッダーのボタンから即座に UI 表示と監査証跡の言語を切り替えられます。
+- **OASIS SARIF v2.1.0 および JSON 対応**: TFalke、Microsoft Intune、SIEM に即時連携可能です。
+
+```powershell
+# 1. JSON 監査レポート出力 (TFalke / Intune 連携)
+.\DeviceAuditor.exe --json --lang=ja --out="endpoint_audit.json"
+
+# 2. OASIS SARIF v2.1.0 監査レポート出力
+.\DeviceAuditor.exe --sarif --out="endpoint_audit.sarif"
+
+# 3. CLI サマリーテーブル表示
+.\DeviceAuditor.exe --table --lang=ja
+```
+
 ---
 
 ## 4. エディション別機能比較（Community 無料版 vs. Pro / Enterprise 商用版）

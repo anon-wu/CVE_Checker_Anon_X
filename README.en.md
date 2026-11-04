@@ -125,6 +125,28 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | **Output Formats** | GUI, HTML5 Executive Report, CSV, JSON | GUI, HTML5 Executive Report, CSV, JSON | **GUI, SARIF v2.1.0 (OASIS), JSON, CLI Table** |
 | **Target Audience** | System Administrators, IT Ops, SecOps Engineers | Penetration Testers, Security Auditors, NetOps | **CISOs, SecOps teams, TFalke/Intune Device Managers, Compliance Auditors** |
 
+### 🛡️ DeviceAuditor.exe Detailed Guide (Zero-Touch Read-Only Enterprise Auditor)
+
+> *"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read only way to check endpoint state is a much easier sell to the security team."*  
+> — **Naseeba Kanu** (Co-founder at TFalke | Windows device management)
+
+Built specifically to solve real-world SecOps friction, **DeviceAuditor.exe** provides guaranteed **Zero Host Mutation (0 Bytes Written)** endpoint auditing:
+- **100% Read-Only**: 0 registry writes, 0 stopped services, 0 modified files. Security teams **do not need a rollback plan or change tickets**.
+- **Zero EDR Friction**: Operates seamlessly without triggering CrowdStrike, SentinelOne, Carbon Black, or Defender alarms.
+- **Trilingual Native GUI (English, Korean, Japanese)**: 1-click language switcher in the header with instant UI translation.
+- **Machine-Readable Formats**: OASIS SARIF v2.1.0 and JSON for direct ingestion into **TFalke, Microsoft Intune, SIEM, and GitHub Advanced Security**.
+
+```powershell
+# 1. Export lightweight JSON audit report (TFalke / Intune ready)
+.\DeviceAuditor.exe --json --lang=en --out="endpoint_audit.json"
+
+# 2. Export OASIS SARIF v2.1.0 security compliance report
+.\DeviceAuditor.exe --sarif --out="endpoint_audit.sarif"
+
+# 3. Print CLI summary table
+.\DeviceAuditor.exe --table --lang=en
+```
+
 ---
 
 ## 4. Edition Comparison (Community vs. Pro / Enterprise)

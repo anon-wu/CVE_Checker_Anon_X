@@ -125,6 +125,28 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | **출력 형식** | GUI 대화형 창, HTML5 리포트, CSV, JSON | GUI 대화형 창, HTML5 리포트, CSV, JSON | **GUI 대화형 창, SARIF v2.1.0, JSON, 표준 CLI 테이블** |
 | **주요 권장 대상** | 시스템 관리자, 사내 IT 운영자, SecOps 엔지니어 | 침투 테스트, 보안 감사관, 네트워크 인프라팀 | **CISO, EDR 운영팀, TFalke/Intune 디바이스 관리자, 감사원** |
 
+### 🛡️ DeviceAuditor.exe 상세 사용법 (무변형 제로-터치 엔터프라이즈 감사기)
+
+> *"An audit that fights the EDR or needs a rollback plan just does not get run. A lightweight, read only way to check endpoint state is a much easier sell to the security team."*  
+> — **Naseeba Kanu** (Co-founder at TFalke | Windows device management)
+
+보안팀과 CISO의 실제 엔터프라이즈 감사 제약사항을 적극 반영하여 제작된 **100% 무변형(Zero Host Mutation) 읽기 전용 감사기**입니다:
+- **100% 읽기 전용(Read-Only)**: 레지스트리 쓰기 0건, 서비스 중단 0건, 파일 수정 0건을 코드 레벨에서 보장하며, 시스템을 전혀 변경하지 않으므로 보안팀의 **롤백 계획(Rollback Plan)이나 변경 관리 티켓이 일체 불필요**합니다.
+- **EDR 무간섭(Zero EDR Friction)**: CrowdStrike, SentinelOne, Defender 등 어떤 백신/EDR과도 충돌하지 않고 무음 점검합니다.
+- **3개 국어(한국어, 영어, 일본어) GUI 동시 지원**: 클릭 한 번으로 UI 언어 및 감사 증적을 즉시 전환합니다.
+- **머신 리더블 리포트 (JSON & OASIS SARIF v2.1.0)**: TFalke, Microsoft Intune, SIEM 파이프라인에 즉시 연동됩니다.
+
+```powershell
+# 1. 초경량 JSON 감사 보고서 추출 (TFalke / Intune 연동)
+.\DeviceAuditor.exe --json --lang=ko --out="endpoint_audit.json"
+
+# 2. 엔터프라이즈 표준 OASIS SARIF v2.1.0 보고서 추출 (GitHub Advanced Security 연동)
+.\DeviceAuditor.exe --sarif --out="endpoint_audit.sarif"
+
+# 3. 콘솔 요약 테이블 출력
+.\DeviceAuditor.exe --table --lang=ko
+```
+
 ---
 
 ## 4. 에디션별 기능 비교 (Community vs. Pro / Enterprise)

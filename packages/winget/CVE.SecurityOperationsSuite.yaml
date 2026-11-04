@@ -28,7 +28,7 @@ Installers:
   - Architecture: x64
     InstallerType: zip
     InstallerUrl: https://raw.githubusercontent.com/anon-wu/CVE_Checker_Anon_X/main/releases/CVE_Security_Operations_Suite_Portable.zip
-    InstallerSha256: D7A3CA4EDD117C8F36C0FDF35B1258CA3A2A4A0387D4DCCE6529CDF3720DDA46
+    InstallerSha256: 230119C12127F44C09ED57AD5B51266165E163D8AC9410C01849771B8322F476
     NestedInstallerType: portable
     NestedInstallerFiles:
       - RelativeFilePath: DeviceInternalScanner.exe
