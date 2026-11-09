@@ -1,4 +1,4 @@
-CVE Security Operations Suite — v11.4 Master Edition
+CVE Security Operations Suite — v11.5 Master Edition
 Copyright (c) 2026 CVE Security Operations Project. All rights reserved.
 Official Contact & Commercial Licensing: jayd424000@gmail.com
 

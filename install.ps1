@@ -18,7 +18,7 @@ $ErrorActionPreference = "Stop"
 Write-Host ""
 Write-Host "========================================================================" -ForegroundColor Cyan
 Write-Host "   CVE Security Operations Suite - Automated Zero-Friction Installer     " -ForegroundColor White
-Write-Host "   Version: v11.5 Master Edition  |  CVE DB: 2026-11-04 (249,280 CVEs)   " -ForegroundColor Gray
+Write-Host "   Version: v11.5 Master Edition  |  CVE DB: 2026-11-09 (249,280 CVEs)   " -ForegroundColor Gray
 Write-Host "========================================================================" -ForegroundColor Cyan
 Write-Host ""
 

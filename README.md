@@ -1,7 +1,7 @@
 # [★] CVE Security Operations Suite — v11.5 Master Edition
 
 <p align="center">
-  <a href="https://github.com/anon-wu/CVE_Checker_Anon_X/releases"><img src="https://img.shields.io/badge/Release-v11.5_Master-00d2ff.svg?style=for-the-badge&logo=github" alt="Release v11.5"/></a>
+  <a href="https://github.com/anon-wu/CVE_Checker_Anon_X/releases"><img src="https://img.shields.io/badge/Release-v11.5.1_Master-00d2ff.svg?style=for-the-badge&logo=github" alt="Release v11.5.1"/></a>
   <img src="https://img.shields.io/badge/CVE_Database-249%2C120_Entries-red.svg?style=for-the-badge&logo=securityscorecard" alt="CVE Database"/>
   <img src="https://img.shields.io/badge/Coverage-100.00%25-brightgreen.svg?style=for-the-badge" alt="100% Coverage"/>
   <img src="https://img.shields.io/badge/Platform-Windows_10_%7C_11_%7C_Server-0078D6.svg?style=for-the-badge&logo=windows" alt="Platform"/>
@@ -19,8 +19,8 @@
 
 ---
 
-> **Release Version:** `v11.5 Master Edition (Build 11.5.0.0)`  
-> **CVE DB Baseline:** `2026-11-04` | **Cumulative Coverage:** `249,280 CVEs (100.00% Mapped / 433 Verified Signatures (Fast: 76, Normal: 314, Full: 433))`  
+> **Release Version:** `v11.5 Master Edition (Build 11.5.1.0)`  
+> **CVE DB Baseline:** `2026-11-09` | **Cumulative Coverage:** `249,280 CVEs (100.00% Mapped / 433 Verified Signatures (Fast: 76, Normal: 314, Full: 433))`  
 > **Languages & Typography:** `한국어 (맑은 고딕)` · `日本語 (OSS Noto Sans JP)` · `English (Segoe UI)` (`< 30ms` 실시간 즉시 전환)  
 > **Binary Integrity & Protection:** `RSA-2048 Strong-Name Signed (Token: efa16b5fcb79fdf2)` · `[SuppressIldasm]` · `RSA-4096 Pro License Verification`  
 > **Official Portable Download:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
@@ -70,7 +70,7 @@ Windows 기본 내장 런타임(`.NET Framework 4.8`, 표준 Windows GUI 서브�
 
 ```mermaid
 flowchart LR
-    Notice["필수 제로데이 보안 고지<br/>(KO / JA / EN 실시간 전환)"] -->|"0ms 프리워밍"| Portal["v11.4 Master 통합 포털<br/>(GUI + 대화형/배치 CLI)"]
+    Notice["필수 제로데이 보안 고지<br/>(KO / JA / EN 실시간 전환)"] -->|"0ms 프리워밍"| Portal["v11.5 Master 통합 포털<br/>(GUI + 대화형/배치 CLI)"]
     Portal --> Host["DeviceInternalScanner.exe<br/>(OS 빌드, 커널, 레지스트리, 서비스, SBOM)"]
     Portal --> Perim["DeviceExternalScanner.exe<br/>(병렬 TCP/UDP 포트 및 프로토콜 경계 감사)"]
     Host --> Allow["사용자 명시적 Allow 조치 엔진<br/>(자동 스냅샷 + 원클릭 롤백 + 감사 원장)"]
@@ -80,7 +80,7 @@ flowchart LR
 
 ### [★] 4대 필수 보안 고지 및 설계 원칙 (Mandatory Security Principles)
 
-1. **공식 CVE DB 기반 정밀 실측 진단**: 본 스위트의 모든 취약점 진단 및 조치는 공식 등재된 **CVE(Common Vulnerabilities and Exposures)** 데이터베이스(`2026-11-04` 기준 누적 `249,280`건, 433종의 CISA KEV 및 Windows 심층 실측 시그니처 클러스터 `100.00%` 매핑)를 배경으로 동작합니다.
+1. **공식 CVE DB 기반 정밀 실측 진단**: 본 스위트의 모든 취약점 진단 및 조치는 공식 등재된 **CVE(Common Vulnerabilities and Exposures)** 데이터베이스(`2026-11-09` 기준 누적 `249,280`건, 433종의 CISA KEV 및 Windows 심층 실측 시그니처 클러스터 `100.00%` 매핑)를 배경으로 동작합니다.
 2. **제로데이 공격(Zero-Day Attack) 진단 불가 투명 고지**: 아직 공식 패치나 완화책이 공개되지 않은 미공개 **Zero-Day Attack**은 원천적으로 진단할 수 없으며, 초기 기동 보안 고지 화면 및 CLI 시작 배너에서 이를 투명하게 사전 고지합니다.
 3. **사용자 사전 승인(`Allow`) 및 100% 안전 롤백 원칙**: 무통보 백그라운드 시스템 변경을 절대 수행하지 않습니다. 검출된 취약점에 대해 구체적인 실측 근거와 조치 명령어를 투명하게 제시하며, 사용자가 명시적으로 **`[허용(Allow)]`**을 승인한 항목만 자동 스냅샷 백업 후 안전하게 조치를 수행합니다.
 4. **초고속 기동 및 3개 국어 네이티브 타이포그래피**: 백그라운드 카탈로그 프리워밍으로 보안 고지 동의 즉시 메인 포털로 진입하며, 한국어(`맑은 고딕`)·일본어(오픈소스 **`Noto Sans JP`** 균일 가독성 폰트)·영어(`Segoe UI`) 전환 시 창 재생성 없이 전 화면과 87종 도구 다이얼로그가 `< 30ms` 이내에 즉시 변환됩니다.
@@ -155,7 +155,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | :--- | :--- | :--- |
 | **라이선스 정책** | 개인·교육·비영리 평생 무료 (설치·회원가입 불필요) | 상용 시리얼 키(`PRO-...` / `ENT-...`) 및 **RSA-4096 에어갭 `.lic` 전자서명 인증** |
 | **내부/외부 CVE 진단 엔진** | 433종 실측 시그니처 (`Fast: 76` / `Normal: 314` / `Full: 433` 3단계 지원, 외부는 `Fast: 19` / `Normal: 42` / `Full: 48`) | 433종 전수 + 폐쇄망 커스텀 `.cvedb` 핫업데이트 & 전사 오케스트레이션 |
-| **CVE DB 기준일** | `2026-11-04` (`249,280`건 `100.00%` 매핑) | `2026-11-04` + 에어갭/프라이빗 미러 피드 우선 갱신 |
+| **CVE DB 기준일** | `2026-11-09` (`249,280`건 `100.00%` 매핑) | `2026-11-09` + 에어갭/프라이빗 미러 피드 우선 갱신 |
 | **보안 도구함 (Tools Hub)** | **Phase 1 ~ Phase 2 핵심 방어 도구 15종 무료 제공** | **Phase 1 ~ Phase 11 전 영역 87종 방어 도구 100% 전수 해금** |
 | **자동 조치 & 복구** | 사전 승인(`Allow`) 기반 자동 조치 & 스냅샷 원상 복구 | 무제한 스냅샷 롤백 + RFC 3161 / WORM 머클 트리 불변 감사 원장 |
 | **감사 보고서 출력** | 대화형 HTML5 경영진 보고서(PDF 인쇄 지원), UTF-8 CSV, JSON | KISA 주요정보통신기반시설 · ISMS-P · CIS · ISO/IEC 27001 적합성 인증서 |

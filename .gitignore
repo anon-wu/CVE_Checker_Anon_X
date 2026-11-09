@@ -9,6 +9,7 @@ obj/
 
 # Source Code & Local Build Scripts (Protected locally to prevent Reverse-Engineering & Cloning Abuse)
 src/
+tools/
 build.ps1
 
 # Raw Executables & Scripts (Distribute ONLY clean script-free releases/CVE_Security_Operations_Suite_Portable.zip)

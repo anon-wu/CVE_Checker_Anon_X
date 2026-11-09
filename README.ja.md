@@ -1,7 +1,7 @@
 # [★] CVE Security Operations Suite — v11.5 Master Edition
 
 <p align="center">
-  <a href="https://github.com/anon-wu/CVE_Checker_Anon_X/releases"><img src="https://img.shields.io/badge/Release-v11.5_Master-00d2ff.svg?style=for-the-badge&logo=github" alt="Release v11.5"/></a>
+  <a href="https://github.com/anon-wu/CVE_Checker_Anon_X/releases"><img src="https://img.shields.io/badge/Release-v11.5.1_Master-00d2ff.svg?style=for-the-badge&logo=github" alt="Release v11.5.1"/></a>
   <img src="https://img.shields.io/badge/CVE_Database-249%2C120_Entries-red.svg?style=for-the-badge&logo=securityscorecard" alt="CVE Database"/>
   <img src="https://img.shields.io/badge/Coverage-100.00%25-brightgreen.svg?style=for-the-badge" alt="100% Coverage"/>
   <img src="https://img.shields.io/badge/Platform-Windows_10_%7C_11_%7C_Server-0078D6.svg?style=for-the-badge&logo=windows" alt="Platform"/>
@@ -19,8 +19,8 @@
 
 ---
 
-> **リリースバージョン:** `v11.5 Master Edition (Build 11.5.0.0)`  
-> **CVE DB 基準日:** `2026-11-04` | **累計カバー範囲:** `249,280件のCVE (100.00% マッピング / 433件のCISA KEV・実測シグネチャ (Fast: 76, Normal: 314, Full: 433))`  
+> **リリースバージョン:** `v11.5 Master Edition (Build 11.5.1.0)`  
+> **CVE DB 基準日:** `2026-11-09` | **累計カバー範囲:** `249,280件のCVE (100.00% マッピング / 433件のCISA KEV・実測シグネチャ (Fast: 76, Normal: 314, Full: 433))`  
 > **対応言語・フォント:** `日本語 (OSS Noto Sans JP 均一高視認性フォント)` · `한국어 (Malgun Gothic)` · `English (Segoe UI)` (`< 30ms` 瞬時切替)  
 > **バイナリ整合性・保護:** `RSA-2048 Strong-Name 電子署名 (Token: efa16b5fcb79fdf2)` · `[SuppressIldasm]` · `RSA-4096 商用ライセンス検証`  
 > **公式ポータブル版ダウンロード:** [**CVE_Security_Operations_Suite_Portable.zip**](releases/CVE_Security_Operations_Suite_Portable.zip) &nbsp;|&nbsp; [**SHA256SUMS.txt**](SHA256SUMS.txt)  
@@ -70,7 +70,7 @@ Windows 標準搭載の `.NET Framework 4.8` ランタイム（標準 Windows GU
 
 ```mermaid
 flowchart LR
-    Notice["必須ゼロデイセキュリティ告知<br/>(KO / JA / EN 瞬時切替)"] -->|"0ms プリウォーム"| Portal["v11.4 Master 統合ポータル<br/>(GUI + 対話型/バッチ CLI)"]
+    Notice["必須ゼロデイセキュリティ告知<br/>(KO / JA / EN 瞬時切替)"] -->|"0ms プリウォーム"| Portal["v11.5 Master 統合ポータル<br/>(GUI + 対話型/バッチ CLI)"]
     Portal --> Host["DeviceInternalScanner.exe<br/>(OSビルド, カーネル, レジストリ, サービス, SBOM)"]
     Portal --> Perim["DeviceExternalScanner.exe<br/>(並列 TCP/UDP ポート・プロトコル境界監査)"]
     Host --> Allow["ユーザー事前承認 Allow エンジン<br/>(自動スナップショット + 1-Click 復元 + 監査台帳)"]
@@ -80,7 +80,7 @@ flowchart LR
 
 ### [★] 4大必須セキュリティ告知および設計原則
 
-1. **公式 CVE データベースに基づく実測診断**: 本スイートのすべての脆弱性診断および修復処理は、公式登録された **CVE（Common Vulnerabilities and Exposures）** データベース（`2026-11-04` 基準・累計 `249,280` 件、433種のCISA KEV・Windows深層実測シグネチャへ `100.00%` マッピング）に基づいて動作します。
+1. **公式 CVE データベースに基づく実測診断**: 本スイートのすべての脆弱性診断および修復処理は、公式登録された **CVE（Common Vulnerabilities and Exposures）** データベース（`2026-11-09` 基準・累計 `249,280` 件、433種のCISA KEV・Windows深層実測シグネチャへ `100.00%` マッピング）に基づいて動作します。
 2. **ゼロデイ攻撃（Zero-Day Attack）診断不可の事前明示**: 公式パッチや緩和策が未公開である未知の**ゼロデイ攻撃（Zero-Day Attack）**は原理上診断できません。起動時の必須セキュリティ告知画面および CLI バナーにて、この技術的限界を透明性をもって事前に明示します。
 3. **ユーザーの事前承認（`Allow`）と 100% 安全なロールバック原則**: 無断でシステム設定を変更することは一切ありません。検出された脆弱性ごとに具体的な実測根拠と修復コマンドを提示し、ユーザーが明示的に **`[許可 (Allow)]`** を承認した項目のみ、自動スナップショット保存後に安全に適用します。
 4. **超高速起動と OSS フォント `Noto Sans JP` による美しい日本語表示**: 非同期カタログ・プリウォーミングにより告知画面の同意直後にメイン画面へ遷移します。さらに日本語表示にはオープンソースフォント **`Noto Sans JP`** を採用し、文字化けや漢字サイズの不均一を完全に解消した上で、韓国語・日本語・英語を `< 30ms` 以内にリアルタイム切り替え可能です。
@@ -155,7 +155,7 @@ Get-Content .\CVE_Suite\SHA256SUMS.txt
 | :--- | :--- | :--- |
 | **ライセンス形態** | 個人・教育・非営利環境にて永久無料（会員登録・インストール不要） | 商用シリアルキー（`PRO-...` / `ENT-...`）および **RSA-4096 署名付き閉鎖網 `.lic` 認証** |
 | **内部・外部 CVE 診断エンジン** | 433種実測シグネチャ（`Fast: 76` / `Normal: 314` / `Full: 433`、境界スキャンは `Fast: 19` / `Normal: 42` / `Full: 48`） | 433種全数 + 閉鎖網カスタム `.cvedb` ホット更新・全社オーケストレーション |
-| **CVE DB 基準日** | `2026-11-04`（累計 `249,280` 件 `100.00%` マッピング） | `2026-11-04` + 閉鎖網／プライベートミラー優先配信 |
+| **CVE DB 基準日** | `2026-11-09`（累計 `249,280` 件 `100.00%` マッピング） | `2026-11-09` + 閉鎖網／プライベートミラー優先配信 |
 | **防衛ツールハブ（Tools Hub）** | **Phase 1 ～ Phase 2 コア防衛ツール 15種を無料提供** | **Phase 1 ～ Phase 11 全領域 87種の専門防衛ツールを 100% 完全解放** |
 | **自動修復・ロールバック** | 事前承認（`Allow`）ベースの自動修復およびスナップショット復元 | 無制限ロールバック + RFC 3161 / WORM マークルツリー不変監査台帳 |
 | **監査レポート出力** | 対話型 HTML5 経営層レポート（PDF 印刷対応）、UTF-8 CSV、JSON | KISA 重要インフラ・ISMS-P・CIS Benchmark・ISO/IEC 27001 適合性証明書 |
